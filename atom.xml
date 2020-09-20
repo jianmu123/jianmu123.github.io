@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jianmu123.github.io/</id>
     <title>Personal blog</title>
-    <updated>2020-09-20T06:30:31.113Z</updated>
+    <updated>2020-09-20T07:27:35.910Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jianmu123.github.io/"/>
     <link rel="self" href="https://jianmu123.github.io/atom.xml"/>
@@ -10,6 +10,23 @@
     <logo>https://jianmu123.github.io/images/avatar.png</logo>
     <icon>https://jianmu123.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Personal blog</rights>
+    <entry>
+        <title type="html"><![CDATA[jQuery的第一天]]></title>
+        <id>https://jianmu123.github.io/post/jquery-de-di-yi-tian/</id>
+        <link href="https://jianmu123.github.io/post/jquery-de-di-yi-tian/">
+        </link>
+        <updated>2020-09-20T07:19:25.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="jquery的概述">jQuery的概述</h2>
+<ol>
+<li>jQuery是javaScript的一个封装库,里面存放了很多函数。</li>
+<li>使用时只需调用这个库文件。</li>
+<li>jQuery主要是用来操作DOM的。</li>
+<li>学习jQuery的本质是学习调用这些函数。</li>
+</ol>
+<h2 id="jquery的基本使用">jQuery的基本使用</h2>
+<p>1：首先官网下载[jQuery官网]{https://jquery.com/}</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
         <id>https://jianmu123.github.io/post/hello-gridea/</id>
