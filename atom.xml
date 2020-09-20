@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jianmu123.github.io/</id>
     <title>Personal blog</title>
-    <updated>2020-09-20T10:36:13.966Z</updated>
+    <updated>2020-09-20T10:57:38.830Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jianmu123.github.io/"/>
     <link rel="self" href="https://jianmu123.github.io/atom.xml"/>
@@ -111,11 +111,11 @@
 </tr>
 </tbody>
 </table>
-<h4 id="11jquery设置css样式">1.1:jQuery设置css样式：</h4>
+<h4 id="2jquery设置css样式">2:jQuery设置css样式：</h4>
 <pre><code class="language-javaScript"> $(&quot;div&quot;).css(&quot;属性&quot;,&quot;值&quot;);//例如：$(&quot;div&quot;).css('background','red');就把所有的div背景改为了红色
 </code></pre>
 <p>这个里面有一个<strong>隐式迭代</strong>的概念，他会把所有选取到的所有元素进行循环遍历，依次执行相应的方法。</p>
-<h3 id="2jquery筛选选择器">2：jQuery筛选选择器</h3>
+<h4 id="3jquery筛选选择器">3：jQuery筛选选择器</h4>
 <table>
 <thead>
 <tr>
@@ -152,6 +152,8 @@
 </tr>
 </tbody>
 </table>
+<h4 id="4筛选方法注意方法都有括号">4：筛选方法（注意方法都有括号）</h4>
+<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1600599291103.png" alt="" loading="lazy"></figure>
 ]]></content>
     </entry>
 </feed>
