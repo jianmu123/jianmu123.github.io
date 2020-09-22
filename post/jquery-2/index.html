@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-<title>关于 - Personal blog</title>
+<title>jQuery-2 - Personal blog</title>
 <meta name="description" content="温故而知新">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -130,34 +130,78 @@
                     <div class="col-12 col-lg-10">
                       <div class="layout-post-main m-right m-md-right">
                         <div class="layout-post-header">
-                          <h1 class="layout-post-title">关于</h1>
+                          <h1 class="layout-post-title">jQuery-2</h1>
                           <div class="layout-post-meta">
                             <div class="item">
                               
                             </div>
                             <div class="item">
-                              <span>2020-09-20</span>
+                              <span>2020-09-21</span>
                             </div>
                           </div>
                         </div>
                         <div class="layout-post-content">
                           <div class="layout-post-item">
                             
-                            <p class="with-img"><img src="https://jianmu123.github.io//post-images/about.jfif"
-                                class="attachment-full size-full wp-post-image" alt="关于" /></p>
+                            <p class="with-img"><img src="https://jianmu123.github.io//post-images/jquery-2.png"
+                                class="attachment-full size-full wp-post-image" alt="jQuery-2" /></p>
                             
-                            <blockquote>
-<p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
-</blockquote>
-<h2 id="关于本站">🏠 关于本站</h2>
-<p>本站是我的一个前端学习的博客，记录了我的前端学习的内容笔记，由于写博客的时候刚学jQuery，所以会从这里开始，你可以阅读我的笔记，如果可以帮助到你那我就非常开心😃。</p>
+                            <h2 id="一jquery的样式操作">一：jQuery的样式操作</h2>
+<h3 id="1设置类样式方法">1：设置类样式方法</h3>
+<p>作用等同于以前的classList，可以操作类样式，注意jQuery中的类参数不要加点。</p>
+<pre><code class="language-javaScript">添加类：$(&quot;div&quot;).addClass(&quot;current&quot;);//这里是给div盒子添加current的类
+删除类：$(&quot;div&quot;).removeClss(&quot;current&quot;);//这里是删除div盒子current的类
+切换类：$(&quot;div&quot;).toggleClss(&quot;current&quot;);//这里是切换div盒子current的类
+    &lt;script&gt;
+      $(function () {
+        //添加类addClass
+        $(&quot;div&quot;).click(function () {
+          $(this).addClass(&quot;current&quot;);
+        });
+        //删除类removeClass
+        $(&quot;div&quot;).click(function () {
+          $(this).removeClass(&quot;current&quot;);
+        });
+        //切换类toggleClass
+        $(&quot;div&quot;).click(function () {
+          $(this).toggleClass(&quot;current&quot;);
+        });
+      });
+    &lt;/script&gt;
+</code></pre>
+<h3 id="2jquery的类操作是对指定类进行操作不会影响原先类名但是原生js中classname会覆盖元素里面原先的类名">2:jQuery的类操作是对指定类进行操作，不会影响原先类名，但是原生js中className会覆盖元素里面原先的类名。</h3>
+<p>下面做一个菜单栏案例：点击菜单后该菜单的内容显示出来，单击其他菜单，之前显示的菜单隐藏。</p>
+<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1600683854568.png" alt="" loading="lazy"></figure>
+<h2 id="二jquery效果">二：jQuery效果</h2>
+<h3 id="1显示隐藏-切换showspeedeasingcallback-hidespeedeasingcallback-togglespeedeasingcallback-注意这3个方法内部有方括号所以参数都可以不写">1：显示/隐藏 /切换：show([speed],[easing],[callback])  hide([speed],[easing],[callback]) toggle([speed],[easing],[callback])。注意这3个方法内部有方括号[],所以参数都可以不写。</h3>
+<figure data-type="image" tabindex="2"><img src="https://jianmu123.github.io//post-images/1600773077471.png" alt="" loading="lazy"></figure>
+<h3 id="2下拉上啦切换-slidedownslideupslidetoggle-内部参数与上方一样">2：下拉/上啦/切换: slideDown,slideUp,slideToggle。内部参数与上方一样。</h3>
+<h3 id="3事件切换hoveroverout">3：事件切换：hover（[over],out）</h3>
+<pre><code>           over:鼠标经过元素上触发，相当于mouseenter
+           out:鼠标移出此元素要触发的函数，相当于mouseleave
+</code></pre>
+<p>区分概念：<br>
+1.mouseover与mouseout成对，mouseenter与mouseleave成对<br>
+2.mouseover触发优先级高于mouseenter，mouseout触发优先级mouseleave<br>
+3.在父元素上绑定mouseover和mouseout事件，子元素同样也会触发，即子元素事件会冒泡至父元素；而父元素绑定mouseenter和mouseleave事件只对父元素有效，子元素不会触发。<br>
+<img src="https://jianmu123.github.io//post-images/1600780157055.png" alt="" loading="lazy"></p>
+<h3 id="4淡入淡出效果fadein-fadeout-fadetoggle-fadetospeedopacity-内部参数与上方一样">4：淡入淡出效果：fadeIn（）、fadeOut()、fadeToggle()、fadeTo(speed,opacity)。内部参数与上方一样。</h3>
+<p><img src="https://jianmu123.github.io//post-images/1600780522485.png" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1600780704256.png" alt="" loading="lazy"></p>
+<h3 id="4自定义动画animateparamsspeed-easing-callback">4:自定义动画：animate(params，[speed]、[easing]、[callback])。</h3>
+<p><img src="https://jianmu123.github.io//post-images/1600781058456.png" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1600781151512.png" alt="" loading="lazy"></p>
+<h3 id="5注意以上所有动画或效果都有动画队列的问题">5：注意以上所有动画或效果都有动画队列的问题。</h3>
+<p>问题：动画或则效果一旦触发就会运行，但是当我们多次触发就会造成多个动画或效果的队列问题。<br>
+解决办法：在添加stop()方法，把上一个动画效果停止（谁执行了动画效果就在谁前面添加）。<br>
+<img src="https://jianmu123.github.io//post-images/1600781449952.png" alt="" loading="lazy"></p>
 
                           </div>
                         </div>
                         <div class="layout-post-social">
                           <div class="item reader">
-                            <div id="/post/about/" class="leancloud-visitors view"
-                              data-flag-title="关于">
+                            <div id="/post/jquery-2/" class="leancloud-visitors view"
+                              data-flag-title="jQuery-2">
                               <span class="post-meta-item-text">阅读 </span>
                               <span class="leancloud-visitors-count"></span>
                             </div>
@@ -172,37 +216,8 @@
                               <div class="card-content col-8 col-md-9">
                                 <div class="card-body">
                                   <div class="header">
-                                    <a href="https://jianmu123.github.io/post/jquery-2/" class="title">
-                                      <h4>jQuery-2</h4>
-                                    </a>
-                                  </div>
-                                  <div class="inner d-none d-sm-block">
-                                    <div class="abstract">
-                                      
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="card-footer">
-                                  <div class="item"><span>上一篇</span></div>
-                                  <div class="item">2020-09-21</div>
-                                </div>
-                              </div>
-                              <div class="card-thumb col-4 col-md-3">
-                                <div class="thumb">
-                                  <a href="https://jianmu123.github.io/post/jquery-2/"
-                                    style="background-image: url('https://jianmu123.github.io//post-images/jquery-2.png');"></a>
-                                </div>
-                              </div>
-                              
-                            </div>
-
-                            <div class="post-card row">
-                              
-                              <div class="card-content col-8 col-md-9">
-                                <div class="card-body">
-                                  <div class="header">
-                                    <a href="https://jianmu123.github.io/post/jquery-de-di-yi-tian/" class="title">
-                                      <h4>jQuery-1</h4>
+                                    <a href="https://jianmu123.github.io/post/about/" class="title">
+                                      <h4>关于</h4>
                                     </a>
                                   </div>
                                   <div class="inner d-none d-sm-block">
@@ -218,13 +233,12 @@
                               </div>
                               <div class="card-thumb col-4 col-md-3">
                                 <div class="thumb">
-                                  <a href="https://jianmu123.github.io/post/jquery-de-di-yi-tian/"
-                                    style="background-image: url('https://jianmu123.github.io//post-images/jquery-de-di-yi-tian.png');"></a>
+                                  <a href="https://jianmu123.github.io/post/about/"
+                                    style="background-image: url('https://jianmu123.github.io//post-images/about.jfif');"></a>
                                 </div>
                               </div>
                               
                             </div>
-
                             
                           </div>
                         </div>
@@ -240,7 +254,22 @@
                           <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E7%AB%99">🏠 关于本站</a></li>
+<li><a href="#%E4%B8%80jquery%E7%9A%84%E6%A0%B7%E5%BC%8F%E6%93%8D%E4%BD%9C">一：jQuery的样式操作</a>
+<ul>
+<li><a href="#1%E8%AE%BE%E7%BD%AE%E7%B1%BB%E6%A0%B7%E5%BC%8F%E6%96%B9%E6%B3%95">1：设置类样式方法</a></li>
+<li><a href="#2jquery%E7%9A%84%E7%B1%BB%E6%93%8D%E4%BD%9C%E6%98%AF%E5%AF%B9%E6%8C%87%E5%AE%9A%E7%B1%BB%E8%BF%9B%E8%A1%8C%E6%93%8D%E4%BD%9C%E4%B8%8D%E4%BC%9A%E5%BD%B1%E5%93%8D%E5%8E%9F%E5%85%88%E7%B1%BB%E5%90%8D%E4%BD%86%E6%98%AF%E5%8E%9F%E7%94%9Fjs%E4%B8%ADclassname%E4%BC%9A%E8%A6%86%E7%9B%96%E5%85%83%E7%B4%A0%E9%87%8C%E9%9D%A2%E5%8E%9F%E5%85%88%E7%9A%84%E7%B1%BB%E5%90%8D">2:jQuery的类操作是对指定类进行操作，不会影响原先类名，但是原生js中className会覆盖元素里面原先的类名。</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%8Cjquery%E6%95%88%E6%9E%9C">二：jQuery效果</a>
+<ul>
+<li><a href="#1%E6%98%BE%E7%A4%BA%E9%9A%90%E8%97%8F-%E5%88%87%E6%8D%A2showspeedeasingcallback-hidespeedeasingcallback-togglespeedeasingcallback-%E6%B3%A8%E6%84%8F%E8%BF%993%E4%B8%AA%E6%96%B9%E6%B3%95%E5%86%85%E9%83%A8%E6%9C%89%E6%96%B9%E6%8B%AC%E5%8F%B7%E6%89%80%E4%BB%A5%E5%8F%82%E6%95%B0%E9%83%BD%E5%8F%AF%E4%BB%A5%E4%B8%8D%E5%86%99">1：显示/隐藏 /切换：show([speed],[easing],[callback])  hide([speed],[easing],[callback]) toggle([speed],[easing],[callback])。注意这3个方法内部有方括号[],所以参数都可以不写。</a></li>
+<li><a href="#2%E4%B8%8B%E6%8B%89%E4%B8%8A%E5%95%A6%E5%88%87%E6%8D%A2-slidedownslideupslidetoggle-%E5%86%85%E9%83%A8%E5%8F%82%E6%95%B0%E4%B8%8E%E4%B8%8A%E6%96%B9%E4%B8%80%E6%A0%B7">2：下拉/上啦/切换: slideDown,slideUp,slideToggle。内部参数与上方一样。</a></li>
+<li><a href="#3%E4%BA%8B%E4%BB%B6%E5%88%87%E6%8D%A2hoveroverout">3：事件切换：hover（[over],out）</a></li>
+<li><a href="#4%E6%B7%A1%E5%85%A5%E6%B7%A1%E5%87%BA%E6%95%88%E6%9E%9Cfadein-fadeout-fadetoggle-fadetospeedopacity-%E5%86%85%E9%83%A8%E5%8F%82%E6%95%B0%E4%B8%8E%E4%B8%8A%E6%96%B9%E4%B8%80%E6%A0%B7">4：淡入淡出效果：fadeIn（）、fadeOut()、fadeToggle()、fadeTo(speed,opacity)。内部参数与上方一样。</a></li>
+<li><a href="#4%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8A%A8%E7%94%BBanimateparamsspeed-easing-callback">4:自定义动画：animate(params，[speed]、[easing]、[callback])。</a></li>
+<li><a href="#5%E6%B3%A8%E6%84%8F%E4%BB%A5%E4%B8%8A%E6%89%80%E6%9C%89%E5%8A%A8%E7%94%BB%E6%88%96%E6%95%88%E6%9E%9C%E9%83%BD%E6%9C%89%E5%8A%A8%E7%94%BB%E9%98%9F%E5%88%97%E7%9A%84%E9%97%AE%E9%A2%98">5：注意以上所有动画或效果都有动画队列的问题。</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jianmu123.github.io/</id>
     <title>Personal blog</title>
-    <updated>2020-09-21T09:25:29.136Z</updated>
+    <updated>2020-09-22T13:32:53.353Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jianmu123.github.io/"/>
     <link rel="self" href="https://jianmu123.github.io/atom.xml"/>
@@ -10,6 +10,63 @@
     <logo>https://jianmu123.github.io/images/avatar.png</logo>
     <icon>https://jianmu123.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Personal blog</rights>
+    <entry>
+        <title type="html"><![CDATA[jQuery-2]]></title>
+        <id>https://jianmu123.github.io/post/jquery-2/</id>
+        <link href="https://jianmu123.github.io/post/jquery-2/">
+        </link>
+        <updated>2020-09-21T09:55:36.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="一jquery的样式操作">一：jQuery的样式操作</h2>
+<h3 id="1设置类样式方法">1：设置类样式方法</h3>
+<p>作用等同于以前的classList，可以操作类样式，注意jQuery中的类参数不要加点。</p>
+<pre><code class="language-javaScript">添加类：$(&quot;div&quot;).addClass(&quot;current&quot;);//这里是给div盒子添加current的类
+删除类：$(&quot;div&quot;).removeClss(&quot;current&quot;);//这里是删除div盒子current的类
+切换类：$(&quot;div&quot;).toggleClss(&quot;current&quot;);//这里是切换div盒子current的类
+    &lt;script&gt;
+      $(function () {
+        //添加类addClass
+        $(&quot;div&quot;).click(function () {
+          $(this).addClass(&quot;current&quot;);
+        });
+        //删除类removeClass
+        $(&quot;div&quot;).click(function () {
+          $(this).removeClass(&quot;current&quot;);
+        });
+        //切换类toggleClass
+        $(&quot;div&quot;).click(function () {
+          $(this).toggleClass(&quot;current&quot;);
+        });
+      });
+    &lt;/script&gt;
+</code></pre>
+<h3 id="2jquery的类操作是对指定类进行操作不会影响原先类名但是原生js中classname会覆盖元素里面原先的类名">2:jQuery的类操作是对指定类进行操作，不会影响原先类名，但是原生js中className会覆盖元素里面原先的类名。</h3>
+<p>下面做一个菜单栏案例：点击菜单后该菜单的内容显示出来，单击其他菜单，之前显示的菜单隐藏。</p>
+<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1600683854568.png" alt="" loading="lazy"></figure>
+<h2 id="二jquery效果">二：jQuery效果</h2>
+<h3 id="1显示隐藏-切换showspeedeasingcallback-hidespeedeasingcallback-togglespeedeasingcallback-注意这3个方法内部有方括号所以参数都可以不写">1：显示/隐藏 /切换：show([speed],[easing],[callback])  hide([speed],[easing],[callback]) toggle([speed],[easing],[callback])。注意这3个方法内部有方括号[],所以参数都可以不写。</h3>
+<figure data-type="image" tabindex="2"><img src="https://jianmu123.github.io//post-images/1600773077471.png" alt="" loading="lazy"></figure>
+<h3 id="2下拉上啦切换-slidedownslideupslidetoggle-内部参数与上方一样">2：下拉/上啦/切换: slideDown,slideUp,slideToggle。内部参数与上方一样。</h3>
+<h3 id="3事件切换hoveroverout">3：事件切换：hover（[over],out）</h3>
+<pre><code>           over:鼠标经过元素上触发，相当于mouseenter
+           out:鼠标移出此元素要触发的函数，相当于mouseleave
+</code></pre>
+<p>区分概念：<br>
+1.mouseover与mouseout成对，mouseenter与mouseleave成对<br>
+2.mouseover触发优先级高于mouseenter，mouseout触发优先级mouseleave<br>
+3.在父元素上绑定mouseover和mouseout事件，子元素同样也会触发，即子元素事件会冒泡至父元素；而父元素绑定mouseenter和mouseleave事件只对父元素有效，子元素不会触发。<br>
+<img src="https://jianmu123.github.io//post-images/1600780157055.png" alt="" loading="lazy"></p>
+<h3 id="4淡入淡出效果fadein-fadeout-fadetoggle-fadetospeedopacity-内部参数与上方一样">4：淡入淡出效果：fadeIn（）、fadeOut()、fadeToggle()、fadeTo(speed,opacity)。内部参数与上方一样。</h3>
+<p><img src="https://jianmu123.github.io//post-images/1600780522485.png" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1600780704256.png" alt="" loading="lazy"></p>
+<h3 id="4自定义动画animateparamsspeed-easing-callback">4:自定义动画：animate(params，[speed]、[easing]、[callback])。</h3>
+<p><img src="https://jianmu123.github.io//post-images/1600781058456.png" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1600781151512.png" alt="" loading="lazy"></p>
+<h3 id="5注意以上所有动画或效果都有动画队列的问题">5：注意以上所有动画或效果都有动画队列的问题。</h3>
+<p>问题：动画或则效果一旦触发就会运行，但是当我们多次触发就会造成多个动画或效果的队列问题。<br>
+解决办法：在添加stop()方法，把上一个动画效果停止（谁执行了动画效果就在谁前面添加）。<br>
+<img src="https://jianmu123.github.io//post-images/1600781449952.png" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[关于]]></title>
         <id>https://jianmu123.github.io/post/about/</id>
@@ -24,12 +81,12 @@
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[jQuery-one]]></title>
+        <title type="html"><![CDATA[jQuery-1]]></title>
         <id>https://jianmu123.github.io/post/jquery-de-di-yi-tian/</id>
         <link href="https://jianmu123.github.io/post/jquery-de-di-yi-tian/">
         </link>
         <updated>2020-09-20T07:19:25.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="一-jquery的概述">一： jQuery的概述</h2>
+        <content type="html"><![CDATA[<p>一： jQuery的概述</p>
 <h3 id="1-jquery是javascript的一个封装库里面存放了很多函数">1. jQuery是javaScript的一个封装库,里面存放了很多函数。</h3>
 <h3 id="2-使用时只需调用这个库文件">2. 使用时只需调用这个库文件。</h3>
 <h3 id="3-jquery主要是用来操作dom的">3. jQuery主要是用来操作DOM的。</h3>
@@ -38,7 +95,13 @@
 <h3 id="1首先官网下载jquery官网httpsjquerycom">1：首先官网下载[jQuery官网]{https://jquery.com/}</h3>
 <h3 id="2符号是jquery的别称jquery中的顶级对象相当于javascript中的window对象">2：$符号是jQuery的别称，jQuery中的顶级对象，相当于javaScript中的window对象</h3>
 <h3 id="3注意下列">3：注意下列：</h3>
-<pre><code class="language-javaScript">
+<pre><code class="language-javaScript">//下面是jQuery入口函数
+   &lt;script&gt;
+      $(function () {
+          //内容写这里
+      });
+    &lt;/script&gt;
+
  // 1:DOM 对象：用原生js方式获取的对象是DOM对象
 
    var myDiv = document.querySelector(&quot;div&quot;); //querySelector() 方法返回文档中匹配指定 CSS 选择器的一个元素。
