@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jianmu123.github.io/</id>
     <title>Personal blog</title>
-    <updated>2020-09-22T13:38:08.219Z</updated>
+    <updated>2020-09-23T13:56:43.803Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jianmu123.github.io/"/>
     <link rel="self" href="https://jianmu123.github.io/atom.xml"/>
@@ -10,6 +10,303 @@
     <logo>https://jianmu123.github.io/images/avatar.png</logo>
     <icon>https://jianmu123.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Personal blog</rights>
+    <entry>
+        <title type="html"><![CDATA[jQuery4]]></title>
+        <id>https://jianmu123.github.io/post/jquery4/</id>
+        <link href="https://jianmu123.github.io/post/jquery4/">
+        </link>
+        <updated>2020-09-23T13:07:19.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="一jquery元素操作">一jQuery元素操作</h2>
+<h3 id="1找父级元素可以通过parent方法但是当父级元素很多的时候可以使用partens方法该方法会获取到所有的祖先元素包括body和html结合siblings方法可以找到该元素所需要的祖先元素">1：找父级元素可以通过parent()方法，但是当父级元素很多的时候可以使用partens()方法，该方法会获取到所有的祖先元素，包括body和html，结合siblings()方法可以找到该元素所需要的祖先元素。</h3>
+<pre><code class="language-javascript">  例如:
+  var p = $(this).panrent(&quot;.quantity-form&quot;).parent(&quot;.p-num&quot;).siblings(&quot;.p-price&quot;).html();等同于：  var p = $(this).parents(&quot;.p-num&quot;).siblings(&quot;.p-price&quot;).html();
+</code></pre>
+<h3 id="2遍历">2:遍历</h3>
+<p>隐式迭代是对同一类元素做了相同的操作，如果想要给同一类元素左不同的操作则需要使用遍历。<br>
+遍历使用的是each()方法和$.each()方法。</p>
+<h4 id="each方法主要使用在遍历dom对象比如标签">each()方法主要使用在遍历DOM对象，比如标签</h4>
+<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1600867180840.png" alt="" loading="lazy"></figure>
+<pre><code class="language-javascript">   $(&quot;div&quot;).each(function (index, domEle) {
+          //回调函数的第一个参数一定是索引号，可以是自己定义的索引名称
+          console.log(index); //结果： 0 1 2
+          //回调函数的第二个参数一定是DOM对象,可以是自己定义的对象名称
+          console.log(domEle); //结果：&lt;div&gt;1&lt;/div&gt; &lt;div&gt;2&lt;/div&gt; &lt;div&gt;3&lt;/div&gt;
+          //domEle.cc(&quot;color&quot;);//会报错，因为DOM对象没有css方法，因此需要转换成JQ对象
+          $(&quot;domEle&quot;).css(&quot;color&quot;, &quot;bule&quot;);
+        });
+</code></pre>
+<h4 id="each方法主要是来处理数据的比如数组-对象">$.each()方法：主要是来处理数据的，比如数组、对象。</h4>
+<figure data-type="image" tabindex="2"><img src="https://jianmu123.github.io//post-images/1600868203421.png" alt="" loading="lazy"></figure>
+<pre><code class="language-javascript">        var arr = [&quot;blue&quot;, &quot;red&quot;, &quot;green&quot;]; //定义数组
+        //遍历数组
+        $.each(arr, function (index, domEle) {
+          console.log(index); //打印索引0 1 2
+          console.log(domEle); //打印arr内部值 blue red green
+        });
+        //遍历对象
+        $.each(
+          {
+            name: &quot;孙悟空&quot;,
+            age: 18,
+          },
+          function (i, ele) {
+            console.log(i); //输出name age属性名
+            console.log(ele); //输出顺悟空 18属性值
+          }
+        );
+</code></pre>
+<h3 id="3创建添加删除元素">3:创建添加删除元素</h3>
+<p>创建语法：var li=<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi mathvariant="normal">&quot;</mi><mo>&lt;</mo><mi>l</mi><mi>i</mi><mo>&gt;</mo><mi mathvariant="normal">我</mi><mi mathvariant="normal">是</mi><mi mathvariant="normal">创</mi><mi mathvariant="normal">建</mi><mi mathvariant="normal">的</mi><mi>l</mi><mi>i</mi><mo>&lt;</mo><mi mathvariant="normal">/</mi><mi>l</mi><mi>i</mi><mo>&gt;</mo><mi mathvariant="normal">&quot;</mi><mo>)</mo><mo separator="true">;</mo><mi mathvariant="normal">添</mi><mi mathvariant="normal">加</mi><mi mathvariant="normal">语</mi><mi mathvariant="normal">法</mi><mi mathvariant="normal">：</mi><mi mathvariant="normal">内</mi><mi mathvariant="normal">部</mi><mi mathvariant="normal">添</mi><mi mathvariant="normal">加</mi><mi mathvariant="normal">：</mi><mo>(</mo><mi mathvariant="normal">添</mi><mi mathvariant="normal">加</mi><mi mathvariant="normal">后</mi><mi mathvariant="normal">是</mi><mi mathvariant="normal">匹</mi><mi mathvariant="normal">配</mi><mi mathvariant="normal">元</mi><mi mathvariant="normal">素</mi><mi mathvariant="normal">的</mi><mi mathvariant="normal">子</mi><mi mathvariant="normal">元</mi><mi mathvariant="normal">素</mi><mo>)</mo><mi>e</mi><mi>l</mi><mi>e</mi><mi>l</mi><mi>m</mi><mi>e</mi><mi>n</mi><mi>t</mi><mi mathvariant="normal">.</mi><mi>a</mi><mi>p</mi><mi>p</mi><mi>e</mi><mi>n</mi><mi>d</mi><mo>(</mo><mo>)</mo><mi mathvariant="normal">方</mi><mi mathvariant="normal">法</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">会</mi><mi mathvariant="normal">添</mi><mi mathvariant="normal">加</mi><mi mathvariant="normal">到</mi><mi mathvariant="normal">匹</mi><mi mathvariant="normal">配</mi><mi mathvariant="normal">元</mi><mi mathvariant="normal">素</mi><mi mathvariant="normal">的</mi><mi mathvariant="normal">后</mi><mi mathvariant="normal">面</mi><mi mathvariant="normal">。</mi><mi mathvariant="normal">在</mi><mi>u</mi><mi>l</mi><mi mathvariant="normal">中</mi><mi mathvariant="normal">原</mi><mi mathvariant="normal">有</mi><mi>l</mi><mi>i</mi><mi mathvariant="normal">后</mi><mi mathvariant="normal">面</mi><mi mathvariant="normal">添</mi><mi mathvariant="normal">加</mi><mi>l</mi><mi>i</mi><mi mathvariant="normal">使</mi><mi mathvariant="normal">用</mi><mi mathvariant="normal">方</mi><mi mathvariant="normal">法</mi><mi mathvariant="normal">：</mi></mrow><annotation encoding="application/x-tex">(&quot;&lt;li&gt;我是创建的li&lt;/li&gt;&quot;);
+添加语法：内部添加：(添加后是匹配元素的子元素)
+       elelment. append()方法，会添加到匹配元素的后面。在ul中原有li后面添加li使用方法：</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">&quot;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord cjk_fallback">我</span><span class="mord cjk_fallback">是</span><span class="mord cjk_fallback">创</span><span class="mord cjk_fallback">建</span><span class="mord cjk_fallback">的</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">&quot;</span><span class="mclose">)</span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord cjk_fallback">添</span><span class="mord cjk_fallback">加</span><span class="mord cjk_fallback">语</span><span class="mord cjk_fallback">法</span><span class="mord cjk_fallback">：</span><span class="mord cjk_fallback">内</span><span class="mord cjk_fallback">部</span><span class="mord cjk_fallback">添</span><span class="mord cjk_fallback">加</span><span class="mord cjk_fallback">：</span><span class="mopen">(</span><span class="mord cjk_fallback">添</span><span class="mord cjk_fallback">加</span><span class="mord cjk_fallback">后</span><span class="mord cjk_fallback">是</span><span class="mord cjk_fallback">匹</span><span class="mord cjk_fallback">配</span><span class="mord cjk_fallback">元</span><span class="mord cjk_fallback">素</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">子</span><span class="mord cjk_fallback">元</span><span class="mord cjk_fallback">素</span><span class="mclose">)</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">m</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mord">.</span><span class="mord mathdefault">a</span><span class="mord mathdefault">p</span><span class="mord mathdefault">p</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">d</span><span class="mopen">(</span><span class="mclose">)</span><span class="mord cjk_fallback">方</span><span class="mord cjk_fallback">法</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">会</span><span class="mord cjk_fallback">添</span><span class="mord cjk_fallback">加</span><span class="mord cjk_fallback">到</span><span class="mord cjk_fallback">匹</span><span class="mord cjk_fallback">配</span><span class="mord cjk_fallback">元</span><span class="mord cjk_fallback">素</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">后</span><span class="mord cjk_fallback">面</span><span class="mord cjk_fallback">。</span><span class="mord cjk_fallback">在</span><span class="mord mathdefault">u</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord cjk_fallback">中</span><span class="mord cjk_fallback">原</span><span class="mord cjk_fallback">有</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord cjk_fallback">后</span><span class="mord cjk_fallback">面</span><span class="mord cjk_fallback">添</span><span class="mord cjk_fallback">加</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord cjk_fallback">使</span><span class="mord cjk_fallback">用</span><span class="mord cjk_fallback">方</span><span class="mord cjk_fallback">法</span><span class="mord cjk_fallback">：</span></span></span></span>(&quot;ul&quot;).append(li);<br>
+elelment.prepend()方法，会添加到匹配元素的前面。在ul中原有li前面添加li使用方法：$(&quot;ul&quot;).prepend(li);<br>
+外部添加：(添加后是匹配元素的兄弟元素)<br>
+elelment.before()和 elelment.after()。<br>
+删除元素:<br>
+element.remove();删除匹配元素本身。<br>
+element.empty();删除匹配元素集合中的所有子节点。<br>
+element.html(&quot;&quot;);清空匹配元素内容。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[jQuery3]]></title>
+        <id>https://jianmu123.github.io/post/jquery3/</id>
+        <link href="https://jianmu123.github.io/post/jquery3/">
+        </link>
+        <updated>2020-09-22T12:45:12.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="一jquery属性操作">一:jQuery属性操作</h2>
+<p>###1：设置或获取元素固有属性值：prop()<br>
+所谓元素固有属性值就是元素本身自带的属性，比如<a>标签中的herf。<br>
+<img src="https://jianmu123.github.io//post-images/1600865423781.png" alt="" loading="lazy"></p>
+<h3 id="2设置或获取元素自定义属性值attr">2：设置或获取元素自定义属性值：attr()</h3>
+<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1600865617914.png" alt="" loading="lazy"></figure>
+<h3 id="3数据缓存-data">3:数据缓存 data()</h3>
+<p>data()方法可以在指定元素上存取数据，并不会修改DOM元素结构，一旦页面刷新，之前的存放的数据都会被移除<br>
+<img src="https://jianmu123.github.io//post-images/1600866237557.png" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1600866060662.png" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1600866065161.png" alt="" loading="lazy"><br>
+购物车案列（不含css部分）</p>
+<pre><code class="language-javascript">  &lt;body&gt;
+    &lt;div class=&quot;w&quot;&gt;
+      &lt;div class=&quot;head&quot;&gt;
+        &lt;!-- 全选模块 --&gt;
+        &lt;div class=&quot;t-checkbox&quot;&gt;
+          &lt;input type=&quot;checkbox&quot; name=&quot;&quot; id=&quot;&quot; class=&quot;checkall&quot; /&gt;全选
+        &lt;/div&gt;
+        &lt;div class=&quot;t-goods&quot;&gt;商品&lt;/div&gt;
+        &lt;div class=&quot;t-price&quot;&gt;单价&lt;/div&gt;
+        &lt;div class=&quot;t-num&quot;&gt;数量&lt;/div&gt;
+        &lt;div class=&quot;t-sum&quot;&gt;小计&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;!-- 商品模块 --&gt;
+      &lt;div class=&quot;cart-item-list&quot;&gt;
+        &lt;div class=&quot;cart-check&quot;&gt;
+          &lt;div class=&quot;p-checkbox&quot;&gt;
+            &lt;input type=&quot;checkbox&quot; name=&quot;&quot; id=&quot;&quot; class=&quot;j-checkbox&quot; /&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;p-goodes&quot;&gt;
+            &lt;div class=&quot;p-img&quot;&gt;
+              &lt;!-- &lt;img src=&quot;&quot; alt=&quot;&quot; /&gt; --&gt;
+              洗衣粉
+            &lt;/div&gt;
+            &lt;div class=&quot;p-price&quot;&gt;￥12.60&lt;/div&gt;
+            &lt;div class=&quot;p-num&quot;&gt;
+              &lt;div class=&quot;quantity-form&quot;&gt;
+                &lt;a href=&quot;javascript:;&quot; class=&quot;decrement&quot;&gt;-&lt;/a&gt;
+                &lt;input type=&quot;text&quot; class=&quot;itxt&quot; value=&quot;1&quot; style=&quot;width: 20px&quot; /&gt;
+                &lt;a href=&quot;javascript:;&quot; class=&quot;increment&quot;&gt;+&lt;/a&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;p-sum&quot;&gt;￥12.60&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;cart-item-list&quot;&gt;
+        &lt;div class=&quot;cart-check&quot;&gt;
+          &lt;div class=&quot;p-checkbox&quot;&gt;
+            &lt;input type=&quot;checkbox&quot; name=&quot;&quot; id=&quot;&quot; class=&quot;j-checkbox&quot; /&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;p-goodes&quot;&gt;
+            &lt;div class=&quot;p-img&quot;&gt;
+              &lt;!-- &lt;img src=&quot;&quot; alt=&quot;&quot; /&gt; --&gt;
+              消毒水
+            &lt;/div&gt;
+            &lt;div class=&quot;p-price&quot;&gt;￥15.20&lt;/div&gt;
+            &lt;div class=&quot;p-num&quot;&gt;
+              &lt;div class=&quot;quantity-form&quot;&gt;
+                &lt;a href=&quot;javascript:;&quot; class=&quot;decrement&quot;&gt;-&lt;/a&gt;
+                &lt;input type=&quot;text&quot; class=&quot;itxt&quot; value=&quot;1&quot; style=&quot;width: 20px&quot; /&gt;
+                &lt;a href=&quot;javascript:;&quot; class=&quot;increment&quot;&gt;+&lt;/a&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;p-sum&quot;&gt;￥15.20&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;cart-item-list&quot;&gt;
+        &lt;div class=&quot;cart-check&quot;&gt;
+          &lt;div class=&quot;p-checkbox&quot;&gt;
+            &lt;input type=&quot;checkbox&quot; name=&quot;&quot; id=&quot;&quot; class=&quot;j-checkbox&quot; /&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;p-goodes&quot;&gt;
+            &lt;div class=&quot;p-img&quot;&gt;
+              &lt;!-- &lt;img src=&quot;&quot; alt=&quot;&quot; /&gt; --&gt;
+              吹风机
+            &lt;/div&gt;
+            &lt;div class=&quot;p-price&quot;&gt;￥30.50&lt;/div&gt;
+            &lt;div class=&quot;p-num&quot;&gt;
+              &lt;div class=&quot;quantity-form&quot;&gt;
+                &lt;a href=&quot;javascript:;&quot; class=&quot;decrement&quot;&gt;-&lt;/a&gt;
+                &lt;input type=&quot;text&quot; class=&quot;itxt&quot; value=&quot;1&quot; style=&quot;width: 20px&quot; /&gt;
+                &lt;a href=&quot;javascript:;&quot; class=&quot;increment&quot;&gt;+&lt;/a&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;p-sum&quot;&gt;￥30.50&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;!-- 总计模块 --&gt;
+      &lt;div class=&quot;cart-floatbar&quot;&gt;
+        &lt;div class=&quot;select-all&quot;&gt;
+          &lt;input type=&quot;checkbox&quot; name=&quot;&quot; id=&quot;&quot; class=&quot;checkall&quot; /&gt;全选
+        &lt;/div&gt;
+        &lt;div class=&quot;operation&quot;&gt;
+          &lt;a href=&quot;javascript:;&quot; class=&quot;remove-batch&quot;&gt;删除选中的商品&lt;/a&gt;
+          &lt;a href=&quot;javascript:;&quot; class=&quot;clear-all&quot;&gt;清除购物车&lt;/a&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;toolbar-right&quot;&gt;
+          &lt;div class=&quot;amount-sum&quot;&gt;总计&lt;em&gt; &lt;/em&gt;件商品&lt;/div&gt;
+          &lt;div class=&quot;price-sum&quot;&gt;总价：&lt;em&gt;￥&lt;/em&gt;&lt;/div&gt;
+          &lt;div class=&quot;btn-area&quot;&gt;
+            &lt;a href=&quot;javascript:;&quot; style=&quot;color: red&quot;&gt;去结算&lt;/a&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+      //实现点击全选框，所有商品全选，或则手动点击了所有商品选中框，上面全选框也选上
+      $(function () {
+        //入口函数
+
+        //1：全选点击单选框，可以用change事件
+        $(&quot;.checkall&quot;).change(function () {
+          //   var a = $(this).prop(&quot;checked&quot;);
+          //   console.log(a);//结果是点击全选返回ture,证明已经获取到
+          $(&quot;.j-checkbox, .checkall&quot;).prop(&quot;checked&quot;, $(this).prop(&quot;checked&quot;)); //下面的按钮根据全选的状态变化而变化
+          //所有商品背景变化
+          if ($(this).prop(&quot;checked&quot;)) {
+            $(&quot;.cart-item-list&quot;).addClass(&quot;beijing&quot;);
+          } else {
+            $(&quot;.cart-item-list&quot;).removeClass(&quot;beijing&quot;);
+          }
+        });
+        $(&quot;.j-checkbox&quot;).change(function () {
+          //如果下面的复选框全部选中，则上面的全选也选中$(&quot;.j-checkbox&quot;).length是所有商品的单选框数量
+          if ($(&quot;.j-checkbox:checked&quot;).length == $(&quot;.j-checkbox&quot;).length) {
+            //.j-checkbox:checked可以知道到底有几个单选框被选中
+            $(&quot;.checkall&quot;).prop(&quot;checked&quot;, true);
+          } else {
+            $(&quot;.checkall&quot;).prop(&quot;checked&quot;, false);
+          }
+          if ($(this).prop(&quot;checked&quot;)) {
+            $(this).parents(&quot;.cart-item-list&quot;).addClass(&quot;beijing&quot;);
+          } else {
+            $(this).parents(&quot;.cart-item-list&quot;).removeClass(&quot;beijing&quot;);
+          }
+        });
+        // 2：增减商品数量模块。核心思路：声明一个变量，当我们点击+/-的时候，就让这个值++/--，然后赋给文本框
+        $(&quot;.increment&quot;).click(function () {
+          //得到当前加/减的兄弟：文本框的值
+          var n = $(this).siblings(&quot;.itxt&quot;).val(); //text文本使用val获取内容
+          //   console.log(n);
+          n++;
+          $(this).siblings(&quot;.itxt&quot;).val(n);
+          // 3: 根据商品数量自动计算价格,价格是加减号的父亲的父亲的兄弟
+          var p = $(this).parents(&quot;.p-num&quot;).siblings(&quot;.p-price&quot;).html();
+          // console.log(p);
+          p = p.substr(1) * n; //去掉索引为0的美元符号,截取后面的价格,然后队小计进行计算
+          p = p.toFixed(2);
+          // console.log(p);
+          $(this)
+            .parents(&quot;.p-num&quot;)
+            .siblings(&quot;.p-sum&quot;)
+            .html(&quot;￥&quot; + p);
+          getSum();
+        });
+        //3:减：
+        $(&quot;.decrement&quot;).click(function () {
+          var n = $(this).siblings(&quot;.itxt&quot;).val(); //text文本使用val获取内容，非文本使用text()
+          //   console.log(n);
+          if (n &gt; 1) {
+            n--;
+          }
+          $(this).siblings(&quot;.itxt&quot;).val(n);
+          //  根据商品数量自动计算价格,价格是加减号的父亲的父亲的兄弟
+          var p = $(this).parents(&quot;.p-num&quot;).siblings(&quot;.p-price&quot;).html(); //获取到了价格
+          // console.log(p);
+          p = p.substr(1) * n; //去掉索引为0的美元符号,截取后面的价格,然后队小计进行计算
+          p = p.toFixed(2);
+          $(this)
+            .parents(&quot;.p-num&quot;)
+            .siblings(&quot;.p-sum&quot;)
+            .html(&quot;￥&quot; + p);
+          getSum();
+        });
+        //4:手动修改文本框的数值使小计跟着改变
+        $(&quot;.itxt&quot;).change(function () {
+          var m = $(this).val();
+          // console.log(m);
+          var p = $(this).parents(&quot;.p-num&quot;).siblings(&quot;.p-price&quot;).html();
+          p = p.substr(1) * m; //去掉索引为0的美元符号,截取后面的价格,然后队小计进行计算
+          p = p.toFixed(2);
+          $(this)
+            .parents(&quot;.p-num&quot;)
+            .siblings(&quot;.p-sum&quot;)
+            .html(&quot;￥&quot; + p);
+          getSum();
+        });
+        getSum(); //初始显示选中商品总数和总价
+        //5:商品总数模块,定义一个函数，来遍历商品数量和总价
+        function getSum() {
+          var count = 0;
+          var money = 0;
+          //获取文本框数量,使用each遍历方法
+          $(&quot;.itxt&quot;).each(function (index, ele) {
+            //index是索引，ele是dom对象
+            // console.log(index);
+            // console.log($(ele));
+            count += parseInt($(ele).val());
+          });
+          //修改总数量
+          $(&quot;.amount-sum em&quot;).text(count);
+          //获取总价
+          $(&quot;.p-sum&quot;).each(function (index, ele) {
+            money += parseFloat($(ele).text().substr(1));
+            // console.log(sum);
+            //修改总价钱
+            $(&quot;.price-sum em&quot;).text(&quot;￥&quot; + money.toFixed(2));
+          });
+        }
+
+        // 6:删除模块
+        $(&quot;.remove-batch&quot;).click(function () {
+          //删除复选框选中的商品
+          $(&quot;.j-checkbox:checked&quot;).parents(&quot;.cart-item-list&quot;).remove();
+          getSum();
+        });
+        //清空购物车模块
+        $(&quot;.clear-all&quot;).click(function () {
+          $(&quot;.cart-item-list&quot;).remove();
+          getSum();
+        });
+      });
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[jQuery-2]]></title>
         <id>https://jianmu123.github.io/post/jquery-2/</id>

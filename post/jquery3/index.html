@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+<title>jQuery3 - Personal blog</title>
+<meta name="description" content="温故而知新">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link type='text/css' rel='stylesheet' href='https://jianmu123.github.io//styles/main.css' media='screen' />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css">
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script type="text/javascript" src='https://jianmu123.github.io//media/scripts/jquery.js'></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</head>
+
+<body>
+  <div class="layout theme-dark">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://jianmu123.github.io/">
+								<img class="logo"
+									src="https://jianmu123.github.io//media/images/site_avatar.png?v=1600869398973"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="首页"
+										href="/">首页</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="笔记"
+										href="https://jianmu123.github.io/post/jquery-2">笔记</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="标签"
+										href="/tags">标签</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="关于"
+										href="/post/about">关于</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						<div class="item d-md-inline-block d-none">
+							<div class="search-icon">
+								<i class="fa fa-search" aria-hidden="true"></i>
+							</div>
+						</div>
+
+
+
+						<div class="d-md-inline-block d-none">
+							<div class="search-lightbox">
+								<div class="search-body">
+
+									<form id="gridea-search-form" data-update="1600869398973" action="/search/" class="search-form">
+										<input type="text" name="q" id="s" value="" class="search-field" placeholder="请输入搜索关键词" aria-label="请输入搜索关键词" required="">
+										<button type="submit" class="submit" aria-label="Submit">
+											<i class="fa fa-search" aria-hidden="true"></i>
+										</button>
+									</form>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="首页" href="/">首页</a></li>
+			
+			<li class="layout-collapse-item"><a title="笔记" href="https://jianmu123.github.io/post/jquery-2">笔记</a></li>
+			
+			<li class="layout-collapse-item"><a title="标签" href="/tags">标签</a></li>
+			
+			<li class="layout-collapse-item"><a title="关于" href="/post/about">关于</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-10">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title">jQuery3</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                              
+                            </div>
+                            <div class="item">
+                              <span>2020-09-22</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            
+                            <p class="with-img"><img src="https://jianmu123.github.io//post-images/jquery3.png"
+                                class="attachment-full size-full wp-post-image" alt="jQuery3" /></p>
+                            
+                            <h2 id="一jquery属性操作">一:jQuery属性操作</h2>
+<p>###1：设置或获取元素固有属性值：prop()<br>
+所谓元素固有属性值就是元素本身自带的属性，比如<a>标签中的herf。<br>
+<img src="https://jianmu123.github.io//post-images/1600865423781.png" alt="" loading="lazy"></p>
+<h3 id="2设置或获取元素自定义属性值attr">2：设置或获取元素自定义属性值：attr()</h3>
+<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1600865617914.png" alt="" loading="lazy"></figure>
+<h3 id="3数据缓存-data">3:数据缓存 data()</h3>
+<p>data()方法可以在指定元素上存取数据，并不会修改DOM元素结构，一旦页面刷新，之前的存放的数据都会被移除<br>
+<img src="https://jianmu123.github.io//post-images/1600866237557.png" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1600866060662.png" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1600866065161.png" alt="" loading="lazy"><br>
+购物车案列（不含css部分）</p>
+<pre><code class="language-javascript">  &lt;body&gt;
+    &lt;div class=&quot;w&quot;&gt;
+      &lt;div class=&quot;head&quot;&gt;
+        &lt;!-- 全选模块 --&gt;
+        &lt;div class=&quot;t-checkbox&quot;&gt;
+          &lt;input type=&quot;checkbox&quot; name=&quot;&quot; id=&quot;&quot; class=&quot;checkall&quot; /&gt;全选
+        &lt;/div&gt;
+        &lt;div class=&quot;t-goods&quot;&gt;商品&lt;/div&gt;
+        &lt;div class=&quot;t-price&quot;&gt;单价&lt;/div&gt;
+        &lt;div class=&quot;t-num&quot;&gt;数量&lt;/div&gt;
+        &lt;div class=&quot;t-sum&quot;&gt;小计&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;!-- 商品模块 --&gt;
+      &lt;div class=&quot;cart-item-list&quot;&gt;
+        &lt;div class=&quot;cart-check&quot;&gt;
+          &lt;div class=&quot;p-checkbox&quot;&gt;
+            &lt;input type=&quot;checkbox&quot; name=&quot;&quot; id=&quot;&quot; class=&quot;j-checkbox&quot; /&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;p-goodes&quot;&gt;
+            &lt;div class=&quot;p-img&quot;&gt;
+              &lt;!-- &lt;img src=&quot;&quot; alt=&quot;&quot; /&gt; --&gt;
+              洗衣粉
+            &lt;/div&gt;
+            &lt;div class=&quot;p-price&quot;&gt;￥12.60&lt;/div&gt;
+            &lt;div class=&quot;p-num&quot;&gt;
+              &lt;div class=&quot;quantity-form&quot;&gt;
+                &lt;a href=&quot;javascript:;&quot; class=&quot;decrement&quot;&gt;-&lt;/a&gt;
+                &lt;input type=&quot;text&quot; class=&quot;itxt&quot; value=&quot;1&quot; style=&quot;width: 20px&quot; /&gt;
+                &lt;a href=&quot;javascript:;&quot; class=&quot;increment&quot;&gt;+&lt;/a&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;p-sum&quot;&gt;￥12.60&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;cart-item-list&quot;&gt;
+        &lt;div class=&quot;cart-check&quot;&gt;
+          &lt;div class=&quot;p-checkbox&quot;&gt;
+            &lt;input type=&quot;checkbox&quot; name=&quot;&quot; id=&quot;&quot; class=&quot;j-checkbox&quot; /&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;p-goodes&quot;&gt;
+            &lt;div class=&quot;p-img&quot;&gt;
+              &lt;!-- &lt;img src=&quot;&quot; alt=&quot;&quot; /&gt; --&gt;
+              消毒水
+            &lt;/div&gt;
+            &lt;div class=&quot;p-price&quot;&gt;￥15.20&lt;/div&gt;
+            &lt;div class=&quot;p-num&quot;&gt;
+              &lt;div class=&quot;quantity-form&quot;&gt;
+                &lt;a href=&quot;javascript:;&quot; class=&quot;decrement&quot;&gt;-&lt;/a&gt;
+                &lt;input type=&quot;text&quot; class=&quot;itxt&quot; value=&quot;1&quot; style=&quot;width: 20px&quot; /&gt;
+                &lt;a href=&quot;javascript:;&quot; class=&quot;increment&quot;&gt;+&lt;/a&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;p-sum&quot;&gt;￥15.20&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;cart-item-list&quot;&gt;
+        &lt;div class=&quot;cart-check&quot;&gt;
+          &lt;div class=&quot;p-checkbox&quot;&gt;
+            &lt;input type=&quot;checkbox&quot; name=&quot;&quot; id=&quot;&quot; class=&quot;j-checkbox&quot; /&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;p-goodes&quot;&gt;
+            &lt;div class=&quot;p-img&quot;&gt;
+              &lt;!-- &lt;img src=&quot;&quot; alt=&quot;&quot; /&gt; --&gt;
+              吹风机
+            &lt;/div&gt;
+            &lt;div class=&quot;p-price&quot;&gt;￥30.50&lt;/div&gt;
+            &lt;div class=&quot;p-num&quot;&gt;
+              &lt;div class=&quot;quantity-form&quot;&gt;
+                &lt;a href=&quot;javascript:;&quot; class=&quot;decrement&quot;&gt;-&lt;/a&gt;
+                &lt;input type=&quot;text&quot; class=&quot;itxt&quot; value=&quot;1&quot; style=&quot;width: 20px&quot; /&gt;
+                &lt;a href=&quot;javascript:;&quot; class=&quot;increment&quot;&gt;+&lt;/a&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;p-sum&quot;&gt;￥30.50&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;!-- 总计模块 --&gt;
+      &lt;div class=&quot;cart-floatbar&quot;&gt;
+        &lt;div class=&quot;select-all&quot;&gt;
+          &lt;input type=&quot;checkbox&quot; name=&quot;&quot; id=&quot;&quot; class=&quot;checkall&quot; /&gt;全选
+        &lt;/div&gt;
+        &lt;div class=&quot;operation&quot;&gt;
+          &lt;a href=&quot;javascript:;&quot; class=&quot;remove-batch&quot;&gt;删除选中的商品&lt;/a&gt;
+          &lt;a href=&quot;javascript:;&quot; class=&quot;clear-all&quot;&gt;清除购物车&lt;/a&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;toolbar-right&quot;&gt;
+          &lt;div class=&quot;amount-sum&quot;&gt;总计&lt;em&gt; &lt;/em&gt;件商品&lt;/div&gt;
+          &lt;div class=&quot;price-sum&quot;&gt;总价：&lt;em&gt;￥&lt;/em&gt;&lt;/div&gt;
+          &lt;div class=&quot;btn-area&quot;&gt;
+            &lt;a href=&quot;javascript:;&quot; style=&quot;color: red&quot;&gt;去结算&lt;/a&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+      //实现点击全选框，所有商品全选，或则手动点击了所有商品选中框，上面全选框也选上
+      $(function () {
+        //入口函数
+
+        //1：全选点击单选框，可以用change事件
+        $(&quot;.checkall&quot;).change(function () {
+          //   var a = $(this).prop(&quot;checked&quot;);
+          //   console.log(a);//结果是点击全选返回ture,证明已经获取到
+          $(&quot;.j-checkbox, .checkall&quot;).prop(&quot;checked&quot;, $(this).prop(&quot;checked&quot;)); //下面的按钮根据全选的状态变化而变化
+          //所有商品背景变化
+          if ($(this).prop(&quot;checked&quot;)) {
+            $(&quot;.cart-item-list&quot;).addClass(&quot;beijing&quot;);
+          } else {
+            $(&quot;.cart-item-list&quot;).removeClass(&quot;beijing&quot;);
+          }
+        });
+        $(&quot;.j-checkbox&quot;).change(function () {
+          //如果下面的复选框全部选中，则上面的全选也选中$(&quot;.j-checkbox&quot;).length是所有商品的单选框数量
+          if ($(&quot;.j-checkbox:checked&quot;).length == $(&quot;.j-checkbox&quot;).length) {
+            //.j-checkbox:checked可以知道到底有几个单选框被选中
+            $(&quot;.checkall&quot;).prop(&quot;checked&quot;, true);
+          } else {
+            $(&quot;.checkall&quot;).prop(&quot;checked&quot;, false);
+          }
+          if ($(this).prop(&quot;checked&quot;)) {
+            $(this).parents(&quot;.cart-item-list&quot;).addClass(&quot;beijing&quot;);
+          } else {
+            $(this).parents(&quot;.cart-item-list&quot;).removeClass(&quot;beijing&quot;);
+          }
+        });
+        // 2：增减商品数量模块。核心思路：声明一个变量，当我们点击+/-的时候，就让这个值++/--，然后赋给文本框
+        $(&quot;.increment&quot;).click(function () {
+          //得到当前加/减的兄弟：文本框的值
+          var n = $(this).siblings(&quot;.itxt&quot;).val(); //text文本使用val获取内容
+          //   console.log(n);
+          n++;
+          $(this).siblings(&quot;.itxt&quot;).val(n);
+          // 3: 根据商品数量自动计算价格,价格是加减号的父亲的父亲的兄弟
+          var p = $(this).parents(&quot;.p-num&quot;).siblings(&quot;.p-price&quot;).html();
+          // console.log(p);
+          p = p.substr(1) * n; //去掉索引为0的美元符号,截取后面的价格,然后队小计进行计算
+          p = p.toFixed(2);
+          // console.log(p);
+          $(this)
+            .parents(&quot;.p-num&quot;)
+            .siblings(&quot;.p-sum&quot;)
+            .html(&quot;￥&quot; + p);
+          getSum();
+        });
+        //3:减：
+        $(&quot;.decrement&quot;).click(function () {
+          var n = $(this).siblings(&quot;.itxt&quot;).val(); //text文本使用val获取内容，非文本使用text()
+          //   console.log(n);
+          if (n &gt; 1) {
+            n--;
+          }
+          $(this).siblings(&quot;.itxt&quot;).val(n);
+          //  根据商品数量自动计算价格,价格是加减号的父亲的父亲的兄弟
+          var p = $(this).parents(&quot;.p-num&quot;).siblings(&quot;.p-price&quot;).html(); //获取到了价格
+          // console.log(p);
+          p = p.substr(1) * n; //去掉索引为0的美元符号,截取后面的价格,然后队小计进行计算
+          p = p.toFixed(2);
+          $(this)
+            .parents(&quot;.p-num&quot;)
+            .siblings(&quot;.p-sum&quot;)
+            .html(&quot;￥&quot; + p);
+          getSum();
+        });
+        //4:手动修改文本框的数值使小计跟着改变
+        $(&quot;.itxt&quot;).change(function () {
+          var m = $(this).val();
+          // console.log(m);
+          var p = $(this).parents(&quot;.p-num&quot;).siblings(&quot;.p-price&quot;).html();
+          p = p.substr(1) * m; //去掉索引为0的美元符号,截取后面的价格,然后队小计进行计算
+          p = p.toFixed(2);
+          $(this)
+            .parents(&quot;.p-num&quot;)
+            .siblings(&quot;.p-sum&quot;)
+            .html(&quot;￥&quot; + p);
+          getSum();
+        });
+        getSum(); //初始显示选中商品总数和总价
+        //5:商品总数模块,定义一个函数，来遍历商品数量和总价
+        function getSum() {
+          var count = 0;
+          var money = 0;
+          //获取文本框数量,使用each遍历方法
+          $(&quot;.itxt&quot;).each(function (index, ele) {
+            //index是索引，ele是dom对象
+            // console.log(index);
+            // console.log($(ele));
+            count += parseInt($(ele).val());
+          });
+          //修改总数量
+          $(&quot;.amount-sum em&quot;).text(count);
+          //获取总价
+          $(&quot;.p-sum&quot;).each(function (index, ele) {
+            money += parseFloat($(ele).text().substr(1));
+            // console.log(sum);
+            //修改总价钱
+            $(&quot;.price-sum em&quot;).text(&quot;￥&quot; + money.toFixed(2));
+          });
+        }
+
+        // 6:删除模块
+        $(&quot;.remove-batch&quot;).click(function () {
+          //删除复选框选中的商品
+          $(&quot;.j-checkbox:checked&quot;).parents(&quot;.cart-item-list&quot;).remove();
+          getSum();
+        });
+        //清空购物车模块
+        $(&quot;.clear-all&quot;).click(function () {
+          $(&quot;.cart-item-list&quot;).remove();
+          getSum();
+        });
+      });
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/jquery3/" class="leancloud-visitors view"
+                              data-flag-title="jQuery3">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://jianmu123.github.io/post/jquery4/" class="title">
+                                      <h4>jQuery4</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item">2020-09-23</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://jianmu123.github.io/post/jquery4/"
+                                    style="background-image: url('https://jianmu123.github.io//post-images/jquery4.png');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://jianmu123.github.io/post/jquery-2/" class="title">
+                                      <h4>jQuery-2</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2020-09-21</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://jianmu123.github.io/post/jquery-2/"
+                                    style="background-image: url('https://jianmu123.github.io//post-images/jquery-2.png');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            
+                          </div>
+                        </div>
+
+                        <div class="layout-comments"></div>
+                        
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-2 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E4%B8%80jquery%E5%B1%9E%E6%80%A7%E6%93%8D%E4%BD%9C">一:jQuery属性操作</a>
+<ul>
+<li><a href="#2%E8%AE%BE%E7%BD%AE%E6%88%96%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%9E%E6%80%A7%E5%80%BCattr">2：设置或获取元素自定义属性值：attr()</a></li>
+<li><a href="#3%E6%95%B0%E6%8D%AE%E7%BC%93%E5%AD%98-data">3:数据缓存 data()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    	<div class="layout-footer">
+
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+					<div class="footer">
+						<div class="row">
+							<div class="col-12 col-md-9">
+								<div class="footer-copy">
+									
+									Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+									<div class="footer-icp d-none d-sm-inline-block">
+										<span class="px-2">⋅</span>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 d-none d-md-block">
+								<div class="footer-links">
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src='https://jianmu123.github.io//media/scripts/main.js'></script>
+	
+
+  </div>
+</body>
+
+</html>
