@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-<title>jQuery-2 - Personal blog</title>
+<title>jQuery-1 - Personal blog</title>
 <meta name="description" content="温故而知新">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -130,7 +130,7 @@
                     <div class="col-12 col-lg-10">
                       <div class="layout-post-main m-right m-md-right">
                         <div class="layout-post-header">
-                          <h1 class="layout-post-title">jQuery-2</h1>
+                          <h1 class="layout-post-title">jQuery-1</h1>
                           <div class="layout-post-meta">
                             <div class="item">
                                <a href="https://jianmu123.github.io/tag/iGviSbBuO/" class="post--keyword"
@@ -138,72 +138,173 @@
                               
                             </div>
                             <div class="item">
-                              <span>2020-09-21</span>
+                              <span>2020-09-20</span>
                             </div>
                           </div>
                         </div>
                         <div class="layout-post-content">
                           <div class="layout-post-item">
                             
-                            <p class="with-img"><img src="https://jianmu123.github.io//post-images/jquery-2.png"
-                                class="attachment-full size-full wp-post-image" alt="jQuery-2" /></p>
+                            <p class="with-img"><img src="https://jianmu123.github.io//post-images/jquery1.png"
+                                class="attachment-full size-full wp-post-image" alt="jQuery-1" /></p>
                             
-                            <h2 id="一jquery的样式操作">一：jQuery的样式操作</h2>
-<h3 id="1设置类样式方法">1：设置类样式方法</h3>
-<p>作用等同于以前的classList，可以操作类样式，注意jQuery中的类参数不要加点。</p>
-<pre><code class="language-javaScript">添加类：$(&quot;div&quot;).addClass(&quot;current&quot;);//这里是给div盒子添加current的类
-删除类：$(&quot;div&quot;).removeClss(&quot;current&quot;);//这里是删除div盒子current的类
-切换类：$(&quot;div&quot;).toggleClss(&quot;current&quot;);//这里是切换div盒子current的类
-    &lt;script&gt;
+                            <p>一： jQuery的概述</p>
+<h3 id="1-jquery是javascript的一个封装库里面存放了很多函数">1. jQuery是javaScript的一个封装库,里面存放了很多函数。</h3>
+<h3 id="2-使用时只需调用这个库文件">2. 使用时只需调用这个库文件。</h3>
+<h3 id="3-jquery主要是用来操作dom的">3. jQuery主要是用来操作DOM的。</h3>
+<h3 id="4-学习jquery的本质是学习调用这些函数">4. 学习jQuery的本质是学习调用这些函数。</h3>
+<h2 id="二jquery的基本使用">二：jQuery的基本使用</h2>
+<h3 id="1首先官网下载jquery官网httpsjquerycom">1：首先官网下载[jQuery官网]{https://jquery.com/}</h3>
+<h3 id="2符号是jquery的别称jquery中的顶级对象相当于javascript中的window对象">2：$符号是jQuery的别称，jQuery中的顶级对象，相当于javaScript中的window对象</h3>
+<h3 id="3注意下列">3：注意下列：</h3>
+<pre><code class="language-javaScript">//下面是jQuery入口函数
+   &lt;script&gt;
       $(function () {
-        //添加类addClass
-        $(&quot;div&quot;).click(function () {
-          $(this).addClass(&quot;current&quot;);
-        });
-        //删除类removeClass
-        $(&quot;div&quot;).click(function () {
-          $(this).removeClass(&quot;current&quot;);
-        });
-        //切换类toggleClass
-        $(&quot;div&quot;).click(function () {
-          $(this).toggleClass(&quot;current&quot;);
-        });
+          //内容写这里
       });
     &lt;/script&gt;
+
+ // 1:DOM 对象：用原生js方式获取的对象是DOM对象
+
+   var myDiv = document.querySelector(&quot;div&quot;); //querySelector() 方法返回文档中匹配指定 CSS 选择器的一个元素。
+
+   console.dir(myDiv); //打印所有的属性和方法
+
+   // 2:jQuery 对象：用原生jQuery方式获取的对象是jQuery对象
+
+   $(&quot;div&quot;);  // jQuery 对象
+
+   console.dir($(&quot;div&quot;));
+
+   //  从控制台可以看出2者打印的内容不同，jQuery打印了一个伪数组的形式
+
+   // 3:jQuery对象只能使用jQuery方法,DOM对象只能使用原生javaScript属性和方法,2者不能混用
 </code></pre>
-<h3 id="2jquery的类操作是对指定类进行操作不会影响原先类名但是原生js中classname会覆盖元素里面原先的类名">2:jQuery的类操作是对指定类进行操作，不会影响原先类名，但是原生js中className会覆盖元素里面原先的类名。</h3>
-<p>下面做一个菜单栏案例：点击菜单后该菜单的内容显示出来，单击其他菜单，之前显示的菜单隐藏。</p>
-<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1600683854568.png" alt="" loading="lazy"></figure>
-<h2 id="二jquery效果">二：jQuery效果</h2>
-<h3 id="1显示隐藏-切换showspeedeasingcallback-hidespeedeasingcallback-togglespeedeasingcallback-注意这3个方法内部有方括号所以参数都可以不写">1：显示/隐藏 /切换：show([speed],[easing],[callback])  hide([speed],[easing],[callback]) toggle([speed],[easing],[callback])。注意这3个方法内部有方括号[],所以参数都可以不写。</h3>
-<figure data-type="image" tabindex="2"><img src="https://jianmu123.github.io//post-images/1600773077471.png" alt="" loading="lazy"></figure>
-<h3 id="2下拉上啦切换-slidedownslideupslidetoggle-内部参数与上方一样">2：下拉/上啦/切换: slideDown,slideUp,slideToggle。内部参数与上方一样。</h3>
-<h3 id="3事件切换hoveroverout">3：事件切换：hover（[over],out）</h3>
-<pre><code>           over:鼠标经过元素上触发，相当于mouseenter
-           out:鼠标移出此元素要触发的函数，相当于mouseleave
+<h3 id="4jquery对象和dom对象的相互转换">4：<strong>jQuery对象和DOM对象的相互转换</strong></h3>
+<p>因为原生js比jQuery大，一些原生的js属性方法在jQuery中没有，所以需要把jQuery对象转换为DOM对象才可以使用。</p>
+<pre><code class="language-javaScript">先用2种方式获取对象：
+ var myDiv = document.querySelector(&quot;div&quot;);//DOM对象
+ $(&quot;div&quot;);  // jQuery 对象
+//jQuery转DOM(2种方式):
+ $('div')[index];//index是索引号，因为jQuery对象是一个伪数组  
+ $('div')get（index）;
+//DOM转jQuery：
+ $(myDiv);   
 </code></pre>
-<p>区分概念：<br>
-1.mouseover与mouseout成对，mouseenter与mouseleave成对<br>
-2.mouseover触发优先级高于mouseenter，mouseout触发优先级mouseleave<br>
-3.在父元素上绑定mouseover和mouseout事件，子元素同样也会触发，即子元素事件会冒泡至父元素；而父元素绑定mouseenter和mouseleave事件只对父元素有效，子元素不会触发。<br>
-<img src="https://jianmu123.github.io//post-images/1600780157055.png" alt="" loading="lazy"></p>
-<h3 id="4淡入淡出效果fadein-fadeout-fadetoggle-fadetospeedopacity-内部参数与上方一样">4：淡入淡出效果：fadeIn（）、fadeOut()、fadeToggle()、fadeTo(speed,opacity)。内部参数与上方一样。</h3>
-<p><img src="https://jianmu123.github.io//post-images/1600780522485.png" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1600780704256.png" alt="" loading="lazy"></p>
-<h3 id="4自定义动画animateparamsspeed-easing-callback">4:自定义动画：animate(params，[speed]、[easing]、[callback])。</h3>
-<p><img src="https://jianmu123.github.io//post-images/1600781058456.png" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1600781151512.png" alt="" loading="lazy"></p>
-<h3 id="5注意以上所有动画或效果都有动画队列的问题">5：注意以上所有动画或效果都有动画队列的问题。</h3>
-<p>问题：动画或则效果一旦触发就会运行，但是当我们多次触发就会造成多个动画或效果的队列问题。<br>
-解决办法：在添加stop()方法，把上一个动画效果停止（谁执行了动画效果就在谁前面添加）。<br>
-<img src="https://jianmu123.github.io//post-images/1600781449952.png" alt="" loading="lazy"></p>
+<h2 id="三jquery的常用api">三：jQuery的常用API</h2>
+<h3 id="1jquery基础选择器">1：jQuery基础选择器</h3>
+<pre><code class="language-javaScript"> $('选择器')；//里面选择器直接写CSS选择器即可，但是要加引号。
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>用法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID选择器</td>
+<td>$(&quot;#id&quot;)</td>
+<td>获取指定的ID元素</td>
+</tr>
+<tr>
+<td>全选选择器</td>
+<td>$('*')</td>
+<td>匹配所有元素</td>
+</tr>
+<tr>
+<td>类选择器</td>
+<td>$(&quot;.class&quot;)</td>
+<td>获取同一类元素</td>
+</tr>
+<tr>
+<td>标签选择器</td>
+<td>$(&quot;div&quot;)</td>
+<td>获取同一类标签的所有元素</td>
+</tr>
+<tr>
+<td>并集选择器</td>
+<td>$(&quot;div,p,li&quot;)</td>
+<td>选取多个元素</td>
+</tr>
+<tr>
+<td>交集选择器</td>
+<td>$(&quot;li.current&quot;)</td>
+<td>交集元素</td>
+</tr>
+</tbody>
+</table>
+<h4 id="2jquery设置css样式">2:jQuery设置css样式：</h4>
+<pre><code class="language-javaScript"> $(&quot;div&quot;).css(&quot;属性&quot;,&quot;值&quot;);//例如：$(&quot;div&quot;).css(''background'',''red'');就把所有的div背景改为了红色
+注意：这里的属性名一定要加引号
+
+同时修改多个样式：使用对象的形式，注意这个时候属性名就不用加引号,加上也没错
+$(&quot;div&quot;).css({
+width:400,
+height:400,
+backgroundColor：&quot;red&quot;，
+注意如果是复合属性就要写成驼峰命名法，如果值不是数字则必须使用引号
+})
+</code></pre>
+<p>这个里面有一个<strong>隐式迭代</strong>的概念，他会把所有选取到的所有元素进行循环遍历，依次执行相应的方法。</p>
+<h4 id="3jquery筛选选择器">3：jQuery筛选选择器</h4>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>用法</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:firsr</td>
+<td>$('li':first)</td>
+<td>获取第一个li元素</td>
+</tr>
+<tr>
+<td>:last</td>
+<td>$('li:last')</td>
+<td>获取最后一个li元素</td>
+</tr>
+<tr>
+<td>:eq(index)</td>
+<td>$(<strong>&quot;li:eq(2)&quot;</strong>)</td>
+<td>获取到的li元素中，选择索引号为2的元素 (注意索引号是从0开始的)</td>
+</tr>
+<tr>
+<td>:odd</td>
+<td>$(<strong>&quot;li:odd&quot;</strong>)</td>
+<td>获取到的li元素中，选择索引号为奇数的元素</td>
+</tr>
+<tr>
+<td>:even</td>
+<td>$(&quot;li:even&quot;)</td>
+<td>获取到的li元素中，选择索引号为偶数的元素</td>
+</tr>
+</tbody>
+</table>
+<h4 id="4筛选方法注意方法都有括号">4：筛选方法（注意方法都有括号）</h4>
+<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1600606470845.png" alt="" loading="lazy"></figure>
+<h4 id="5注意下例的写法">5：注意下例的写法：</h4>
+<pre><code class="language-javaScript">//让鼠标经过div使ul显示出来,this是当前元素(即:div)
+  $(&quot;div&quot;).mousemove(function () {      
+        $(this).children(&quot;ul&quot;).show();
+      });
+ //鼠标移出就隐藏
+ $(&quot;div&quot;).mouseout(function(){
+    $(this).children(&quot;ul&quot;).hide();
+ })
+</code></pre>
 
                           </div>
                         </div>
                         <div class="layout-post-social">
                           <div class="item reader">
-                            <div id="/post/jquery-2/" class="leancloud-visitors view"
-                              data-flag-title="jQuery-2">
+                            <div id="/post/jquery1/" class="leancloud-visitors view"
+                              data-flag-title="jQuery-1">
                               <span class="post-meta-item-text">阅读 </span>
                               <span class="leancloud-visitors-count"></span>
                             </div>
@@ -218,8 +319,8 @@
                               <div class="card-content col-8 col-md-9">
                                 <div class="card-body">
                                   <div class="header">
-                                    <a href="https://jianmu123.github.io/post/jquery3/" class="title">
-                                      <h4>jQuery3</h4>
+                                    <a href="https://jianmu123.github.io/post/jquery-2/" class="title">
+                                      <h4>jQuery-2</h4>
                                     </a>
                                   </div>
                                   <div class="inner d-none d-sm-block">
@@ -230,13 +331,13 @@
                                 </div>
                                 <div class="card-footer">
                                   <div class="item"><span>上一篇</span></div>
-                                  <div class="item">2020-09-22</div>
+                                  <div class="item">2020-09-21</div>
                                 </div>
                               </div>
                               <div class="card-thumb col-4 col-md-3">
                                 <div class="thumb">
-                                  <a href="https://jianmu123.github.io/post/jquery3/"
-                                    style="background-image: url('https://jianmu123.github.io//post-images/jquery3.png');"></a>
+                                  <a href="https://jianmu123.github.io/post/jquery-2/"
+                                    style="background-image: url('https://jianmu123.github.io//post-images/jquery-2.png');"></a>
                                 </div>
                               </div>
                               
@@ -247,8 +348,8 @@
                               <div class="card-content col-8 col-md-9">
                                 <div class="card-body">
                                   <div class="header">
-                                    <a href="https://jianmu123.github.io/post/jquery1/" class="title">
-                                      <h4>jQuery-1</h4>
+                                    <a href="https://jianmu123.github.io/post/about/" class="title">
+                                      <h4>关于</h4>
                                     </a>
                                   </div>
                                   <div class="inner d-none d-sm-block">
@@ -259,13 +360,13 @@
                                 </div>
                                 <div class="card-footer">
                                   <div class="item"><span>下一篇</span></div>
-                                  <div class="item">2020-09-20</div>
+                                  <div class="item">2020-09-19</div>
                                 </div>
                               </div>
                               <div class="card-thumb col-4 col-md-3">
                                 <div class="thumb">
-                                  <a href="https://jianmu123.github.io/post/jquery1/"
-                                    style="background-image: url('https://jianmu123.github.io//post-images/jquery1.png');"></a>
+                                  <a href="https://jianmu123.github.io/post/about/"
+                                    style="background-image: url('https://jianmu123.github.io//post-images/about.jfif');"></a>
                                 </div>
                               </div>
                               
@@ -286,20 +387,32 @@
                           <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E4%B8%80jquery%E7%9A%84%E6%A0%B7%E5%BC%8F%E6%93%8D%E4%BD%9C">一：jQuery的样式操作</a>
+<li>
 <ul>
-<li><a href="#1%E8%AE%BE%E7%BD%AE%E7%B1%BB%E6%A0%B7%E5%BC%8F%E6%96%B9%E6%B3%95">1：设置类样式方法</a></li>
-<li><a href="#2jquery%E7%9A%84%E7%B1%BB%E6%93%8D%E4%BD%9C%E6%98%AF%E5%AF%B9%E6%8C%87%E5%AE%9A%E7%B1%BB%E8%BF%9B%E8%A1%8C%E6%93%8D%E4%BD%9C%E4%B8%8D%E4%BC%9A%E5%BD%B1%E5%93%8D%E5%8E%9F%E5%85%88%E7%B1%BB%E5%90%8D%E4%BD%86%E6%98%AF%E5%8E%9F%E7%94%9Fjs%E4%B8%ADclassname%E4%BC%9A%E8%A6%86%E7%9B%96%E5%85%83%E7%B4%A0%E9%87%8C%E9%9D%A2%E5%8E%9F%E5%85%88%E7%9A%84%E7%B1%BB%E5%90%8D">2:jQuery的类操作是对指定类进行操作，不会影响原先类名，但是原生js中className会覆盖元素里面原先的类名。</a></li>
+<li><a href="#1-jquery%E6%98%AFjavascript%E7%9A%84%E4%B8%80%E4%B8%AA%E5%B0%81%E8%A3%85%E5%BA%93%E9%87%8C%E9%9D%A2%E5%AD%98%E6%94%BE%E4%BA%86%E5%BE%88%E5%A4%9A%E5%87%BD%E6%95%B0">1. jQuery是javaScript的一个封装库,里面存放了很多函数。</a></li>
+<li><a href="#2-%E4%BD%BF%E7%94%A8%E6%97%B6%E5%8F%AA%E9%9C%80%E8%B0%83%E7%94%A8%E8%BF%99%E4%B8%AA%E5%BA%93%E6%96%87%E4%BB%B6">2. 使用时只需调用这个库文件。</a></li>
+<li><a href="#3-jquery%E4%B8%BB%E8%A6%81%E6%98%AF%E7%94%A8%E6%9D%A5%E6%93%8D%E4%BD%9Cdom%E7%9A%84">3. jQuery主要是用来操作DOM的。</a></li>
+<li><a href="#4-%E5%AD%A6%E4%B9%A0jquery%E7%9A%84%E6%9C%AC%E8%B4%A8%E6%98%AF%E5%AD%A6%E4%B9%A0%E8%B0%83%E7%94%A8%E8%BF%99%E4%BA%9B%E5%87%BD%E6%95%B0">4. 学习jQuery的本质是学习调用这些函数。</a></li>
 </ul>
 </li>
-<li><a href="#%E4%BA%8Cjquery%E6%95%88%E6%9E%9C">二：jQuery效果</a>
+<li><a href="#%E4%BA%8Cjquery%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8">二：jQuery的基本使用</a>
 <ul>
-<li><a href="#1%E6%98%BE%E7%A4%BA%E9%9A%90%E8%97%8F-%E5%88%87%E6%8D%A2showspeedeasingcallback-hidespeedeasingcallback-togglespeedeasingcallback-%E6%B3%A8%E6%84%8F%E8%BF%993%E4%B8%AA%E6%96%B9%E6%B3%95%E5%86%85%E9%83%A8%E6%9C%89%E6%96%B9%E6%8B%AC%E5%8F%B7%E6%89%80%E4%BB%A5%E5%8F%82%E6%95%B0%E9%83%BD%E5%8F%AF%E4%BB%A5%E4%B8%8D%E5%86%99">1：显示/隐藏 /切换：show([speed],[easing],[callback])  hide([speed],[easing],[callback]) toggle([speed],[easing],[callback])。注意这3个方法内部有方括号[],所以参数都可以不写。</a></li>
-<li><a href="#2%E4%B8%8B%E6%8B%89%E4%B8%8A%E5%95%A6%E5%88%87%E6%8D%A2-slidedownslideupslidetoggle-%E5%86%85%E9%83%A8%E5%8F%82%E6%95%B0%E4%B8%8E%E4%B8%8A%E6%96%B9%E4%B8%80%E6%A0%B7">2：下拉/上啦/切换: slideDown,slideUp,slideToggle。内部参数与上方一样。</a></li>
-<li><a href="#3%E4%BA%8B%E4%BB%B6%E5%88%87%E6%8D%A2hoveroverout">3：事件切换：hover（[over],out）</a></li>
-<li><a href="#4%E6%B7%A1%E5%85%A5%E6%B7%A1%E5%87%BA%E6%95%88%E6%9E%9Cfadein-fadeout-fadetoggle-fadetospeedopacity-%E5%86%85%E9%83%A8%E5%8F%82%E6%95%B0%E4%B8%8E%E4%B8%8A%E6%96%B9%E4%B8%80%E6%A0%B7">4：淡入淡出效果：fadeIn（）、fadeOut()、fadeToggle()、fadeTo(speed,opacity)。内部参数与上方一样。</a></li>
-<li><a href="#4%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8A%A8%E7%94%BBanimateparamsspeed-easing-callback">4:自定义动画：animate(params，[speed]、[easing]、[callback])。</a></li>
-<li><a href="#5%E6%B3%A8%E6%84%8F%E4%BB%A5%E4%B8%8A%E6%89%80%E6%9C%89%E5%8A%A8%E7%94%BB%E6%88%96%E6%95%88%E6%9E%9C%E9%83%BD%E6%9C%89%E5%8A%A8%E7%94%BB%E9%98%9F%E5%88%97%E7%9A%84%E9%97%AE%E9%A2%98">5：注意以上所有动画或效果都有动画队列的问题。</a></li>
+<li><a href="#1%E9%A6%96%E5%85%88%E5%AE%98%E7%BD%91%E4%B8%8B%E8%BD%BDjquery%E5%AE%98%E7%BD%91httpsjquerycom">1：首先官网下载[jQuery官网]{https://jquery.com/}</a></li>
+<li><a href="#2%E7%AC%A6%E5%8F%B7%E6%98%AFjquery%E7%9A%84%E5%88%AB%E7%A7%B0jquery%E4%B8%AD%E7%9A%84%E9%A1%B6%E7%BA%A7%E5%AF%B9%E8%B1%A1%E7%9B%B8%E5%BD%93%E4%BA%8Ejavascript%E4%B8%AD%E7%9A%84window%E5%AF%B9%E8%B1%A1">2：$符号是jQuery的别称，jQuery中的顶级对象，相当于javaScript中的window对象</a></li>
+<li><a href="#3%E6%B3%A8%E6%84%8F%E4%B8%8B%E5%88%97">3：注意下列：</a></li>
+<li><a href="#4jquery%E5%AF%B9%E8%B1%A1%E5%92%8Cdom%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2">4：<strong>jQuery对象和DOM对象的相互转换</strong></a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%89jquery%E7%9A%84%E5%B8%B8%E7%94%A8api">三：jQuery的常用API</a>
+<ul>
+<li><a href="#1jquery%E5%9F%BA%E7%A1%80%E9%80%89%E6%8B%A9%E5%99%A8">1：jQuery基础选择器</a>
+<ul>
+<li><a href="#2jquery%E8%AE%BE%E7%BD%AEcss%E6%A0%B7%E5%BC%8F">2:jQuery设置css样式：</a></li>
+<li><a href="#3jquery%E7%AD%9B%E9%80%89%E9%80%89%E6%8B%A9%E5%99%A8">3：jQuery筛选选择器</a></li>
+<li><a href="#4%E7%AD%9B%E9%80%89%E6%96%B9%E6%B3%95%E6%B3%A8%E6%84%8F%E6%96%B9%E6%B3%95%E9%83%BD%E6%9C%89%E6%8B%AC%E5%8F%B7">4：筛选方法（注意方法都有括号）</a></li>
+<li><a href="#5%E6%B3%A8%E6%84%8F%E4%B8%8B%E4%BE%8B%E7%9A%84%E5%86%99%E6%B3%95">5：注意下例的写法：</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
