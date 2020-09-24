@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jianmu123.github.io/</id>
     <title>Personal blog</title>
-    <updated>2020-09-23T13:56:43.803Z</updated>
+    <updated>2020-09-24T14:28:05.234Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jianmu123.github.io/"/>
     <link rel="self" href="https://jianmu123.github.io/atom.xml"/>
@@ -10,6 +10,62 @@
     <logo>https://jianmu123.github.io/images/avatar.png</logo>
     <icon>https://jianmu123.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Personal blog</rights>
+    <entry>
+        <title type="html"><![CDATA[jQuery5]]></title>
+        <id>https://jianmu123.github.io/post/jquery5/</id>
+        <link href="https://jianmu123.github.io/post/jquery5/">
+        </link>
+        <updated>2020-09-24T13:30:19.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="1jquery事件处理">1：jQuery事件处理</h2>
+<h3 id="1-elementon方法可以绑定多个事件">1： element.on()方法可以绑定多个事件</h3>
+<p>语法：element.on(event,[selector],fn);<br>
+event是事件类型，[selector]是元素的子元素选择器</p>
+<pre><code class="language-javascript">    $(&quot;div&quot;).on({
+        //鼠标经过div背景变红
+        mouseenter：function(){
+        $(&quot;this&quot;).css(&quot;background&quot;,&quot;red&quot;);
+       },
+       //鼠标点击div背景变粉红
+      click：function(){
+          $(&quot;this&quot;).css(&quot;background&quot;,&quot;pink&quot;);
+      }
+    })
+</code></pre>
+<p>on方法可以实现事件的委派。例如：</p>
+<pre><code class="language-javascript">$(&quot;ul&quot;).on(click,&quot;li&quot;,function(){
+    alert(&quot;触发了点击事件&quot;);
+});
+这个触发事件在ul上，但是触发对象在li上，即ul委托li帮他触发
+</code></pre>
+<h3 id="2off方法可以移除通过on方法添加的事件处理程序">2:off方法可以移除通过on方法添加的事件处理程序</h3>
+<pre><code class="language-javascript"> $(&quot;p&quot;).off()  //解除p上所有的事件处理
+ $(&quot;p&quot;).off(&quot;click&quot;) //解除p上的click事件处理
+ $(&quot;ul&quot;).off(&quot;click&quot;，&quot;li&quot;) //解除事件委托
+</code></pre>
+<h3 id="3自动触发事件">3:自动触发事件</h3>
+<p>有些事件希望自动触发，比如轮播图的自动播放能跟点击按钮一致，可以利用定时器自动触发按钮按钮点击事件，不必鼠标点击触发。<br>
+第一种形式：元素.事件()<br>
+第二种形式：元素.trigger(&quot;事件&quot;)<br>
+第三种形式：元素.triggerHandler(&quot;事件&quot;)<br>
+第三种和前面的区别：不会触发元素的默认行为，比如文本框焦点事件的光标此时不会闪烁</p>
+<pre><code class="language-javascript">       下面代码不会有光标闪烁：
+       $(&quot;input&quot;).on(&quot;focus&quot;,function(){
+           $(&quot;this&quot;).val(&quot;你好吗&quot;);
+       })
+       $(&quot;input&quot;).triggerHandler(&quot;focus&quot;);//自动触发
+</code></pre>
+<h3 id="4阻止默认行为和冒泡行为">4：阻止默认行为和冒泡行为</h3>
+<h4 id="41阻止默认行为eventpreventdefault-或则return-false">4.1:阻止默认行为：event.preventDefault(); 或则：return false</h4>
+<h4 id="42阻止冒泡行为eventstoppropagation">4.2:阻止冒泡行为：event.stopPropagation()</h4>
+<p>###5:jQuery对象拷贝<br>
+语法：$.extend([deep],target,object1,[objectN]) //[objectN]是代表不仅可以拷贝一个还可以拷贝多个。<br>
+<img src="https://jianmu123.github.io//post-images/1600956466981.png" alt="" loading="lazy"><br>
+浅拷贝：会覆盖原来数据<br>
+深拷贝：会保留原来是数据<br>
+<img src="https://jianmu123.github.io//post-images/1600957628103.png" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1600957634129.png" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[jQuery4]]></title>
         <id>https://jianmu123.github.io/post/jquery4/</id>

@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-<title>关于 - Personal blog</title>
+<title>jQuery5 - Personal blog</title>
 <meta name="description" content="温故而知新">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -130,34 +130,74 @@
                     <div class="col-12 col-lg-10">
                       <div class="layout-post-main m-right m-md-right">
                         <div class="layout-post-header">
-                          <h1 class="layout-post-title">关于</h1>
+                          <h1 class="layout-post-title">jQuery5</h1>
                           <div class="layout-post-meta">
                             <div class="item">
                               
                             </div>
                             <div class="item">
-                              <span>2020-09-20</span>
+                              <span>2020-09-24</span>
                             </div>
                           </div>
                         </div>
                         <div class="layout-post-content">
                           <div class="layout-post-item">
                             
-                            <p class="with-img"><img src="https://jianmu123.github.io//post-images/about.jfif"
-                                class="attachment-full size-full wp-post-image" alt="关于" /></p>
-                            
-                            <blockquote>
-<p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
-</blockquote>
-<h2 id="关于本站">🏠 关于本站</h2>
-<p>本站是我的一个前端学习的博客，记录了我的前端学习的内容笔记，由于写博客的时候刚学jQuery，所以会从这里开始，你可以阅读我的笔记，如果可以帮助到你那我就非常开心😃。</p>
+                            <h2 id="1jquery事件处理">1：jQuery事件处理</h2>
+<h3 id="1-elementon方法可以绑定多个事件">1： element.on()方法可以绑定多个事件</h3>
+<p>语法：element.on(event,[selector],fn);<br>
+event是事件类型，[selector]是元素的子元素选择器</p>
+<pre><code class="language-javascript">    $(&quot;div&quot;).on({
+        //鼠标经过div背景变红
+        mouseenter：function(){
+        $(&quot;this&quot;).css(&quot;background&quot;,&quot;red&quot;);
+       },
+       //鼠标点击div背景变粉红
+      click：function(){
+          $(&quot;this&quot;).css(&quot;background&quot;,&quot;pink&quot;);
+      }
+    })
+</code></pre>
+<p>on方法可以实现事件的委派。例如：</p>
+<pre><code class="language-javascript">$(&quot;ul&quot;).on(click,&quot;li&quot;,function(){
+    alert(&quot;触发了点击事件&quot;);
+});
+这个触发事件在ul上，但是触发对象在li上，即ul委托li帮他触发
+</code></pre>
+<h3 id="2off方法可以移除通过on方法添加的事件处理程序">2:off方法可以移除通过on方法添加的事件处理程序</h3>
+<pre><code class="language-javascript"> $(&quot;p&quot;).off()  //解除p上所有的事件处理
+ $(&quot;p&quot;).off(&quot;click&quot;) //解除p上的click事件处理
+ $(&quot;ul&quot;).off(&quot;click&quot;，&quot;li&quot;) //解除事件委托
+</code></pre>
+<h3 id="3自动触发事件">3:自动触发事件</h3>
+<p>有些事件希望自动触发，比如轮播图的自动播放能跟点击按钮一致，可以利用定时器自动触发按钮按钮点击事件，不必鼠标点击触发。<br>
+第一种形式：元素.事件()<br>
+第二种形式：元素.trigger(&quot;事件&quot;)<br>
+第三种形式：元素.triggerHandler(&quot;事件&quot;)<br>
+第三种和前面的区别：不会触发元素的默认行为，比如文本框焦点事件的光标此时不会闪烁</p>
+<pre><code class="language-javascript">       下面代码不会有光标闪烁：
+       $(&quot;input&quot;).on(&quot;focus&quot;,function(){
+           $(&quot;this&quot;).val(&quot;你好吗&quot;);
+       })
+       $(&quot;input&quot;).triggerHandler(&quot;focus&quot;);//自动触发
+</code></pre>
+<h3 id="4阻止默认行为和冒泡行为">4：阻止默认行为和冒泡行为</h3>
+<h4 id="41阻止默认行为eventpreventdefault-或则return-false">4.1:阻止默认行为：event.preventDefault(); 或则：return false</h4>
+<h4 id="42阻止冒泡行为eventstoppropagation">4.2:阻止冒泡行为：event.stopPropagation()</h4>
+<p>###5:jQuery对象拷贝<br>
+语法：$.extend([deep],target,object1,[objectN]) //[objectN]是代表不仅可以拷贝一个还可以拷贝多个。<br>
+<img src="https://jianmu123.github.io//post-images/1600956466981.png" alt="" loading="lazy"><br>
+浅拷贝：会覆盖原来数据<br>
+深拷贝：会保留原来是数据<br>
+<img src="https://jianmu123.github.io//post-images/1600957628103.png" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1600957634129.png" alt="" loading="lazy"></p>
 
                           </div>
                         </div>
                         <div class="layout-post-social">
                           <div class="item reader">
-                            <div id="/post/about/" class="leancloud-visitors view"
-                              data-flag-title="关于">
+                            <div id="/post/jquery5/" class="leancloud-visitors view"
+                              data-flag-title="jQuery5">
                               <span class="post-meta-item-text">阅读 </span>
                               <span class="leancloud-visitors-count"></span>
                             </div>
@@ -172,37 +212,8 @@
                               <div class="card-content col-8 col-md-9">
                                 <div class="card-body">
                                   <div class="header">
-                                    <a href="https://jianmu123.github.io/post/jquery-2/" class="title">
-                                      <h4>jQuery-2</h4>
-                                    </a>
-                                  </div>
-                                  <div class="inner d-none d-sm-block">
-                                    <div class="abstract">
-                                      
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="card-footer">
-                                  <div class="item"><span>上一篇</span></div>
-                                  <div class="item">2020-09-21</div>
-                                </div>
-                              </div>
-                              <div class="card-thumb col-4 col-md-3">
-                                <div class="thumb">
-                                  <a href="https://jianmu123.github.io/post/jquery-2/"
-                                    style="background-image: url('https://jianmu123.github.io//post-images/jquery-2.png');"></a>
-                                </div>
-                              </div>
-                              
-                            </div>
-
-                            <div class="post-card row">
-                              
-                              <div class="card-content col-8 col-md-9">
-                                <div class="card-body">
-                                  <div class="header">
-                                    <a href="https://jianmu123.github.io/post/jquery-de-di-yi-tian/" class="title">
-                                      <h4>jQuery-1</h4>
+                                    <a href="https://jianmu123.github.io/post/jquery4/" class="title">
+                                      <h4>jQuery4</h4>
                                     </a>
                                   </div>
                                   <div class="inner d-none d-sm-block">
@@ -213,18 +224,17 @@
                                 </div>
                                 <div class="card-footer">
                                   <div class="item"><span>下一篇</span></div>
-                                  <div class="item">2020-09-20</div>
+                                  <div class="item">2020-09-23</div>
                                 </div>
                               </div>
                               <div class="card-thumb col-4 col-md-3">
                                 <div class="thumb">
-                                  <a href="https://jianmu123.github.io/post/jquery-de-di-yi-tian/"
-                                    style="background-image: url('https://jianmu123.github.io//post-images/jquery-de-di-yi-tian.png');"></a>
+                                  <a href="https://jianmu123.github.io/post/jquery4/"
+                                    style="background-image: url('https://jianmu123.github.io//post-images/jquery4.png');"></a>
                                 </div>
                               </div>
                               
                             </div>
-
                             
                           </div>
                         </div>
@@ -240,7 +250,19 @@
                           <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E5%85%B3%E4%BA%8E%E6%9C%AC%E7%AB%99">🏠 关于本站</a></li>
+<li><a href="#1jquery%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86">1：jQuery事件处理</a>
+<ul>
+<li><a href="#1-elementon%E6%96%B9%E6%B3%95%E5%8F%AF%E4%BB%A5%E7%BB%91%E5%AE%9A%E5%A4%9A%E4%B8%AA%E4%BA%8B%E4%BB%B6">1： element.on()方法可以绑定多个事件</a></li>
+<li><a href="#2off%E6%96%B9%E6%B3%95%E5%8F%AF%E4%BB%A5%E7%A7%BB%E9%99%A4%E9%80%9A%E8%BF%87on%E6%96%B9%E6%B3%95%E6%B7%BB%E5%8A%A0%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F">2:off方法可以移除通过on方法添加的事件处理程序</a></li>
+<li><a href="#3%E8%87%AA%E5%8A%A8%E8%A7%A6%E5%8F%91%E4%BA%8B%E4%BB%B6">3:自动触发事件</a></li>
+<li><a href="#4%E9%98%BB%E6%AD%A2%E9%BB%98%E8%AE%A4%E8%A1%8C%E4%B8%BA%E5%92%8C%E5%86%92%E6%B3%A1%E8%A1%8C%E4%B8%BA">4：阻止默认行为和冒泡行为</a>
+<ul>
+<li><a href="#41%E9%98%BB%E6%AD%A2%E9%BB%98%E8%AE%A4%E8%A1%8C%E4%B8%BAeventpreventdefault-%E6%88%96%E5%88%99return-false">4.1:阻止默认行为：event.preventDefault(); 或则：return false</a></li>
+<li><a href="#42%E9%98%BB%E6%AD%A2%E5%86%92%E6%B3%A1%E8%A1%8C%E4%B8%BAeventstoppropagation">4.2:阻止冒泡行为：event.stopPropagation()</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
