@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jianmu123.github.io/</id>
     <title>Personal blog</title>
-    <updated>2020-09-24T14:57:52.111Z</updated>
+    <updated>2020-09-28T14:05:08.404Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jianmu123.github.io/"/>
     <link rel="self" href="https://jianmu123.github.io/atom.xml"/>
@@ -19,7 +19,9 @@
         <content type="html"><![CDATA[<h2 id="1jquery事件处理">1：jQuery事件处理</h2>
 <h3 id="1-elementon方法可以绑定多个事件">1： element.on()方法可以绑定多个事件</h3>
 <p>语法：element.on(event,[selector],fn);<br>
-event是事件类型，[selector]是元素的子元素选择器</p>
+event是事件类型，[selector]是元素的子元素选择器<br>
+您的浏览器不支持 video 标签。<br>
+</video></p>
 <pre><code class="language-javascript">    $(&quot;div&quot;).on({
         //鼠标经过div背景变红
         mouseenter：function(){
