@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>HTML5 one | Personal blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://jianmu123.github.io//favicon.ico?v=1601528637156">
+<link rel="stylesheet" href="https://jianmu123.github.io//styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="1:HTML5新增语义化标签
+ &lt;header&gt;,&lt;footer&gt;, &lt;article&gt;, &lt;section&gt;,&lt;nav&gt;,&lt;main&gt;
+
+2:HTML5新的表单控件:..." />
+    <meta name="keywords" content="HTML5" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://jianmu123.github.io/">
+        <img src="https://jianmu123.github.io//images/avatar.png?v=1601528637156" class="site-logo">
+        <h1 class="site-title">Personal blog</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="https://jianmu123.github.io/post/jquery-de-di-yi-tian" class="site-nav">
+            笔记
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://jianmu123.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">HTML5 one</h2>
+            <div class="post-date">2020-09-28</div>
+            
+              <div class="feature-container" style="background-image: url('https://jianmu123.github.io//post-images/html5-one.jpeg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <h1 id="1html5新增语义化标签">1:HTML5新增语义化标签</h1>
+<pre><code class="language-HTML"> &lt;header&gt;,&lt;footer&gt;, &lt;article&gt;, &lt;section&gt;,&lt;nav&gt;,&lt;main&gt;
+</code></pre>
+<h1 id="2html5新的表单控件">2:HTML5新的表单控件:</h1>
+<pre><code class="language-javascript">邮箱：type=&quot;email&quot; 
+提供了默认的电子邮箱的完整验证：要求必须含有@符号，同时必须包含服务器名称,如果不能满足验证，则会阻止当前的数据提交。
+电话：type=&quot;tel&quot;
+tel并不是用来验证手机号的，它的本质目的是能够在移动端打开数字键盘，意味着数字键盘限制了用户只能输入数字。
+网址：type=&quot;url&quot;
+验证是否是一个合法的网址（必须包含http://）
+数量：type=&quot;number&quot;
+number:只能输入数字（可以包含小数点）,不能输入其他字符
+可以设置max：最大值，min：最小值，value：默认值
+输入：type=&quot;search&quot;
+提供一个更好的输入化体验，即：在表单框最后有一个×，点击了可以直接删除所有内容
+范围 :typr=&quot;range&quot;
+可以设置max，min和默认值value
+颜色：type=&quot;color&quot;
+可以选择颜色
+日期时间相关：
+时分秒：type=&quot;time&quot; 年月日：type=&quot;date&quot;  年月日时分秒：type=&quot;datetime-local&quot;
+月份：type=&quot;month&quot; 星期：type=&quot;week&quot;
+选取文件：type=&quot;file&quot;  它的multiple属性是可以一次选取多个文件
+</code></pre>
+<h1 id="3表单的属性">3:表单的属性：</h1>
+<pre><code class="language-javascript">placeholder :提示文本
+autofocus:自动获取焦点
+autocomplete:自动显示之前提交过的信息，赋值on：表示打开，赋值off，表示关闭，该属性还需要配合表单的name属性和提交控件，name属性需要赋予一个值，然后完成提交才会在下一次点击表单的时候
+显示提交过的信息
+requride:表示必须输入
+pattern：给定一个正则表达式复习正则表达式：
+* ：表示任意一个 
+?：表示0个或则1个
++：表示1个或则多个
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1601362793168.png" alt="" loading="lazy"></figure>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://jianmu123.github.io/tag/CfeK7yDe9/" class="tag">
+                    HTML5
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://jianmu123.github.io/post/jquery5/">
+                  <h3 class="post-title">
+                    jQuery5
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+
+  </body>
+</html>
