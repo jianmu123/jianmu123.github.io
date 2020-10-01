@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jianmu123.github.io/</id>
     <title>Personal blog</title>
-    <updated>2020-10-01T05:06:33.961Z</updated>
+    <updated>2020-10-01T06:54:39.307Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jianmu123.github.io/"/>
     <link rel="self" href="https://jianmu123.github.io/atom.xml"/>
@@ -10,6 +10,59 @@
     <logo>https://jianmu123.github.io/images/avatar.png</logo>
     <icon>https://jianmu123.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Personal blog</rights>
+    <entry>
+        <title type="html"><![CDATA[CSS3 One]]></title>
+        <id>https://jianmu123.github.io/post/css3-one/</id>
+        <link href="https://jianmu123.github.io/post/css3-one/">
+        </link>
+        <updated>2020-10-01T06:50:02.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="一盒子模型">一：盒子模型</h1>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[HTML5 Two]]></title>
+        <id>https://jianmu123.github.io/post/html5-two/</id>
+        <link href="https://jianmu123.github.io/post/html5-two/">
+        </link>
+        <updated>2020-10-01T05:27:24.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="一进度条">一：进度条</h1>
+<pre><code class="language-HTML">&lt;progress&gt; 和&lt;meter&gt; 标签是 HTML 5 中的新标签。
+请结合 &lt;progress&gt; 标签与 JavaScript 一同使用，来显示任务的进度。
+属性：max，min
+&lt;meter&gt; 标签定义度量衡。仅用于已知最大和最小值的度量。
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1601530514020.png" alt="" loading="lazy"></figure>
+<h1 id="二上传文件及时预览的制作">二：上传文件及时预览的制作</h1>
+<p>及时：当用户选择完图片后，立即进行预览的处理<br>
+预览：通过文件读取对象的readAsDataURL()完成。<br>
+上传文件表单属性：type=&quot;file&quot;。<br>
+<img src="https://jianmu123.github.io//post-images/1601531304633.png" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1601531310321.png" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1601531315021.png" alt="" loading="lazy"></p>
+<h1 id="三拖拽">三：拖拽</h1>
+<p>拖拽的事件：<br>
+ondrag  :应用于拖拽元素，整个拖拽过程都会调用。<br>
+ondragstart  :应用于拖拽元素，拖拽开始时调用。<br>
+ondragleave :应用于拖拽元素，鼠标离开拖拽元素时调用。<br>
+ondragend :应用于拖拽元素，拖拽结束时调用。</p>
+<h1 id="四存储方式">四：存储方式</h1>
+<p>1：sessionStorage：<br>
+特点：<br>
+存储数据到本地，存储容量位5mb左右。<br>
+这个数据本质时存储在当前页面的内存种。<br>
+它生命周期位关闭当前页面就会自动清除数据。<br>
+2：localStorage：<br>
+特点：<br>
+存储大小20mb左右。<br>
+不会随着浏览器关闭而消失，它会永久保存。如果想清除，必须手动清。<br>
+它们的属性方法：<br>
+setItem(key,value):存储数据，以键值对的方式存储.<br>
+getItem(key):获取数据，通过指定的名称键值获取对应的value值。<br>
+removeItem(key):删除输出，输出指定名称的对应value值。<br>
+clear():清空所有存储的内容。<br>
+<img src="https://jianmu123.github.io//post-images/1601534950413.png" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[HTML5 one]]></title>
         <id>https://jianmu123.github.io/post/html5-one/</id>
@@ -40,18 +93,27 @@ number:只能输入数字（可以包含小数点）,不能输入其他字符
 月份：type=&quot;month&quot; 星期：type=&quot;week&quot;
 选取文件：type=&quot;file&quot;  它的multiple属性是可以一次选取多个文件
 </code></pre>
-<h1 id="3表单的属性">3:表单的属性：</h1>
-<pre><code class="language-javascript">placeholder :提示文本
+<h1 id="3下拉列表">3：下拉列表</h1>
+<p>以前使用select标签和option标签制作下拉列表，但是它不能让用户手动输入文本，新增了datalist的标签，结合input和option使用，必须与input的list属性进行关联绑定它可以使用户手动输入。<br>
+所有主流浏览器都支持 <datalist> 标签，除了 Internet Explorer 和 Safari。<br>
+<img src="https://jianmu123.github.io//post-images/1601529507046.png" alt="" loading="lazy"></p>
+<h1 id="4表单的属性">4:表单的属性：</h1>
+<pre><code class="language-javascript">placeholder :表单默认提示文本
 autofocus:自动获取焦点
 autocomplete:自动显示之前提交过的信息，赋值on：表示打开，赋值off，表示关闭，该属性还需要配合表单的name属性和提交控件，name属性需要赋予一个值，然后完成提交才会在下一次点击表单的时候
 显示提交过的信息
-requride:表示必须输入
+requride:表示这个表单必须输入内容
 pattern：给定一个正则表达式复习正则表达式：
 * ：表示任意一个 
 ?：表示0个或则1个
 +：表示1个或则多个
 </code></pre>
 <figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1601362793168.png" alt="" loading="lazy"></figure>
+<h1 id="5表单事件">5：表单事件</h1>
+<p>oninput事件：监听当前指定元素的内容，只要内容有改变，便会触发该事件。<br>
+onkeyup事件：键盘弹起触发，每弹起一次就会触发一次。<br>
+oninvalid事件：当验证不通过的时候触发。这里提及一下setCustomValidity属性，可以设置提示文本。<br>
+<img src="https://jianmu123.github.io//post-images/1601529982670.png" alt="" loading="lazy"></p>
 ]]></content>
     </entry>
     <entry>

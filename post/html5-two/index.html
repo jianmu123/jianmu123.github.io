@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>HTML5 Two | Personal blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://jianmu123.github.io//favicon.ico?v=1601535048326">
+<link rel="stylesheet" href="https://jianmu123.github.io//styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="一：进度条
+&lt;progress&gt; 和&lt;meter&gt; 标签是 HTML 5 中的新标签。
+请结合 &lt;progress&gt; 标签与 JavaScript 一同使用，来显示任务的进度。
+属性：max，min
+&l..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://jianmu123.github.io/">
+        <img src="https://jianmu123.github.io//images/avatar.png?v=1601535048326" class="site-logo">
+        <h1 class="site-title">Personal blog</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            笔记
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://jianmu123.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">HTML5 Two</h2>
+            <div class="post-date">2020-10-01</div>
+            
+              <div class="feature-container" style="background-image: url('https://jianmu123.github.io//post-images/html5-two.jpeg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <h1 id="一进度条">一：进度条</h1>
+<pre><code class="language-HTML">&lt;progress&gt; 和&lt;meter&gt; 标签是 HTML 5 中的新标签。
+请结合 &lt;progress&gt; 标签与 JavaScript 一同使用，来显示任务的进度。
+属性：max，min
+&lt;meter&gt; 标签定义度量衡。仅用于已知最大和最小值的度量。
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1601530514020.png" alt="" loading="lazy"></figure>
+<h1 id="二上传文件及时预览的制作">二：上传文件及时预览的制作</h1>
+<p>及时：当用户选择完图片后，立即进行预览的处理<br>
+预览：通过文件读取对象的readAsDataURL()完成。<br>
+上传文件表单属性：type=&quot;file&quot;。<br>
+<img src="https://jianmu123.github.io//post-images/1601531304633.png" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1601531310321.png" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1601531315021.png" alt="" loading="lazy"></p>
+<h1 id="三拖拽">三：拖拽</h1>
+<p>拖拽的事件：<br>
+ondrag  :应用于拖拽元素，整个拖拽过程都会调用。<br>
+ondragstart  :应用于拖拽元素，拖拽开始时调用。<br>
+ondragleave :应用于拖拽元素，鼠标离开拖拽元素时调用。<br>
+ondragend :应用于拖拽元素，拖拽结束时调用。</p>
+<h1 id="四存储方式">四：存储方式</h1>
+<p>1：sessionStorage：<br>
+特点：<br>
+存储数据到本地，存储容量位5mb左右。<br>
+这个数据本质时存储在当前页面的内存种。<br>
+它生命周期位关闭当前页面就会自动清除数据。<br>
+2：localStorage：<br>
+特点：<br>
+存储大小20mb左右。<br>
+不会随着浏览器关闭而消失，它会永久保存。如果想清除，必须手动清。<br>
+它们的属性方法：<br>
+setItem(key,value):存储数据，以键值对的方式存储.<br>
+getItem(key):获取数据，通过指定的名称键值获取对应的value值。<br>
+removeItem(key):删除输出，输出指定名称的对应value值。<br>
+clear():清空所有存储的内容。<br>
+<img src="https://jianmu123.github.io//post-images/1601534950413.png" alt="" loading="lazy"></p>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://jianmu123.github.io/post/html5-one/">
+                  <h3 class="post-title">
+                    HTML5 one
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+
+  </body>
+</html>
