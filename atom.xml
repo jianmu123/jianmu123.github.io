@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jianmu123.github.io/</id>
     <title>Personal blog</title>
-    <updated>2020-10-01T06:54:39.307Z</updated>
+    <updated>2020-10-01T07:02:21.892Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jianmu123.github.io/"/>
     <link rel="self" href="https://jianmu123.github.io/atom.xml"/>
@@ -17,6 +17,9 @@
         </link>
         <updated>2020-10-01T06:50:02.000Z</updated>
         <content type="html"><![CDATA[<h1 id="一盒子模型">一：盒子模型</h1>
+<p>以前的盒子的大小是盒子的本身加上padding+border+margin，因此盒子的大小不会是我们设置的大小，这样还需要去计算来设置我们想要的盒子大小，现在css3添加了盒子模型，这样的盒子大小就是我们设置的盒子大小。只需要在盒子的样式中添加：box-sizing：border-box；</p>
+<h1 id="二盒子阴影">二：盒子阴影</h1>
+<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1601535646649.png" alt="" loading="lazy"></figure>
 ]]></content>
     </entry>
     <entry>
