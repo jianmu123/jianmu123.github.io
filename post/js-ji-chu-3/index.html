@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-<title>CSS3 One - Personal blog</title>
+<title>js基础3 - Personal blog</title>
 <meta name="description" content="温故而知新">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -124,32 +124,82 @@
                     <div class="col-12 col-lg-10">
                       <div class="layout-post-main m-right m-md-right">
                         <div class="layout-post-header">
-                          <h1 class="layout-post-title">CSS3 One</h1>
+                          <h1 class="layout-post-title">js基础3</h1>
                           <div class="layout-post-meta">
                             <div class="item">
-                               <a href="https://jianmu123.github.io/tag/UftFshuw4/" class="post--keyword"
-                                data-title="CSS3" data-type="post_tag" data-term-id="39">CSS3</a>
                               
                             </div>
                             <div class="item">
-                              <span>2020-10-01</span>
+                              <span>2020-10-04</span>
                             </div>
                           </div>
                         </div>
                         <div class="layout-post-content">
                           <div class="layout-post-item">
                             
-                            <h1 id="一盒子模型">一：盒子模型</h1>
-<p>以前的盒子的大小是盒子的本身加上padding+border+margin，因此盒子的大小不会是我们设置的大小，这样还需要去计算来设置我们想要的盒子大小，现在css3添加了盒子模型，这样的盒子大小就是我们设置的盒子大小。只需要在盒子的样式中添加：box-sizing：border-box；</p>
-<h1 id="二盒子阴影">二：盒子阴影</h1>
-<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1601535646649.png" alt="" loading="lazy"></figure>
+                            <h2 id="js中的操作语句判断-循环">js中的操作语句：判断、循环</h2>
+<blockquote>
+<p>判断 ：</p>
+<p>​			if/else if/else</p>
+<p>​			三元运算符</p>
+<p>​			switch case</p>
+</blockquote>
+<p>三元运算符： 条件？条件成立执行的事情：不成立执行的事情；</p>
+<p>1：如果处理的事情多，我们用括号包起来，每一件事情用逗号分隔.</p>
+<p>2:如果不需要处理事情，可以使用null/undefined占位.</p>
+<p>上面2句说法的解释：</p>
+<pre><code class="language-javascript">例如用if写一个判断,这里做了2件事情，并且不满足的时候什么事情都不做：
+if (a&gt;0&amp;&amp;a&lt;10){
+   a++;
+   console.log(a);
+}
+它的三元运算符这样写：
+a&gt;0&amp;&amp;a&lt;10 ? (a++,console.log(a)):null; 
+//1：如果处理的事情多，我们用括号包起来，每一件事情用逗号分隔2:如果不需要处理事情，可以使用null/undefined占位.
+</code></pre>
+<h2 id="js中的内存关系">js中的内存关系：</h2>
+<p><img src="https://jianmu123.github.io//post-images/1601825663184.PNG" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1601825668128.png" alt="" loading="lazy"></p>
+<h2 id="js中的函数">js中的函数</h2>
+<blockquote>
+<p>函数中的返回值：<br>
+函数执行的时候，函数体内部创建的变量我们是无法获取和操作的，如果想要获取内部信息，需要使用return返回机制。返回的一定是一个值，不是变量。</p>
+</blockquote>
+<pre><code class="language-javascript">function sum(a,b){
+    let result=a+b;
+    //return的一定是值：此处是把result变量存储的值返回给外面
+    return result;
+}
+sum(10,20);//是这个整体值为30，不是result值为30 
+console.log(result);//会报错 Uncaught ReferenceError: result is not defined
+
+如果没有写return，调用函数的默认返回值是undefined.
+</code></pre>
+<blockquote>
+<p>函数体中遇到return 则后面的代码不会再运行。</p>
+</blockquote>
+<h2 id="匿名函数">匿名函数</h2>
+<p>匿名函数分为：函数表达式和自执行函数</p>
+<ul>
+<li>函数表达式：把一个匿名函数本身作为值赋值给其他东西，这种函数一般不是手动触发，而是靠其他驱动程序触发执行（例如：触发某个事件的时候执行）</li>
+</ul>
+<p>如： document.body.onclick=function(){};</p>
+<p>setTimeout(function(){},1000);//设置定时器，1000ms后执行匿名函数</p>
+<ul>
+<li>自执行函数： 能创建完一个匿名函数，紧接着就把当前函数加<strong>小括号</strong>执行</li>
+</ul>
+<p>如：</p>
+<p>（function（n）{</p>
+<p>​    //n=100</p>
+<p>​     }）(100);</p>
+<p>//这里的（100）执行了匿名函数，得到了n=100；</p>
 
                           </div>
                         </div>
                         <div class="layout-post-social">
                           <div class="item reader">
-                            <div id="/post/css3-one/" class="leancloud-visitors view"
-                              data-flag-title="CSS3 One">
+                            <div id="/post/js-ji-chu-3/" class="leancloud-visitors view"
+                              data-flag-title="js基础3">
                               <span class="post-meta-item-text">阅读 </span>
                               <span class="leancloud-visitors-count"></span>
                             </div>
@@ -164,8 +214,8 @@
                               <div class="card-content col-12">
                                 <div class="card-body">
                                   <div class="header">
-                                    <a href="https://jianmu123.github.io/post/js-ji-chu-1/" class="title">
-                                      <h4>JS基础1</h4>
+                                    <a href="https://jianmu123.github.io/post/js-ji-chu-2/" class="title">
+                                      <h4>js基础2</h4>
                                     </a>
                                   </div>
                                   <div class="inner">
@@ -175,42 +225,12 @@
                                   </div>
                                 </div>
                                 <div class="card-footer">
-                                  <div class="item"><span>上一篇</span></div>
-                                  <div class="item">2020-10-03</div>
-                                </div>
-                              </div>
-                              
-                            </div>
-
-                            <div class="post-card row">
-                              
-                              <div class="card-content col-8 col-md-9">
-                                <div class="card-body">
-                                  <div class="header">
-                                    <a href="https://jianmu123.github.io/post/html5-two/" class="title">
-                                      <h4>HTML5 Two</h4>
-                                    </a>
-                                  </div>
-                                  <div class="inner d-none d-sm-block">
-                                    <div class="abstract">
-                                      
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="card-footer">
                                   <div class="item"><span>下一篇</span></div>
-                                  <div class="item">2020-10-01</div>
-                                </div>
-                              </div>
-                              <div class="card-thumb col-4 col-md-3">
-                                <div class="thumb">
-                                  <a href="https://jianmu123.github.io/post/html5-two/"
-                                    style="background-image: url('https://jianmu123.github.io//post-images/html5-two.jpeg');"></a>
+                                  <div class="item">2020-10-04</div>
                                 </div>
                               </div>
                               
                             </div>
-
                             
                           </div>
                         </div>
@@ -224,8 +244,14 @@
                       <div class="layout-post-sidebar">
                         <div class="layout-sidebar-item">
                           <ul class="markdownIt-TOC">
-<li><a href="#%E4%B8%80%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B">一：盒子模型</a></li>
-<li><a href="#%E4%BA%8C%E7%9B%92%E5%AD%90%E9%98%B4%E5%BD%B1">二：盒子阴影</a></li>
+<li>
+<ul>
+<li><a href="#js%E4%B8%AD%E7%9A%84%E6%93%8D%E4%BD%9C%E8%AF%AD%E5%8F%A5%E5%88%A4%E6%96%AD-%E5%BE%AA%E7%8E%AF">js中的操作语句：判断、循环</a></li>
+<li><a href="#js%E4%B8%AD%E7%9A%84%E5%86%85%E5%AD%98%E5%85%B3%E7%B3%BB">js中的内存关系：</a></li>
+<li><a href="#js%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0">js中的函数</a></li>
+<li><a href="#%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0">匿名函数</a></li>
+</ul>
+</li>
 </ul>
 
                         </div>

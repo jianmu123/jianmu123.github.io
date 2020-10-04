@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-<title>CSS3 One - Personal blog</title>
+<title>js基础2 - Personal blog</title>
 <meta name="description" content="温故而知新">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -124,32 +124,123 @@
                     <div class="col-12 col-lg-10">
                       <div class="layout-post-main m-right m-md-right">
                         <div class="layout-post-header">
-                          <h1 class="layout-post-title">CSS3 One</h1>
+                          <h1 class="layout-post-title">js基础2</h1>
                           <div class="layout-post-meta">
                             <div class="item">
-                               <a href="https://jianmu123.github.io/tag/UftFshuw4/" class="post--keyword"
-                                data-title="CSS3" data-type="post_tag" data-term-id="39">CSS3</a>
                               
                             </div>
                             <div class="item">
-                              <span>2020-10-01</span>
+                              <span>2020-10-04</span>
                             </div>
                           </div>
                         </div>
                         <div class="layout-post-content">
                           <div class="layout-post-item">
                             
-                            <h1 id="一盒子模型">一：盒子模型</h1>
-<p>以前的盒子的大小是盒子的本身加上padding+border+margin，因此盒子的大小不会是我们设置的大小，这样还需要去计算来设置我们想要的盒子大小，现在css3添加了盒子模型，这样的盒子大小就是我们设置的盒子大小。只需要在盒子的样式中添加：box-sizing：border-box；</p>
-<h1 id="二盒子阴影">二：盒子阴影</h1>
-<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1601535646649.png" alt="" loading="lazy"></figure>
+                            <h2 id="js中的数据类型检测">js中的数据类型检测</h2>
+<ul>
+<li>typeof[val]:用来检测数据类型的运算符</li>
+<li>instanceof :用来检测当前实列是否属于某个类</li>
+<li>constructor：基于构造函数检测数据类型(也是基于类的方式)</li>
+<li>Object.prototype.toString.call（）：检测数据类型最好的办法</li>
+</ul>
+<h4 id="一基于typeof检测的结果">一：基于typeof检测的结果</h4>
+<ul>
+<li>都是字符串</li>
+<li>字符串中包含的是对应类型</li>
+</ul>
+<p>例如：console .log(typeof typeof typeof[]);</p>
+<p>​       首先 typeof [] 返回 ”object“</p>
+<p>​		然后 typeof ”object“ 返回 ”string“</p>
+<p>​		最后typeof &quot;string&quot;返回”string“</p>
+<p>​	   typeof NaN;//”number“</p>
+<pre><code>  typeof null;//“object”
+
+typeof {};//”object“
+
+typeof [];//“object”
+
+typeof /^$/;//”object“
+</code></pre>
+<p>typeof 的局限性：</p>
+<p>​     -  typeof null的结果是object ，但是null不是对象只是空对象指针</p>
+<p>​     -  typeof 无法细分出当前值是普通对象还是数组对象等，因为只要检测的是对象数据类型都返回”object“</p>
+<h4 id="二-基于instanceof检测结果">二： 基于instanceof检测结果</h4>
+<p>instanceof只能检测引用数据类型，对于基本类型不生效,返回值是true/false。并且它不能用于检测null和undefined。</p>
+<pre><code class="language-javascript">例如：
+
+ 		console.log(&quot;1&quot; instanceof String); //false
+
+ 		console.log(1 instanceof Number); //false
+
+ 		console.log(true instanceof Boolean); //false
+
+ 		console.log([]  instanceof Array); //true
+
+ 		console.log({} instanceof Object); //true
+
+ 		console.log(function(){} instanceof Function); //true
+
+</code></pre>
+<h4 id="三-基于constructor检测结果">三： 基于constructor检测结果</h4>
+<p>先看一下用法：</p>
+<pre><code class="language-javascript">console.log((&quot;1&quot;).constructor===String);//true
+console.log((1).constructor===Number;//true
+console.log((true).constructor===Boolean);//true
+console.log(([]).constructor===Array);//true
+console.log(({}).constructor===Object);//true
+console.log((function(){}).constructor===Fuction);//true
+</code></pre>
+<p>撇去null和undefined，可以看出constructor能用于检测js的基本类型和引用类型。但是设计到原型和继承的时候便会出现问题。如下</p>
+<pre><code class="language-javascript">function fun(){};
+    fun.prototype=new Array();
+    let f=new fun();
+	console.log(f.constructor===fun);//false
+	console.log(f.constructor===Array);//ture
+    
+</code></pre>
+<p>在这里，我们先是定义了一个函数fun，并将该函数的原型指向了数组，同时，声明了一个f为fun的类型，然后利用constructor进行检测时，结果如下：false  true;</p>
+<h3 id="小结撇去null和undefinedconstructor能用于检测js的基本类型和引用类型但当对象的原型更改之后constructor便失效了">小结：撇去null和undefined，constructor能用于检测js的基本类型和引用类型，但当对象的原型更改之后，constructor便失效了。</h3>
+<h4 id="四objectprototypetostringcall">四：Object.prototype.toString.call()</h4>
+<p>用法：</p>
+<pre><code>  ```javascript
+</code></pre>
+<p>console.log(Object.prototype.toString.call(&quot;str&quot;));<br>
+console.log(Object.prototype.toString.call(1));<br>
+console.log(Object.prototype.toString.call(true));<br>
+console.log(Object.prototype.toString.call(null));<br>
+console.log(Object.prototype.toString.call(undefined));<br>
+console.log(Object.prototype.toString.call([]));<br>
+console.log(Object.prototype.toString.call({}));<br>
+console.log(Object.prototype.toString.call(function(){}));<br>
+```</p>
+<p>结果：</p>
+<p>[Object String]</p>
+<p>[Object Number]</p>
+<p>[Object Boolean]</p>
+<p>[Object null]</p>
+<p>[Object undefined]</p>
+<p>[Object Array]</p>
+<p>[Object Object]</p>
+<p>[Object Function]</p>
+<p>这样一看，似乎能满足js的所有数据类型，那我们看下继承之后是否能检测出来</p>
+<pre><code class="language-javascript">function fun(){};
+    fun.prototype=new Array();
+    let f=new fun();
+	console.log(object.prototype.toString.call(fun));
+	console.log(object.prototype.toString.call(f));
+</code></pre>
+<p>结果：</p>
+<p>[Object Function]</p>
+<p>[Object Object]</p>
+<h3 id="可以看出objectprototypetostringcall可用于检测js所有的数据类型">可以看出，Object.prototype.toString.call()可用于检测js所有的数据类型。</h3>
 
                           </div>
                         </div>
                         <div class="layout-post-social">
                           <div class="item reader">
-                            <div id="/post/css3-one/" class="leancloud-visitors view"
-                              data-flag-title="CSS3 One">
+                            <div id="/post/js-ji-chu-2/" class="leancloud-visitors view"
+                              data-flag-title="js基础2">
                               <span class="post-meta-item-text">阅读 </span>
                               <span class="leancloud-visitors-count"></span>
                             </div>
@@ -159,6 +250,29 @@
                         <div class="layout-post-navigation">
                           <div class="navigation-list">
                             
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-12">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://jianmu123.github.io/post/js-ji-chu-3/" class="title">
+                                      <h4>js基础3</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner">
+                                    <div class="abstract">
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item">2020-10-04</div>
+                                </div>
+                              </div>
+                              
+                            </div>
+
                             <div class="post-card row">
                               
                               <div class="card-content col-12">
@@ -175,37 +289,8 @@
                                   </div>
                                 </div>
                                 <div class="card-footer">
-                                  <div class="item"><span>上一篇</span></div>
-                                  <div class="item">2020-10-03</div>
-                                </div>
-                              </div>
-                              
-                            </div>
-
-                            <div class="post-card row">
-                              
-                              <div class="card-content col-8 col-md-9">
-                                <div class="card-body">
-                                  <div class="header">
-                                    <a href="https://jianmu123.github.io/post/html5-two/" class="title">
-                                      <h4>HTML5 Two</h4>
-                                    </a>
-                                  </div>
-                                  <div class="inner d-none d-sm-block">
-                                    <div class="abstract">
-                                      
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="card-footer">
                                   <div class="item"><span>下一篇</span></div>
-                                  <div class="item">2020-10-01</div>
-                                </div>
-                              </div>
-                              <div class="card-thumb col-4 col-md-3">
-                                <div class="thumb">
-                                  <a href="https://jianmu123.github.io/post/html5-two/"
-                                    style="background-image: url('https://jianmu123.github.io//post-images/html5-two.jpeg');"></a>
+                                  <div class="item">2020-10-03</div>
                                 </div>
                               </div>
                               
@@ -224,8 +309,24 @@
                       <div class="layout-post-sidebar">
                         <div class="layout-sidebar-item">
                           <ul class="markdownIt-TOC">
-<li><a href="#%E4%B8%80%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B">一：盒子模型</a></li>
-<li><a href="#%E4%BA%8C%E7%9B%92%E5%AD%90%E9%98%B4%E5%BD%B1">二：盒子阴影</a></li>
+<li>
+<ul>
+<li><a href="#js%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%B5%8B">js中的数据类型检测</a><br>
+*
+<ul>
+<li><a href="#%E4%B8%80%E5%9F%BA%E4%BA%8Etypeof%E6%A3%80%E6%B5%8B%E7%9A%84%E7%BB%93%E6%9E%9C">一：基于typeof检测的结果</a></li>
+<li><a href="#%E4%BA%8C-%E5%9F%BA%E4%BA%8Einstanceof%E6%A3%80%E6%B5%8B%E7%BB%93%E6%9E%9C">二： 基于instanceof检测结果</a></li>
+<li><a href="#%E4%B8%89-%E5%9F%BA%E4%BA%8Econstructor%E6%A3%80%E6%B5%8B%E7%BB%93%E6%9E%9C">三： 基于constructor检测结果</a></li>
+<li><a href="#%E5%B0%8F%E7%BB%93%E6%92%87%E5%8E%BBnull%E5%92%8Cundefinedconstructor%E8%83%BD%E7%94%A8%E4%BA%8E%E6%A3%80%E6%B5%8Bjs%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E4%BD%86%E5%BD%93%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8E%9F%E5%9E%8B%E6%9B%B4%E6%94%B9%E4%B9%8B%E5%90%8Econstructor%E4%BE%BF%E5%A4%B1%E6%95%88%E4%BA%86">小结：撇去null和undefined，constructor能用于检测js的基本类型和引用类型，但当对象的原型更改之后，constructor便失效了。</a>
+<ul>
+<li><a href="#%E5%9B%9Bobjectprototypetostringcall">四：Object.prototype.toString.call()</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%87%BAobjectprototypetostringcall%E5%8F%AF%E7%94%A8%E4%BA%8E%E6%A3%80%E6%B5%8Bjs%E6%89%80%E6%9C%89%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">可以看出，Object.prototype.toString.call()可用于检测js所有的数据类型。</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
                         </div>

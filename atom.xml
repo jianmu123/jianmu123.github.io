@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jianmu123.github.io/</id>
     <title>Personal blog</title>
-    <updated>2020-10-03T14:26:01.367Z</updated>
+    <updated>2020-10-04T15:35:11.930Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jianmu123.github.io/"/>
     <link rel="self" href="https://jianmu123.github.io/atom.xml"/>
@@ -10,6 +10,384 @@
     <logo>https://jianmu123.github.io/images/avatar.png</logo>
     <icon>https://jianmu123.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Personal blog</rights>
+    <entry>
+        <title type="html"><![CDATA[js基础3]]></title>
+        <id>https://jianmu123.github.io/post/js-ji-chu-3/</id>
+        <link href="https://jianmu123.github.io/post/js-ji-chu-3/">
+        </link>
+        <updated>2020-10-04T15:32:11.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="js中的操作语句判断-循环">js中的操作语句：判断、循环</h2>
+<blockquote>
+<p>判断 ：</p>
+<p>​			if/else if/else</p>
+<p>​			三元运算符</p>
+<p>​			switch case</p>
+</blockquote>
+<p>三元运算符： 条件？条件成立执行的事情：不成立执行的事情；</p>
+<p>1：如果处理的事情多，我们用括号包起来，每一件事情用逗号分隔.</p>
+<p>2:如果不需要处理事情，可以使用null/undefined占位.</p>
+<p>上面2句说法的解释：</p>
+<pre><code class="language-javascript">例如用if写一个判断,这里做了2件事情，并且不满足的时候什么事情都不做：
+if (a&gt;0&amp;&amp;a&lt;10){
+   a++;
+   console.log(a);
+}
+它的三元运算符这样写：
+a&gt;0&amp;&amp;a&lt;10 ? (a++,console.log(a)):null; 
+//1：如果处理的事情多，我们用括号包起来，每一件事情用逗号分隔2:如果不需要处理事情，可以使用null/undefined占位.
+</code></pre>
+<h2 id="js中的内存关系">js中的内存关系：</h2>
+<p><img src="https://jianmu123.github.io//post-images/1601825663184.PNG" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1601825668128.png" alt="" loading="lazy"></p>
+<h2 id="js中的函数">js中的函数</h2>
+<blockquote>
+<p>函数中的返回值：<br>
+函数执行的时候，函数体内部创建的变量我们是无法获取和操作的，如果想要获取内部信息，需要使用return返回机制。返回的一定是一个值，不是变量。</p>
+</blockquote>
+<pre><code class="language-javascript">function sum(a,b){
+    let result=a+b;
+    //return的一定是值：此处是把result变量存储的值返回给外面
+    return result;
+}
+sum(10,20);//是这个整体值为30，不是result值为30 
+console.log(result);//会报错 Uncaught ReferenceError: result is not defined
+
+如果没有写return，调用函数的默认返回值是undefined.
+</code></pre>
+<blockquote>
+<p>函数体中遇到return 则后面的代码不会再运行。</p>
+</blockquote>
+<h2 id="匿名函数">匿名函数</h2>
+<p>匿名函数分为：函数表达式和自执行函数</p>
+<ul>
+<li>函数表达式：把一个匿名函数本身作为值赋值给其他东西，这种函数一般不是手动触发，而是靠其他驱动程序触发执行（例如：触发某个事件的时候执行）</li>
+</ul>
+<p>如： document.body.onclick=function(){};</p>
+<p>setTimeout(function(){},1000);//设置定时器，1000ms后执行匿名函数</p>
+<ul>
+<li>自执行函数： 能创建完一个匿名函数，紧接着就把当前函数加<strong>小括号</strong>执行</li>
+</ul>
+<p>如：</p>
+<p>（function（n）{</p>
+<p>​    //n=100</p>
+<p>​     }）(100);</p>
+<p>//这里的（100）执行了匿名函数，得到了n=100；</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[js基础2]]></title>
+        <id>https://jianmu123.github.io/post/js-ji-chu-2/</id>
+        <link href="https://jianmu123.github.io/post/js-ji-chu-2/">
+        </link>
+        <updated>2020-10-04T15:31:22.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="js中的数据类型检测">js中的数据类型检测</h2>
+<ul>
+<li>typeof[val]:用来检测数据类型的运算符</li>
+<li>instanceof :用来检测当前实列是否属于某个类</li>
+<li>constructor：基于构造函数检测数据类型(也是基于类的方式)</li>
+<li>Object.prototype.toString.call（）：检测数据类型最好的办法</li>
+</ul>
+<h4 id="一基于typeof检测的结果">一：基于typeof检测的结果</h4>
+<ul>
+<li>都是字符串</li>
+<li>字符串中包含的是对应类型</li>
+</ul>
+<p>例如：console .log(typeof typeof typeof[]);</p>
+<p>​       首先 typeof [] 返回 ”object“</p>
+<p>​		然后 typeof ”object“ 返回 ”string“</p>
+<p>​		最后typeof &quot;string&quot;返回”string“</p>
+<p>​	   typeof NaN;//”number“</p>
+<pre><code>  typeof null;//“object”
+
+typeof {};//”object“
+
+typeof [];//“object”
+
+typeof /^$/;//”object“
+</code></pre>
+<p>typeof 的局限性：</p>
+<p>​     -  typeof null的结果是object ，但是null不是对象只是空对象指针</p>
+<p>​     -  typeof 无法细分出当前值是普通对象还是数组对象等，因为只要检测的是对象数据类型都返回”object“</p>
+<h4 id="二-基于instanceof检测结果">二： 基于instanceof检测结果</h4>
+<p>instanceof只能检测引用数据类型，对于基本类型不生效,返回值是true/false。并且它不能用于检测null和undefined。</p>
+<pre><code class="language-javascript">例如：
+
+ 		console.log(&quot;1&quot; instanceof String); //false
+
+ 		console.log(1 instanceof Number); //false
+
+ 		console.log(true instanceof Boolean); //false
+
+ 		console.log([]  instanceof Array); //true
+
+ 		console.log({} instanceof Object); //true
+
+ 		console.log(function(){} instanceof Function); //true
+
+</code></pre>
+<h4 id="三-基于constructor检测结果">三： 基于constructor检测结果</h4>
+<p>先看一下用法：</p>
+<pre><code class="language-javascript">console.log((&quot;1&quot;).constructor===String);//true
+console.log((1).constructor===Number;//true
+console.log((true).constructor===Boolean);//true
+console.log(([]).constructor===Array);//true
+console.log(({}).constructor===Object);//true
+console.log((function(){}).constructor===Fuction);//true
+</code></pre>
+<p>撇去null和undefined，可以看出constructor能用于检测js的基本类型和引用类型。但是设计到原型和继承的时候便会出现问题。如下</p>
+<pre><code class="language-javascript">function fun(){};
+    fun.prototype=new Array();
+    let f=new fun();
+	console.log(f.constructor===fun);//false
+	console.log(f.constructor===Array);//ture
+    
+</code></pre>
+<p>在这里，我们先是定义了一个函数fun，并将该函数的原型指向了数组，同时，声明了一个f为fun的类型，然后利用constructor进行检测时，结果如下：false  true;</p>
+<h3 id="小结撇去null和undefinedconstructor能用于检测js的基本类型和引用类型但当对象的原型更改之后constructor便失效了">小结：撇去null和undefined，constructor能用于检测js的基本类型和引用类型，但当对象的原型更改之后，constructor便失效了。</h3>
+<h4 id="四objectprototypetostringcall">四：Object.prototype.toString.call()</h4>
+<p>用法：</p>
+<pre><code>  ```javascript
+</code></pre>
+<p>console.log(Object.prototype.toString.call(&quot;str&quot;));<br>
+console.log(Object.prototype.toString.call(1));<br>
+console.log(Object.prototype.toString.call(true));<br>
+console.log(Object.prototype.toString.call(null));<br>
+console.log(Object.prototype.toString.call(undefined));<br>
+console.log(Object.prototype.toString.call([]));<br>
+console.log(Object.prototype.toString.call({}));<br>
+console.log(Object.prototype.toString.call(function(){}));<br>
+```</p>
+<p>结果：</p>
+<p>[Object String]</p>
+<p>[Object Number]</p>
+<p>[Object Boolean]</p>
+<p>[Object null]</p>
+<p>[Object undefined]</p>
+<p>[Object Array]</p>
+<p>[Object Object]</p>
+<p>[Object Function]</p>
+<p>这样一看，似乎能满足js的所有数据类型，那我们看下继承之后是否能检测出来</p>
+<pre><code class="language-javascript">function fun(){};
+    fun.prototype=new Array();
+    let f=new fun();
+	console.log(object.prototype.toString.call(fun));
+	console.log(object.prototype.toString.call(f));
+</code></pre>
+<p>结果：</p>
+<p>[Object Function]</p>
+<p>[Object Object]</p>
+<h3 id="可以看出objectprototypetostringcall可用于检测js所有的数据类型">可以看出，Object.prototype.toString.call()可用于检测js所有的数据类型。</h3>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[JS基础1]]></title>
+        <id>https://jianmu123.github.io/post/js-ji-chu-1/</id>
+        <link href="https://jianmu123.github.io/post/js-ji-chu-1/">
+        </link>
+        <updated>2020-10-03T14:16:31.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="js做客户端语言">JS做客户端语言</h3>
+<blockquote>
+<p>按照相关的js语法，再去操作页面的元素。4，有时还需要操作浏览器里面的一些功能》</p>
+<ul>
+<li>
+<p>ECSAScript3/5/6...：JS的语法规范（变量、数据类型、操作语句等等）。</p>
+</li>
+<li>
+<p>DOM(document object model):文档对象模型，提供一些JS的属性方法，用来操作页面的DOM元素。</p>
+</li>
+<li>
+<p>BOM(browser object model):浏览器对象模型，提供一些JS的属性和方法，用来操作浏览器（比如：刷新，关闭等等）。</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="js中的变量-variable">JS中的变量 variable</h3>
+<blockquote>
+<p>变量：可变的量，在编程语言中，变量就是一个名字，用来存储和代表不同的值的东西。</p>
+</blockquote>
+<pre><code class="language-javascript">//ES3
+   var a=12;
+ 	   a=13;
+   console.log(a);//=&gt;输出的a的值是13
+//ES6
+ 	let b=100;
+		b=200;
+  const c=1000;
+		c=2000;//会报错，因为const存储的值不能被修改（可以理解为常量）。
+//创建函数也相当于创建变量
+function fu(){}
+//ES6中创建类也相当于在创建变量
+class A{}
+//ES6的模块导入也可以创建变量
+import B from './B.js';//导入一个模块，创建一个B来存储
+//Symbol创建唯一值
+let n=Symbol(100);
+let m=Symbol(100);
+console.log(m==n);//false,因为是创建的唯一值
+</code></pre>
+<h3 id="js的命名规范">JS的命名规范</h3>
+<ul>
+<li>
+<p>严格区分大小写</p>
+</li>
+<li>
+<p>使用数字、字母、下划线、$,数字不能开头</p>
+</li>
+<li>
+<p>使用驼峰命名法：首写字母小写，其余每一个有意义单词首字母大写</p>
+</li>
+</ul>
+<h3 id="js中常用的数据类型">JS中常用的数据类型</h3>
+<p>— 基本数据类型</p>
+<ul>
+<li>数字类型number（NaN也是数字类型）</li>
+<li>字符串类型string</li>
+<li>布尔类型boolean</li>
+<li>空对象指针null</li>
+<li>未定义类型undefined</li>
+</ul>
+<p>—引用数据类型</p>
+<ul>
+<li>
+<p>对象数据类型object</p>
+<p>​    {}：普通对象</p>
+<p>​    []：数组对象</p>
+<p>​    /^$/:正则对象</p>
+<p>​    Math数学函数对象</p>
+<p>日期对象</p>
+<p>、、、</p>
+</li>
+<li>
+<p>函数数据类型function</p>
+</li>
+</ul>
+<h3 id="number数字类型">number数字类型</h3>
+<blockquote>
+<p>包含：常规数字和NaN</p>
+</blockquote>
+<h4 id="nan">NaN:</h4>
+<p>不是一个数字，和任何值都不相等（包括自己）。NaN !=NaN，所以我们不能用相等的方式来判断是否是一个有效数字。</p>
+<h4 id="isnan">isNaN</h4>
+<blockquote>
+<p>检测一个值是否是非有效数字，如果不是有效数字返回true，否则返回false。</p>
+<p>语法：isNaN（[val]）</p>
+</blockquote>
+<pre><code class="language-console.log(isNaN(10));//false">console.log(isNaN(10));//false
+
+console.log(isNaN('AA'));//true
+//机制：Number('AA')=&gt;NaN
+注意：
+console.log(isNaN('10'));//false
+//机制：Number('10')=&gt;10
+isNaN的使用机制：首先看这个值是不是数字类型，如果不是则会使用Number()这个方法把值转换数字类型，然后再检测
+
+</code></pre>
+<h3 id="字符串转数字">字符串转数字</h3>
+<blockquote>
+<p>Number()方法把字符串转换为数字，只要字符串中包含任意一个非有效数字字符，结果都是NaN，空字符串会转换为数字0。</p>
+</blockquote>
+<pre><code class="language-javascript">console.log(Number('12.5'));//12.5
+console.log(Number('12.5px'));//NaN
+console.log(Number(''));//0
+</code></pre>
+<h3 id="布尔转数字">布尔转数字</h3>
+<p>同样使用Number()方法，ture=&gt;1;false=&gt;0。</p>
+<h3 id="空对象和undefined转数字">空对象和undefined转数字</h3>
+<pre><code class="language-javascript">console.log(Number(null));//0
+
+console.log(Number(undefined));//NaN
+</code></pre>
+<h3 id="引用数据类型转数字">引用数据类型转数字</h3>
+<p>把引用数据类型先通过toString()方法转换为字符串，然后再通过Number()方法转换为数字。</p>
+<pre><code class="language-javascript">对象
+console.log(Number({number:'xxx'}));//NaN
+console.log(Number({}));//NaN
+//toString()方法转为object
+数组
+console.log(Number([]);//0
+//toSting()转为空字符串&quot;&quot;,然后Number()把它转为0
+console.log(Number([12]);//12
+//toSting()转为&quot;12&quot;
+console.log(Number([12,23]);//NaN
+//toSting()转为&quot;12,23&quot;,含有非有效数字字符（逗号）
+</code></pre>
+<h3 id="把其他类型值转换为数字类型">把其他类型值转换为数字类型</h3>
+<ul>
+<li>Number([val])</li>
+<li>parseInt([val]，[进制])  //返回整数</li>
+<li>parseFloat([val]，[进制]) //返回浮点数<br>
+后面两种方法对字符串来说是从左到右一次查找有效字符，直到遇到非有效字符，就停止查找（无论后面是否还有有效数字都会停止），然后返回查找的数字。</li>
+</ul>
+<pre><code class="language-javascript">let str='12.5px'
+console.log(Number(str);// NaN
+console.log(parseInt(tsr));//12
+console.log(parseFloat(str));//12.5
+</code></pre>
+<p>== 进行比较的时候，可能会把其他类型转换为数字<br>
+比如：console.log('10'==10);//true</p>
+<h3 id="其他类型转换为字符串">其他类型转换为字符串</h3>
+<ul>
+<li>[val].toString()</li>
+<li>字符串拼接</li>
+</ul>
+<p>null和undefined是禁止直接使用toString的 。</p>
+<p>加号有四则运算的功能和字符串拼接的功能，只有遇到字符串才是字符串拼接的功能。</p>
+<pre><code class="language-javascript">console.log('10'+10);  =&gt;'1010'
+let a=10+null+true+[12]+undefined+'珠峰'+null+[]+10+false;
+/*
+ 10+null=10+0=10
+ 10+true=10+1=11
+ 11+[12]=11+'12'='1112' 遇到字符串直接进行字符串拼接，之后所有+号都是拼接
+ '1112'+undefined='1112undefined'
+ '1112undefined'+'珠峰'='1112undefined珠峰'
+ '1112undefined珠峰'+null='1112undefined珠峰null'
+ '1112undefined珠峰null'+[]='1112undefined珠峰null'  空数组转为空字符串
+ '1112undefined珠峰null'+10+false='1112undefined珠峰null10false'
+*/
+console.log(a); =&gt;'1112undefined珠峰null10false'
+</code></pre>
+<h2 id="boolean布尔数据类型">boolean布尔数据类型</h2>
+<blockquote>
+<p>只有两个值 true/false</p>
+</blockquote>
+<h3 id="把其它类型值转换为布尔类型">把其它类型值转换为布尔类型</h3>
+<blockquote>
+<p>只有0、NaN、''、null、undefined这5个值转换为false（没有任何其他情况）</p>
+</blockquote>
+<pre><code class="language-javascript">console.log(Boolean(0));//false
+console.log(Boolean(''));//false
+console.log(Boolean(' '));//ture,因为里面不是空字符串，而是一个空格
+console.log(Boolean(null));//false
+console.log(Boolean(undefined));//false
+console.log(Boolean(NaN));//false
+console.log(Boolean([]));//ture
+console.log(Boolean([12]));//ture
+</code></pre>
+<p>转换方法：</p>
+<ul>
+<li>Boolean()</li>
+<li>!或则!! （ 一个！表示取反，2个表示取2次反）</li>
+<li>条件判断</li>
+</ul>
+<h2 id="object对象数据类型-普通对象">object对象数据类型-普通对象</h2>
+<blockquote>
+<p>{[key]:[value],....} 任何一个对象都是有零到多对键值对（属性名:属性值）组成的（并且属性名不能重复）。</p>
+</blockquote>
+<pre><code class="language-javascript">let person={
+    name: '孙悟空',
+    age:18,
+    height:'185cm'
+}
+//获取值：
+      对象.属性名 如：person.name
+或则： 对象[属性名] 如：person['name']
+属性名是数字或则字符串格式，如果属性名是数字则只能使用第二种方法获取
+
+真删除：delete.person.age;
+假删除：person.age=null;(属性还在，值为空)
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1601734652296.PNG" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[CSS3 One]]></title>
         <id>https://jianmu123.github.io/post/css3-one/</id>
@@ -529,177 +907,6 @@ element.html(&quot;&quot;);清空匹配元素内容。</p>
 <p>问题：动画或则效果一旦触发就会运行，但是当我们多次触发就会造成多个动画或效果的队列问题。<br>
 解决办法：在添加stop()方法，把上一个动画效果停止（谁执行了动画效果就在谁前面添加）。<br>
 <img src="https://jianmu123.github.io//post-images/1600781449952.png" alt="" loading="lazy"></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[jQuery-1]]></title>
-        <id>https://jianmu123.github.io/post/jquery1/</id>
-        <link href="https://jianmu123.github.io/post/jquery1/">
-        </link>
-        <updated>2020-09-20T07:19:25.000Z</updated>
-        <content type="html"><![CDATA[<p>一： jQuery的概述</p>
-<h3 id="1-jquery是javascript的一个封装库里面存放了很多函数">1. jQuery是javaScript的一个封装库,里面存放了很多函数。</h3>
-<h3 id="2-使用时只需调用这个库文件">2. 使用时只需调用这个库文件。</h3>
-<h3 id="3-jquery主要是用来操作dom的">3. jQuery主要是用来操作DOM的。</h3>
-<h3 id="4-学习jquery的本质是学习调用这些函数">4. 学习jQuery的本质是学习调用这些函数。</h3>
-<h2 id="二jquery的基本使用">二：jQuery的基本使用</h2>
-<h3 id="1首先官网下载jquery官网httpsjquerycom">1：首先官网下载[jQuery官网]{https://jquery.com/}</h3>
-<h3 id="2符号是jquery的别称jquery中的顶级对象相当于javascript中的window对象">2：$符号是jQuery的别称，jQuery中的顶级对象，相当于javaScript中的window对象</h3>
-<h3 id="3注意下列">3：注意下列：</h3>
-<pre><code class="language-javaScript">//下面是jQuery入口函数
-   &lt;script&gt;
-      $(function () {
-          //内容写这里
-      });
-    &lt;/script&gt;
-
- // 1:DOM 对象：用原生js方式获取的对象是DOM对象
-
-   var myDiv = document.querySelector(&quot;div&quot;); //querySelector() 方法返回文档中匹配指定 CSS 选择器的一个元素。
-
-   console.dir(myDiv); //打印所有的属性和方法
-
-   // 2:jQuery 对象：用原生jQuery方式获取的对象是jQuery对象
-
-   $(&quot;div&quot;);  // jQuery 对象
-
-   console.dir($(&quot;div&quot;));
-
-   //  从控制台可以看出2者打印的内容不同，jQuery打印了一个伪数组的形式
-
-   // 3:jQuery对象只能使用jQuery方法,DOM对象只能使用原生javaScript属性和方法,2者不能混用
-</code></pre>
-<h3 id="4jquery对象和dom对象的相互转换">4：<strong>jQuery对象和DOM对象的相互转换</strong></h3>
-<p>因为原生js比jQuery大，一些原生的js属性方法在jQuery中没有，所以需要把jQuery对象转换为DOM对象才可以使用。</p>
-<pre><code class="language-javaScript">先用2种方式获取对象：
- var myDiv = document.querySelector(&quot;div&quot;);//DOM对象
- $(&quot;div&quot;);  // jQuery 对象
-//jQuery转DOM(2种方式):
- $('div')[index];//index是索引号，因为jQuery对象是一个伪数组  
- $('div')get（index）;
-//DOM转jQuery：
- $(myDiv);   
-</code></pre>
-<h2 id="三jquery的常用api">三：jQuery的常用API</h2>
-<h3 id="1jquery基础选择器">1：jQuery基础选择器</h3>
-<pre><code class="language-javaScript"> $('选择器')；//里面选择器直接写CSS选择器即可，但是要加引号。
-</code></pre>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>用法</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ID选择器</td>
-<td>$(&quot;#id&quot;)</td>
-<td>获取指定的ID元素</td>
-</tr>
-<tr>
-<td>全选选择器</td>
-<td>$('*')</td>
-<td>匹配所有元素</td>
-</tr>
-<tr>
-<td>类选择器</td>
-<td>$(&quot;.class&quot;)</td>
-<td>获取同一类元素</td>
-</tr>
-<tr>
-<td>标签选择器</td>
-<td>$(&quot;div&quot;)</td>
-<td>获取同一类标签的所有元素</td>
-</tr>
-<tr>
-<td>并集选择器</td>
-<td>$(&quot;div,p,li&quot;)</td>
-<td>选取多个元素</td>
-</tr>
-<tr>
-<td>交集选择器</td>
-<td>$(&quot;li.current&quot;)</td>
-<td>交集元素</td>
-</tr>
-</tbody>
-</table>
-<h4 id="2jquery设置css样式">2:jQuery设置css样式：</h4>
-<pre><code class="language-javaScript"> $(&quot;div&quot;).css(&quot;属性&quot;,&quot;值&quot;);//例如：$(&quot;div&quot;).css(''background'',''red'');就把所有的div背景改为了红色
-注意：这里的属性名一定要加引号
-
-同时修改多个样式：使用对象的形式，注意这个时候属性名就不用加引号,加上也没错
-$(&quot;div&quot;).css({
-width:400,
-height:400,
-backgroundColor：&quot;red&quot;，
-注意如果是复合属性就要写成驼峰命名法，如果值不是数字则必须使用引号
-})
-</code></pre>
-<p>这个里面有一个<strong>隐式迭代</strong>的概念，他会把所有选取到的所有元素进行循环遍历，依次执行相应的方法。</p>
-<h4 id="3jquery筛选选择器">3：jQuery筛选选择器</h4>
-<table>
-<thead>
-<tr>
-<th>语法</th>
-<th>用法</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>:firsr</td>
-<td>$('li':first)</td>
-<td>获取第一个li元素</td>
-</tr>
-<tr>
-<td>:last</td>
-<td>$('li:last')</td>
-<td>获取最后一个li元素</td>
-</tr>
-<tr>
-<td>:eq(index)</td>
-<td>$(<strong>&quot;li:eq(2)&quot;</strong>)</td>
-<td>获取到的li元素中，选择索引号为2的元素 (注意索引号是从0开始的)</td>
-</tr>
-<tr>
-<td>:odd</td>
-<td>$(<strong>&quot;li:odd&quot;</strong>)</td>
-<td>获取到的li元素中，选择索引号为奇数的元素</td>
-</tr>
-<tr>
-<td>:even</td>
-<td>$(&quot;li:even&quot;)</td>
-<td>获取到的li元素中，选择索引号为偶数的元素</td>
-</tr>
-</tbody>
-</table>
-<h4 id="4筛选方法注意方法都有括号">4：筛选方法（注意方法都有括号）</h4>
-<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1600606470845.png" alt="" loading="lazy"></figure>
-<h4 id="5注意下例的写法">5：注意下例的写法：</h4>
-<pre><code class="language-javaScript">//让鼠标经过div使ul显示出来,this是当前元素(即:div)
-  $(&quot;div&quot;).mousemove(function () {      
-        $(this).children(&quot;ul&quot;).show();
-      });
- //鼠标移出就隐藏
- $(&quot;div&quot;).mouseout(function(){
-    $(this).children(&quot;ul&quot;).hide();
- })
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[关于]]></title>
-        <id>https://jianmu123.github.io/post/about/</id>
-        <link href="https://jianmu123.github.io/post/about/">
-        </link>
-        <updated>2020-09-19T10:27:03.000Z</updated>
-        <content type="html"><![CDATA[<blockquote>
-<p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
-</blockquote>
-<h2 id="关于本站">🏠 关于本站</h2>
-<p>本站是我的一个前端学习的博客，记录了我的前端学习的内容笔记，由于写博客的时候刚学jQuery，所以会从这里开始，你可以阅读我的笔记，如果可以帮助到你那我就非常开心😃。</p>
 ]]></content>
     </entry>
 </feed>
