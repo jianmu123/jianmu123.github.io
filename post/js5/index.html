@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>关于 | Personal blog</title>
+<title>JS5 | Personal blog</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -18,12 +18,17 @@
 
 
 
-    <meta name="description" content="
-欢迎来到我的小站呀，很高兴遇见你！🤝
+    <meta name="description" content="ES6中的箭头函数
 
-🏠 关于本站
-本站是我的一个前端学习的博客，记录了我的前端学习的内容笔记，由于写博客的时候刚学jQuery，所以会从这里开始，你可以阅读我的笔记，如果可以帮助到你那我就非常开心😃。
-..." />
+原来的函数写法：
+function sum(n,m){
+return n+m;
+}
+现在的ES6箭头函数写法：
+let sum=(n,m)=&gt;{
+return n+m；
+}
+如果函数体中只有一行return，可以..." />
     <meta name="keywords" content="" />
   </head>
   <body>
@@ -89,21 +94,48 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">关于</h2>
-            <div class="post-date">2020-09-19</div>
+            <h2 class="post-title">JS5</h2>
+            <div class="post-date">2020-10-05</div>
             
-              <div class="feature-container" style="background-image: url('https://jianmu123.github.io//post-images/about.jfif')">
+              <div class="feature-container" style="background-image: url('https://jianmu123.github.io//post-images/js5.png')">
               </div>
             
             <div class="post-content" v-pre>
-              <blockquote>
-<p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
-</blockquote>
-<h2 id="关于本站">🏠 关于本站</h2>
-<p>本站是我的一个前端学习的博客，记录了我的前端学习的内容笔记，由于写博客的时候刚学jQuery，所以会从这里开始，你可以阅读我的笔记，如果可以帮助到你那我就非常开心😃。</p>
+              <h1 id="es6中的箭头函数">ES6中的箭头函数</h1>
+<ul>
+<li>原来的函数写法：<br>
+function sum(n,m){<br>
+return n+m;<br>
+}</li>
+<li>现在的ES6箭头函数写法：<br>
+let sum=(n,m)=&gt;{<br>
+return n+m；<br>
+}<br>
+<code>如果函数体中只有一行return，可以省略大括号。采用下面的写法</code><br>
+let sum(n,m)=&gt;n+m;</li>
+</ul>
+<pre><code class="language-javascritp">箭头函数举例：
+function fn(n){
+        return function(m){
+                return n+m;
+                }
+        }
+改为箭头函数：
+        let fn=n=&gt;m=&gt;n+m;                
+
+</code></pre>
 
             </div>
             
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://jianmu123.github.io/post/js4/">
+                  <h3 class="post-title">
+                    JS4
+                  </h3>
+                </a>
+              </div>
             
 
             

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jianmu123.github.io/</id>
     <title>Personal blog</title>
-    <updated>2020-10-05T14:28:22.026Z</updated>
+    <updated>2020-10-05T15:44:17.494Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jianmu123.github.io/"/>
     <link rel="self" href="https://jianmu123.github.io/atom.xml"/>
@@ -10,6 +10,37 @@
     <logo>https://jianmu123.github.io/images/avatar.png</logo>
     <icon>https://jianmu123.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Personal blog</rights>
+    <entry>
+        <title type="html"><![CDATA[JS5]]></title>
+        <id>https://jianmu123.github.io/post/js5/</id>
+        <link href="https://jianmu123.github.io/post/js5/">
+        </link>
+        <updated>2020-10-05T14:28:29.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="es6中的箭头函数">ES6中的箭头函数</h1>
+<ul>
+<li>原来的函数写法：<br>
+function sum(n,m){<br>
+return n+m;<br>
+}</li>
+<li>现在的ES6箭头函数写法：<br>
+let sum=(n,m)=&gt;{<br>
+return n+m；<br>
+}<br>
+<code>如果函数体中只有一行return，可以省略大括号。采用下面的写法</code><br>
+let sum(n,m)=&gt;n+m;</li>
+</ul>
+<pre><code class="language-javascritp">箭头函数举例：
+function fn(n){
+        return function(m){
+                return n+m;
+                }
+        }
+改为箭头函数：
+        let fn=n=&gt;m=&gt;n+m;                
+
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[JS4]]></title>
         <id>https://jianmu123.github.io/post/js4/</id>
@@ -725,245 +756,6 @@ elelment.before()和 elelment.after()。<br>
 element.remove();删除匹配元素本身。<br>
 element.empty();删除匹配元素集合中的所有子节点。<br>
 element.html(&quot;&quot;);清空匹配元素内容。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[jQuery3]]></title>
-        <id>https://jianmu123.github.io/post/jquery3/</id>
-        <link href="https://jianmu123.github.io/post/jquery3/">
-        </link>
-        <updated>2020-09-22T12:45:12.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="一jquery属性操作">一:jQuery属性操作</h2>
-<p>###1：设置或获取元素固有属性值：prop()<br>
-所谓元素固有属性值就是元素本身自带的属性，比如<a>标签中的herf。<br>
-<img src="https://jianmu123.github.io//post-images/1600865423781.png" alt="" loading="lazy"></p>
-<h3 id="2设置或获取元素自定义属性值attr">2：设置或获取元素自定义属性值：attr()</h3>
-<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1600865617914.png" alt="" loading="lazy"></figure>
-<h3 id="3数据缓存-data">3:数据缓存 data()</h3>
-<p>data()方法可以在指定元素上存取数据，并不会修改DOM元素结构，一旦页面刷新，之前的存放的数据都会被移除<br>
-<img src="https://jianmu123.github.io//post-images/1600866237557.png" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1600866060662.png" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1600866065161.png" alt="" loading="lazy"><br>
-购物车案列（不含css部分）</p>
-<pre><code class="language-javascript">  &lt;body&gt;
-    &lt;div class=&quot;w&quot;&gt;
-      &lt;div class=&quot;head&quot;&gt;
-        &lt;!-- 全选模块 --&gt;
-        &lt;div class=&quot;t-checkbox&quot;&gt;
-          &lt;input type=&quot;checkbox&quot; name=&quot;&quot; id=&quot;&quot; class=&quot;checkall&quot; /&gt;全选
-        &lt;/div&gt;
-        &lt;div class=&quot;t-goods&quot;&gt;商品&lt;/div&gt;
-        &lt;div class=&quot;t-price&quot;&gt;单价&lt;/div&gt;
-        &lt;div class=&quot;t-num&quot;&gt;数量&lt;/div&gt;
-        &lt;div class=&quot;t-sum&quot;&gt;小计&lt;/div&gt;
-      &lt;/div&gt;
-      &lt;!-- 商品模块 --&gt;
-      &lt;div class=&quot;cart-item-list&quot;&gt;
-        &lt;div class=&quot;cart-check&quot;&gt;
-          &lt;div class=&quot;p-checkbox&quot;&gt;
-            &lt;input type=&quot;checkbox&quot; name=&quot;&quot; id=&quot;&quot; class=&quot;j-checkbox&quot; /&gt;
-          &lt;/div&gt;
-          &lt;div class=&quot;p-goodes&quot;&gt;
-            &lt;div class=&quot;p-img&quot;&gt;
-              &lt;!-- &lt;img src=&quot;&quot; alt=&quot;&quot; /&gt; --&gt;
-              洗衣粉
-            &lt;/div&gt;
-            &lt;div class=&quot;p-price&quot;&gt;￥12.60&lt;/div&gt;
-            &lt;div class=&quot;p-num&quot;&gt;
-              &lt;div class=&quot;quantity-form&quot;&gt;
-                &lt;a href=&quot;javascript:;&quot; class=&quot;decrement&quot;&gt;-&lt;/a&gt;
-                &lt;input type=&quot;text&quot; class=&quot;itxt&quot; value=&quot;1&quot; style=&quot;width: 20px&quot; /&gt;
-                &lt;a href=&quot;javascript:;&quot; class=&quot;increment&quot;&gt;+&lt;/a&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;p-sum&quot;&gt;￥12.60&lt;/div&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;cart-item-list&quot;&gt;
-        &lt;div class=&quot;cart-check&quot;&gt;
-          &lt;div class=&quot;p-checkbox&quot;&gt;
-            &lt;input type=&quot;checkbox&quot; name=&quot;&quot; id=&quot;&quot; class=&quot;j-checkbox&quot; /&gt;
-          &lt;/div&gt;
-          &lt;div class=&quot;p-goodes&quot;&gt;
-            &lt;div class=&quot;p-img&quot;&gt;
-              &lt;!-- &lt;img src=&quot;&quot; alt=&quot;&quot; /&gt; --&gt;
-              消毒水
-            &lt;/div&gt;
-            &lt;div class=&quot;p-price&quot;&gt;￥15.20&lt;/div&gt;
-            &lt;div class=&quot;p-num&quot;&gt;
-              &lt;div class=&quot;quantity-form&quot;&gt;
-                &lt;a href=&quot;javascript:;&quot; class=&quot;decrement&quot;&gt;-&lt;/a&gt;
-                &lt;input type=&quot;text&quot; class=&quot;itxt&quot; value=&quot;1&quot; style=&quot;width: 20px&quot; /&gt;
-                &lt;a href=&quot;javascript:;&quot; class=&quot;increment&quot;&gt;+&lt;/a&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;p-sum&quot;&gt;￥15.20&lt;/div&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;cart-item-list&quot;&gt;
-        &lt;div class=&quot;cart-check&quot;&gt;
-          &lt;div class=&quot;p-checkbox&quot;&gt;
-            &lt;input type=&quot;checkbox&quot; name=&quot;&quot; id=&quot;&quot; class=&quot;j-checkbox&quot; /&gt;
-          &lt;/div&gt;
-          &lt;div class=&quot;p-goodes&quot;&gt;
-            &lt;div class=&quot;p-img&quot;&gt;
-              &lt;!-- &lt;img src=&quot;&quot; alt=&quot;&quot; /&gt; --&gt;
-              吹风机
-            &lt;/div&gt;
-            &lt;div class=&quot;p-price&quot;&gt;￥30.50&lt;/div&gt;
-            &lt;div class=&quot;p-num&quot;&gt;
-              &lt;div class=&quot;quantity-form&quot;&gt;
-                &lt;a href=&quot;javascript:;&quot; class=&quot;decrement&quot;&gt;-&lt;/a&gt;
-                &lt;input type=&quot;text&quot; class=&quot;itxt&quot; value=&quot;1&quot; style=&quot;width: 20px&quot; /&gt;
-                &lt;a href=&quot;javascript:;&quot; class=&quot;increment&quot;&gt;+&lt;/a&gt;
-              &lt;/div&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;p-sum&quot;&gt;￥30.50&lt;/div&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-      &lt;!-- 总计模块 --&gt;
-      &lt;div class=&quot;cart-floatbar&quot;&gt;
-        &lt;div class=&quot;select-all&quot;&gt;
-          &lt;input type=&quot;checkbox&quot; name=&quot;&quot; id=&quot;&quot; class=&quot;checkall&quot; /&gt;全选
-        &lt;/div&gt;
-        &lt;div class=&quot;operation&quot;&gt;
-          &lt;a href=&quot;javascript:;&quot; class=&quot;remove-batch&quot;&gt;删除选中的商品&lt;/a&gt;
-          &lt;a href=&quot;javascript:;&quot; class=&quot;clear-all&quot;&gt;清除购物车&lt;/a&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;toolbar-right&quot;&gt;
-          &lt;div class=&quot;amount-sum&quot;&gt;总计&lt;em&gt; &lt;/em&gt;件商品&lt;/div&gt;
-          &lt;div class=&quot;price-sum&quot;&gt;总价：&lt;em&gt;￥&lt;/em&gt;&lt;/div&gt;
-          &lt;div class=&quot;btn-area&quot;&gt;
-            &lt;a href=&quot;javascript:;&quot; style=&quot;color: red&quot;&gt;去结算&lt;/a&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-
-    &lt;script&gt;
-      //实现点击全选框，所有商品全选，或则手动点击了所有商品选中框，上面全选框也选上
-      $(function () {
-        //入口函数
-
-        //1：全选点击单选框，可以用change事件
-        $(&quot;.checkall&quot;).change(function () {
-          //   var a = $(this).prop(&quot;checked&quot;);
-          //   console.log(a);//结果是点击全选返回ture,证明已经获取到
-          $(&quot;.j-checkbox, .checkall&quot;).prop(&quot;checked&quot;, $(this).prop(&quot;checked&quot;)); //下面的按钮根据全选的状态变化而变化
-          //所有商品背景变化
-          if ($(this).prop(&quot;checked&quot;)) {
-            $(&quot;.cart-item-list&quot;).addClass(&quot;beijing&quot;);
-          } else {
-            $(&quot;.cart-item-list&quot;).removeClass(&quot;beijing&quot;);
-          }
-        });
-        $(&quot;.j-checkbox&quot;).change(function () {
-          //如果下面的复选框全部选中，则上面的全选也选中$(&quot;.j-checkbox&quot;).length是所有商品的单选框数量
-          if ($(&quot;.j-checkbox:checked&quot;).length == $(&quot;.j-checkbox&quot;).length) {
-            //.j-checkbox:checked可以知道到底有几个单选框被选中
-            $(&quot;.checkall&quot;).prop(&quot;checked&quot;, true);
-          } else {
-            $(&quot;.checkall&quot;).prop(&quot;checked&quot;, false);
-          }
-          if ($(this).prop(&quot;checked&quot;)) {
-            $(this).parents(&quot;.cart-item-list&quot;).addClass(&quot;beijing&quot;);
-          } else {
-            $(this).parents(&quot;.cart-item-list&quot;).removeClass(&quot;beijing&quot;);
-          }
-        });
-        // 2：增减商品数量模块。核心思路：声明一个变量，当我们点击+/-的时候，就让这个值++/--，然后赋给文本框
-        $(&quot;.increment&quot;).click(function () {
-          //得到当前加/减的兄弟：文本框的值
-          var n = $(this).siblings(&quot;.itxt&quot;).val(); //text文本使用val获取内容
-          //   console.log(n);
-          n++;
-          $(this).siblings(&quot;.itxt&quot;).val(n);
-          // 3: 根据商品数量自动计算价格,价格是加减号的父亲的父亲的兄弟
-          var p = $(this).parents(&quot;.p-num&quot;).siblings(&quot;.p-price&quot;).html();
-          // console.log(p);
-          p = p.substr(1) * n; //去掉索引为0的美元符号,截取后面的价格,然后队小计进行计算
-          p = p.toFixed(2);
-          // console.log(p);
-          $(this)
-            .parents(&quot;.p-num&quot;)
-            .siblings(&quot;.p-sum&quot;)
-            .html(&quot;￥&quot; + p);
-          getSum();
-        });
-        //3:减：
-        $(&quot;.decrement&quot;).click(function () {
-          var n = $(this).siblings(&quot;.itxt&quot;).val(); //text文本使用val获取内容，非文本使用text()
-          //   console.log(n);
-          if (n &gt; 1) {
-            n--;
-          }
-          $(this).siblings(&quot;.itxt&quot;).val(n);
-          //  根据商品数量自动计算价格,价格是加减号的父亲的父亲的兄弟
-          var p = $(this).parents(&quot;.p-num&quot;).siblings(&quot;.p-price&quot;).html(); //获取到了价格
-          // console.log(p);
-          p = p.substr(1) * n; //去掉索引为0的美元符号,截取后面的价格,然后队小计进行计算
-          p = p.toFixed(2);
-          $(this)
-            .parents(&quot;.p-num&quot;)
-            .siblings(&quot;.p-sum&quot;)
-            .html(&quot;￥&quot; + p);
-          getSum();
-        });
-        //4:手动修改文本框的数值使小计跟着改变
-        $(&quot;.itxt&quot;).change(function () {
-          var m = $(this).val();
-          // console.log(m);
-          var p = $(this).parents(&quot;.p-num&quot;).siblings(&quot;.p-price&quot;).html();
-          p = p.substr(1) * m; //去掉索引为0的美元符号,截取后面的价格,然后队小计进行计算
-          p = p.toFixed(2);
-          $(this)
-            .parents(&quot;.p-num&quot;)
-            .siblings(&quot;.p-sum&quot;)
-            .html(&quot;￥&quot; + p);
-          getSum();
-        });
-        getSum(); //初始显示选中商品总数和总价
-        //5:商品总数模块,定义一个函数，来遍历商品数量和总价
-        function getSum() {
-          var count = 0;
-          var money = 0;
-          //获取文本框数量,使用each遍历方法
-          $(&quot;.itxt&quot;).each(function (index, ele) {
-            //index是索引，ele是dom对象
-            // console.log(index);
-            // console.log($(ele));
-            count += parseInt($(ele).val());
-          });
-          //修改总数量
-          $(&quot;.amount-sum em&quot;).text(count);
-          //获取总价
-          $(&quot;.p-sum&quot;).each(function (index, ele) {
-            money += parseFloat($(ele).text().substr(1));
-            // console.log(sum);
-            //修改总价钱
-            $(&quot;.price-sum em&quot;).text(&quot;￥&quot; + money.toFixed(2));
-          });
-        }
-
-        // 6:删除模块
-        $(&quot;.remove-batch&quot;).click(function () {
-          //删除复选框选中的商品
-          $(&quot;.j-checkbox:checked&quot;).parents(&quot;.cart-item-list&quot;).remove();
-          getSum();
-        });
-        //清空购物车模块
-        $(&quot;.clear-all&quot;).click(function () {
-          $(&quot;.cart-item-list&quot;).remove();
-          getSum();
-        });
-      });
-    &lt;/script&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
 ]]></content>
     </entry>
 </feed>
