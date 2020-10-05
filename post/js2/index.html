@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-<title>jQuery5 - Personal blog</title>
+<title>JS2 - Personal blog</title>
 <meta name="description" content="温故而知新">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -124,81 +124,128 @@
                     <div class="col-12 col-lg-10">
                       <div class="layout-post-main m-right m-md-right">
                         <div class="layout-post-header">
-                          <h1 class="layout-post-title">jQuery5</h1>
+                          <h1 class="layout-post-title">JS2</h1>
                           <div class="layout-post-meta">
                             <div class="item">
-                               <a href="https://jianmu123.github.io/tag/iGviSbBuO/" class="post--keyword"
-                                data-title="JQuery" data-type="post_tag" data-term-id="39">JQuery</a>
+                               <a href="https://jianmu123.github.io/tag/tU4H5fAXS/" class="post--keyword"
+                                data-title="javaScript" data-type="post_tag" data-term-id="39">javaScript</a>
                               
                             </div>
                             <div class="item">
-                              <span>2020-09-24</span>
+                              <span>2020-10-02</span>
                             </div>
                           </div>
                         </div>
                         <div class="layout-post-content">
                           <div class="layout-post-item">
                             
-                            <p class="with-img"><img src="https://jianmu123.github.io//post-images/jquery5.png"
-                                class="attachment-full size-full wp-post-image" alt="jQuery5" /></p>
+                            <p class="with-img"><img src="https://jianmu123.github.io//post-images/js2.png"
+                                class="attachment-full size-full wp-post-image" alt="JS2" /></p>
                             
-                            <h2 id="1jquery事件处理">1：jQuery事件处理</h2>
-<h3 id="1-elementon方法可以绑定多个事件">1： element.on()方法可以绑定多个事件</h3>
-<p>语法：element.on(event,[selector],fn);<br>
-event是事件类型，[selector]是元素的子元素选择器<br>
-您的浏览器不支持 video 标签。<br>
-</video></p>
-<pre><code class="language-javascript">    $(&quot;div&quot;).on({
-        //鼠标经过div背景变红
-        mouseenter：function(){
-        $(&quot;this&quot;).css(&quot;background&quot;,&quot;red&quot;);
-       },
-       //鼠标点击div背景变粉红
-      click：function(){
-          $(&quot;this&quot;).css(&quot;background&quot;,&quot;pink&quot;);
-      }
-    })
+                            <h2 id="js中的数据类型检测">js中的数据类型检测</h2>
+<ul>
+<li>typeof[val]:用来检测数据类型的运算符</li>
+<li>instanceof :用来检测当前实列是否属于某个类</li>
+<li>constructor：基于构造函数检测数据类型(也是基于类的方式)</li>
+<li>Object.prototype.toString.call（）：检测数据类型最好的办法</li>
+</ul>
+<h4 id="一基于typeof检测的结果">一：基于typeof检测的结果</h4>
+<ul>
+<li>都是字符串</li>
+<li>字符串中包含的是对应类型</li>
+</ul>
+<p>例如：console .log(typeof typeof typeof[]);</p>
+<p>​       首先 typeof [] 返回 ”object“</p>
+<p>​		然后 typeof ”object“ 返回 ”string“</p>
+<p>​		最后typeof &quot;string&quot;返回”string“</p>
+<p>​	   typeof NaN;//”number“</p>
+<pre><code>  typeof null;//“object”
+
+typeof {};//”object“
+
+typeof [];//“object”
+
+typeof /^$/;//”object“
 </code></pre>
-<p>on方法可以实现事件的委派。例如：</p>
-<pre><code class="language-javascript">$(&quot;ul&quot;).on(click,&quot;li&quot;,function(){
-    alert(&quot;触发了点击事件&quot;);
-});
-这个触发事件在ul上，但是触发对象在li上，即ul委托li帮他触发
+<p>typeof 的局限性：</p>
+<p>​     -  typeof null的结果是object ，但是null不是对象只是空对象指针</p>
+<p>​     -  typeof 无法细分出当前值是普通对象还是数组对象等，因为只要检测的是对象数据类型都返回”object“</p>
+<h4 id="二-基于instanceof检测结果">二： 基于instanceof检测结果</h4>
+<p>instanceof只能检测引用数据类型，对于基本类型不生效,返回值是true/false。并且它不能用于检测null和undefined。</p>
+<pre><code class="language-javascript">例如：
+
+ 		console.log(&quot;1&quot; instanceof String); //false
+
+ 		console.log(1 instanceof Number); //false
+
+ 		console.log(true instanceof Boolean); //false
+
+ 		console.log([]  instanceof Array); //true
+
+ 		console.log({} instanceof Object); //true
+
+ 		console.log(function(){} instanceof Function); //true
+
 </code></pre>
-<h3 id="2off方法可以移除通过on方法添加的事件处理程序">2:off方法可以移除通过on方法添加的事件处理程序</h3>
-<pre><code class="language-javascript"> $(&quot;p&quot;).off()  //解除p上所有的事件处理
- $(&quot;p&quot;).off(&quot;click&quot;) //解除p上的click事件处理
- $(&quot;ul&quot;).off(&quot;click&quot;，&quot;li&quot;) //解除事件委托
+<h4 id="三-基于constructor检测结果">三： 基于constructor检测结果</h4>
+<p>先看一下用法：</p>
+<pre><code class="language-javascript">console.log((&quot;1&quot;).constructor===String);//true
+console.log((1).constructor===Number;//true
+console.log((true).constructor===Boolean);//true
+console.log(([]).constructor===Array);//true
+console.log(({}).constructor===Object);//true
+console.log((function(){}).constructor===Fuction);//true
 </code></pre>
-<h3 id="3自动触发事件">3:自动触发事件</h3>
-<p>有些事件希望自动触发，比如轮播图的自动播放能跟点击按钮一致，可以利用定时器自动触发按钮按钮点击事件，不必鼠标点击触发。<br>
-第一种形式：元素.事件()<br>
-第二种形式：元素.trigger(&quot;事件&quot;)<br>
-第三种形式：元素.triggerHandler(&quot;事件&quot;)<br>
-第三种和前面的区别：不会触发元素的默认行为，比如文本框焦点事件的光标此时不会闪烁</p>
-<pre><code class="language-javascript">       下面代码不会有光标闪烁：
-       $(&quot;input&quot;).on(&quot;focus&quot;,function(){
-           $(&quot;this&quot;).val(&quot;你好吗&quot;);
-       })
-       $(&quot;input&quot;).triggerHandler(&quot;focus&quot;);//自动触发
+<p>撇去null和undefined，可以看出constructor能用于检测js的基本类型和引用类型。但是设计到原型和继承的时候便会出现问题。如下</p>
+<pre><code class="language-javascript">function fun(){};
+    fun.prototype=new Array();
+    let f=new fun();
+	console.log(f.constructor===fun);//false
+	console.log(f.constructor===Array);//ture
+    
 </code></pre>
-<h3 id="4阻止默认行为和冒泡行为">4：阻止默认行为和冒泡行为</h3>
-<h4 id="41阻止默认行为eventpreventdefault-或则return-false">4.1:阻止默认行为：event.preventDefault(); 或则：return false</h4>
-<h4 id="42阻止冒泡行为eventstoppropagation">4.2:阻止冒泡行为：event.stopPropagation()</h4>
-<p>###5:jQuery对象拷贝<br>
-语法：$.extend([deep],target,object1,[objectN]) //[objectN]是代表不仅可以拷贝一个还可以拷贝多个。<br>
-<img src="https://jianmu123.github.io//post-images/1600956466981.png" alt="" loading="lazy"><br>
-浅拷贝：会覆盖原来数据<br>
-深拷贝：会保留原来是数据<br>
-<img src="https://jianmu123.github.io//post-images/1600957628103.png" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1600957634129.png" alt="" loading="lazy"></p>
+<p>在这里，我们先是定义了一个函数fun，并将该函数的原型指向了数组，同时，声明了一个f为fun的类型，然后利用constructor进行检测时，结果如下：false  true;</p>
+<h3 id="小结撇去null和undefinedconstructor能用于检测js的基本类型和引用类型但当对象的原型更改之后constructor便失效了">小结：撇去null和undefined，constructor能用于检测js的基本类型和引用类型，但当对象的原型更改之后，constructor便失效了。</h3>
+<h4 id="四objectprototypetostringcall">四：Object.prototype.toString.call()</h4>
+<p>用法：</p>
+<pre><code>  ```javascript
+</code></pre>
+<p>console.log(Object.prototype.toString.call(&quot;str&quot;));<br>
+console.log(Object.prototype.toString.call(1));<br>
+console.log(Object.prototype.toString.call(true));<br>
+console.log(Object.prototype.toString.call(null));<br>
+console.log(Object.prototype.toString.call(undefined));<br>
+console.log(Object.prototype.toString.call([]));<br>
+console.log(Object.prototype.toString.call({}));<br>
+console.log(Object.prototype.toString.call(function(){}));<br>
+```</p>
+<p>结果：</p>
+<p>[Object String]</p>
+<p>[Object Number]</p>
+<p>[Object Boolean]</p>
+<p>[Object null]</p>
+<p>[Object undefined]</p>
+<p>[Object Array]</p>
+<p>[Object Object]</p>
+<p>[Object Function]</p>
+<p>这样一看，似乎能满足js的所有数据类型，那我们看下继承之后是否能检测出来</p>
+<pre><code class="language-javascript">function fun(){};
+    fun.prototype=new Array();
+    let f=new fun();
+	console.log(object.prototype.toString.call(fun));
+	console.log(object.prototype.toString.call(f));
+</code></pre>
+<p>结果：</p>
+<p>[Object Function]</p>
+<p>[Object Object]</p>
+<h3 id="可以看出objectprototypetostringcall可用于检测js所有的数据类型">可以看出，Object.prototype.toString.call()可用于检测js所有的数据类型。</h3>
 
                           </div>
                         </div>
                         <div class="layout-post-social">
                           <div class="item reader">
-                            <div id="/post/jquery5/" class="leancloud-visitors view"
-                              data-flag-title="jQuery5">
+                            <div id="/post/js2/" class="leancloud-visitors view"
+                              data-flag-title="JS2">
                               <span class="post-meta-item-text">阅读 </span>
                               <span class="leancloud-visitors-count"></span>
                             </div>
@@ -213,8 +260,8 @@ event是事件类型，[selector]是元素的子元素选择器<br>
                               <div class="card-content col-8 col-md-9">
                                 <div class="card-body">
                                   <div class="header">
-                                    <a href="https://jianmu123.github.io/post/html5-one/" class="title">
-                                      <h4>HTML5 one</h4>
+                                    <a href="https://jianmu123.github.io/post/js3/" class="title">
+                                      <h4>JS3</h4>
                                     </a>
                                   </div>
                                   <div class="inner d-none d-sm-block">
@@ -225,13 +272,13 @@ event是事件类型，[selector]是元素的子元素选择器<br>
                                 </div>
                                 <div class="card-footer">
                                   <div class="item"><span>上一篇</span></div>
-                                  <div class="item">2020-09-28</div>
+                                  <div class="item">2020-10-04</div>
                                 </div>
                               </div>
                               <div class="card-thumb col-4 col-md-3">
                                 <div class="thumb">
-                                  <a href="https://jianmu123.github.io/post/html5-one/"
-                                    style="background-image: url('https://jianmu123.github.io//post-images/html5-one.jpeg');"></a>
+                                  <a href="https://jianmu123.github.io/post/js3/"
+                                    style="background-image: url('https://jianmu123.github.io//post-images/js3.png');"></a>
                                 </div>
                               </div>
                               
@@ -242,8 +289,8 @@ event是事件类型，[selector]是元素的子元素选择器<br>
                               <div class="card-content col-8 col-md-9">
                                 <div class="card-body">
                                   <div class="header">
-                                    <a href="https://jianmu123.github.io/post/jquery4/" class="title">
-                                      <h4>jQuery4</h4>
+                                    <a href="https://jianmu123.github.io/post/js1/" class="title">
+                                      <h4>JS1</h4>
                                     </a>
                                   </div>
                                   <div class="inner d-none d-sm-block">
@@ -254,13 +301,13 @@ event是事件类型，[selector]是元素的子元素选择器<br>
                                 </div>
                                 <div class="card-footer">
                                   <div class="item"><span>下一篇</span></div>
-                                  <div class="item">2020-09-23</div>
+                                  <div class="item">2020-10-01</div>
                                 </div>
                               </div>
                               <div class="card-thumb col-4 col-md-3">
                                 <div class="thumb">
-                                  <a href="https://jianmu123.github.io/post/jquery4/"
-                                    style="background-image: url('https://jianmu123.github.io//post-images/jquery4.png');"></a>
+                                  <a href="https://jianmu123.github.io/post/js1/"
+                                    style="background-image: url('https://jianmu123.github.io//post-images/js1.png');"></a>
                                 </div>
                               </div>
                               
@@ -281,17 +328,18 @@ event是事件类型，[selector]是元素的子元素选择器<br>
                           <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#1jquery%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86">1：jQuery事件处理</a>
+<li><a href="#js%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%B5%8B">js中的数据类型检测</a><br>
+*
 <ul>
-<li><a href="#1-elementon%E6%96%B9%E6%B3%95%E5%8F%AF%E4%BB%A5%E7%BB%91%E5%AE%9A%E5%A4%9A%E4%B8%AA%E4%BA%8B%E4%BB%B6">1： element.on()方法可以绑定多个事件</a></li>
-<li><a href="#2off%E6%96%B9%E6%B3%95%E5%8F%AF%E4%BB%A5%E7%A7%BB%E9%99%A4%E9%80%9A%E8%BF%87on%E6%96%B9%E6%B3%95%E6%B7%BB%E5%8A%A0%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F">2:off方法可以移除通过on方法添加的事件处理程序</a></li>
-<li><a href="#3%E8%87%AA%E5%8A%A8%E8%A7%A6%E5%8F%91%E4%BA%8B%E4%BB%B6">3:自动触发事件</a></li>
-<li><a href="#4%E9%98%BB%E6%AD%A2%E9%BB%98%E8%AE%A4%E8%A1%8C%E4%B8%BA%E5%92%8C%E5%86%92%E6%B3%A1%E8%A1%8C%E4%B8%BA">4：阻止默认行为和冒泡行为</a>
+<li><a href="#%E4%B8%80%E5%9F%BA%E4%BA%8Etypeof%E6%A3%80%E6%B5%8B%E7%9A%84%E7%BB%93%E6%9E%9C">一：基于typeof检测的结果</a></li>
+<li><a href="#%E4%BA%8C-%E5%9F%BA%E4%BA%8Einstanceof%E6%A3%80%E6%B5%8B%E7%BB%93%E6%9E%9C">二： 基于instanceof检测结果</a></li>
+<li><a href="#%E4%B8%89-%E5%9F%BA%E4%BA%8Econstructor%E6%A3%80%E6%B5%8B%E7%BB%93%E6%9E%9C">三： 基于constructor检测结果</a></li>
+<li><a href="#%E5%B0%8F%E7%BB%93%E6%92%87%E5%8E%BBnull%E5%92%8Cundefinedconstructor%E8%83%BD%E7%94%A8%E4%BA%8E%E6%A3%80%E6%B5%8Bjs%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E4%BD%86%E5%BD%93%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8E%9F%E5%9E%8B%E6%9B%B4%E6%94%B9%E4%B9%8B%E5%90%8Econstructor%E4%BE%BF%E5%A4%B1%E6%95%88%E4%BA%86">小结：撇去null和undefined，constructor能用于检测js的基本类型和引用类型，但当对象的原型更改之后，constructor便失效了。</a>
 <ul>
-<li><a href="#41%E9%98%BB%E6%AD%A2%E9%BB%98%E8%AE%A4%E8%A1%8C%E4%B8%BAeventpreventdefault-%E6%88%96%E5%88%99return-false">4.1:阻止默认行为：event.preventDefault(); 或则：return false</a></li>
-<li><a href="#42%E9%98%BB%E6%AD%A2%E5%86%92%E6%B3%A1%E8%A1%8C%E4%B8%BAeventstoppropagation">4.2:阻止冒泡行为：event.stopPropagation()</a></li>
+<li><a href="#%E5%9B%9Bobjectprototypetostringcall">四：Object.prototype.toString.call()</a></li>
 </ul>
 </li>
+<li><a href="#%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%87%BAobjectprototypetostringcall%E5%8F%AF%E7%94%A8%E4%BA%8E%E6%A3%80%E6%B5%8Bjs%E6%89%80%E6%9C%89%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">可以看出，Object.prototype.toString.call()可用于检测js所有的数据类型。</a></li>
 </ul>
 </li>
 </ul>
