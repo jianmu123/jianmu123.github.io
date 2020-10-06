@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://jianmu123.github.io//favicon.ico?v=1601997929077">
+<link rel="shortcut icon" href="https://jianmu123.github.io//favicon.ico?v=1601998090189">
 <link rel="stylesheet" href="https://jianmu123.github.io//styles/main.css">
 
 
@@ -18,18 +18,23 @@
 
 
 
-    <meta name="description" content="ES6中的箭头函数
+    <meta name="description" content="数组中常用的方法
 
-原来的函数写法：
-function sum(n,m){
-return n+m;
-}
-现在的ES6箭头函数写法：
-let sum=(n,m)=&gt;{
-return n+m；
-}
-如果函数体中只有一行return，可以..." />
-    <meta name="keywords" content="" />
+方法的作用和含义
+方法的实参（类型和含义）
+方法的返回值
+原来的数组是否会发生改变
+
+1：实现数组增删改的方法
+
+这一部分方法都会改变原数组
+
+push
+
+push:向数组末尾增加内容
+参数： 多个任意类型
+返回值：返回..." />
+    <meta name="keywords" content="javaScript" />
   </head>
   <body>
     <div id="app" class="main">
@@ -38,7 +43,7 @@ return n+m；
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://jianmu123.github.io/">
-        <img src="https://jianmu123.github.io//images/avatar.png?v=1601997929077" class="site-logo">
+        <img src="https://jianmu123.github.io//images/avatar.png?v=1601998090189" class="site-logo">
         <h1 class="site-title">Personal blog</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -95,37 +100,288 @@ return n+m；
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
             <h2 class="post-title">JS5</h2>
-            <div class="post-date">2020-10-05</div>
+            <div class="post-date">2020-10-06</div>
             
               <div class="feature-container" style="background-image: url('https://jianmu123.github.io//post-images/js5.png')">
               </div>
             
             <div class="post-content" v-pre>
-              <h1 id="es6中的箭头函数">ES6中的箭头函数</h1>
+              <h2 id="数组中常用的方法">数组中常用的方法</h2>
 <ul>
-<li>原来的函数写法：<br>
-function sum(n,m){<br>
-return n+m;<br>
-}</li>
-<li>现在的ES6箭头函数写法：<br>
-let sum=(n,m)=&gt;{<br>
-return n+m；<br>
-}<br>
-<code>如果函数体中只有一行return，可以省略大括号。采用下面的写法</code><br>
-let sum(n,m)=&gt;n+m;</li>
+<li>方法的作用和含义</li>
+<li>方法的实参（类型和含义）</li>
+<li>方法的返回值</li>
+<li>原来的数组是否会发生改变</li>
 </ul>
-<pre><code class="language-javascritp">箭头函数举例：
-function fn(n){
-        return function(m){
-                return n+m;
-                }
-        }
-改为箭头函数：
-        let fn=n=&gt;m=&gt;n+m;                
-
+<h3 id="1实现数组增删改的方法">1：实现数组增删改的方法</h3>
+<blockquote>
+<p>这一部分方法都会改变原数组</p>
+</blockquote>
+<p><code>push</code></p>
+<blockquote>
+<p>push:向数组末尾增加内容</p>
+<p>参数： 多个任意类型</p>
+<p>返回值：返回的是新增的数组长度，原来数组会改变。</p>
+</blockquote>
+<pre><code class="language-javascript">let ary=[10,20];
+let res=ary.push(30,'aa',{
+    name:&quot;珠峰&quot;
+});
+console.log(res,ary);
+//5（新数组长度）;
+0: 10
+1: 20
+2: 30
+3: &quot;aa&quot;
+4: {name: &quot;珠峰&quot;}
+length: 5
+也可以使用原生js增加（但是一次只能加1个），如：
+ary[ary.length]=40;//在数组末尾添加
+console.log(ary);
 </code></pre>
+<p><code>unshift</code></p>
+<blockquote>
+<p>unshift：向数组开始位置增加内容</p>
+<p>参数：多个任意类型</p>
+<p>返回值： 新增数组长度，会改变原数组</p>
+</blockquote>
+<pre><code class="language-javascript">let ary=[10,20];
+let res=ary.unshift(30,'aa');
+console.log(res,ary);
+//4;
+0: 30
+1: &quot;aa&quot;
+2: 10
+3: 20
+length: 4
+</code></pre>
+<p><code>shift</code></p>
+<blockquote>
+<p>shift:删除数组第一项</p>
+<p>参数：没有</p>
+<p>返回值：被删除的那 一项，会改变原数组</p>
+</blockquote>
+<pre><code class="language-javascript">let ary=[10,20];
+let res=ary.shift();
+console.log(res,ary);
+//10;
+0: 20
+length: 1
+</code></pre>
+<p><code>pop</code></p>
+<blockquote>
+<p>pop:删除数组最后一项</p>
+<p>参数：无</p>
+<p>返回值：被删除的那 一项，会改变原数组</p>
+</blockquote>
+<pre><code class="language-java">let ary=[10,20];
+let res=ary.pop();
+console.log(res,ary);
+//20;
+0: 10
+length: 1
+</code></pre>
+<p><code>splice</code>实现数组的增加、删除、修改</p>
+<blockquote>
+<p>splice:实现删除</p>
+<p>参数：n,m 都是数字，从<strong>索引n</strong>开始<strong>删除m个元素</strong>（如果不写m，则删除到末尾）</p>
+<p>返回值： 把删除的部分用新数组存储起来返回</p>
+</blockquote>
+<pre><code class="language-javascript">let ary[10,20,30,40,50,60,70,80,90];
+let res=ary.splice(2,4);
+console.log(res,ary);// [30，40，50，60]  [10，20，70，80，90]
+</code></pre>
+<blockquote>
+<p>splice:实现增加，修改</p>
+<p>参数：n,m,x ：从索引为n开始删除m个元素，然后用x占用那个位置</p>
+<p>​            n,0,x:    从索引n开始，，一个都不删，把x放到索引n前面</p>
+<p>返回值：把删除的部分用新数组村粗起来返回</p>
+</blockquote>
+<p>splice:实现向数组末尾增加： splice(ary.length,0,'AA);</p>
+<p>splice:实现向数组开头追加： splice(0,0,'BB);</p>
+<h3 id="2数组的查询和拼接">2:数组的查询和拼接</h3>
+<blockquote>
+<p>此组的方法：原来数组不会改变</p>
+</blockquote>
+<p><code>slice</code></p>
+<blockquote>
+<p>slice 实现数组查询</p>
+<p>参数： n,m     从索引n开始，找到索引为m的地方（不含m这一项）,m不写则找到末尾</p>
+<p>返回值： 找到的内容以一个新数组的形式返回</p>
+</blockquote>
+<pre><code class="language-javascript">let ary =[10,20,30,40,50];
+let res=ary.slice(1,3);
+console.log(res);// [20,30]
+//数组的克隆
+let res=ary.slice(0);
+console.log(res);//[10,20,30,40,50]
+</code></pre>
+<p><code>concat</code></p>
+<blockquote>
+<p>concat：实现数组拼接</p>
+<p>参数：任意类型值</p>
+<p>返回值： 拼接后的新数组（原数组不变）</p>
+</blockquote>
+<pre><code class="language-javascript">let ary =[10,20,30,40,50];
+let res=ary.concat('珠峰');
+console.log(res);// [10,20,30,40,50，'珠峰']
+</code></pre>
+<h3 id="3把数组转换为字符串">3：把数组转换为字符串</h3>
+<blockquote>
+<p>原数组不变</p>
+</blockquote>
+<p><code>toString</code></p>
+<blockquote>
+<p>toString：把数组转换为字符串</p>
+<p>参数：无</p>
+<p>返回值： 转换后的新字符串，每一项用逗号分隔（原数组不变）</p>
+</blockquote>
+<pre><code class="language-javascript">let ary =[10,20,30];
+let res=ary.toString();
+console.log(res);//&quot;10,20,30&quot;
+</code></pre>
+<p><code>join</code></p>
+<blockquote>
+<p>join：把数组转换为字符串</p>
+<p>参数：指定的分隔符（不指定则是逗号，和tostring一样）</p>
+<p>返回值： 转换后的新字符串，每一项用指定分隔符分隔（原数组不变）</p>
+</blockquote>
+<pre><code class="language-javascript">let ary =[10,20,30];
+let res=ary.join();
+console.log(res);//&quot;10,20,30&quot;
+
+let res=ary.join(&quot;&quot;);
+console.log(res);//&quot;102030&quot;
+
+let res=ary.join(&quot;+&quot;);
+console.log(res);//&quot;10+20+30&quot;
+console.log(eval(res));// =&gt;60 因为eval可以把字符串转为js表达式执行
+</code></pre>
+<h3 id="4检测数组是否含有某一项">4:检测数组是否含有某一项</h3>
+<p><code>indexOf/lastIndexOf</code>(IE6~8不兼容)</p>
+<blockquote>
+<p>indexOf/lastIndexOf: 检测当前项在数组中第一次或最后一次出现的位置的索引值。</p>
+<p>参数： 要检测的内容</p>
+<p>返回值： 这一项出现的位置索引值（数字），如果数组没有这一项返回-1</p>
+</blockquote>
+<pre><code class="language-javascript">let ary=[10,20,30,10,20,30];
+console.log(ary.indexOf(20));//1
+console.log(ary.lastIndexOf(20));//4
+可以使用该办法验证是否包含一个东西
+if(ary.indexOf('珠峰')===-1){
+console.log(&quot;不包含&quot;)
+}else{
+console.log(&quot;包含&quot;)
+}
+
+或则使用es6的inludes方法(ie6~8不兼容)
+if(ary.includes(&quot;珠峰&quot;)){
+    //如果包含返回true
+}
+</code></pre>
+<h3 id="5数组的排序或则排列">5：数组的排序或则排列</h3>
+<p><code>reverse</code></p>
+<blockquote>
+<p>reverse: 把数组倒过来排列</p>
+<p>参数： 无</p>
+<p>返回值：排列后的新数组，原数组改变</p>
+</blockquote>
+<pre><code class="language-javascript">let ary=[12,15,9,28,10,22];
+ary.reverse;
+console.log(ary);// [22,10,28,9,15,12]
+</code></pre>
+<p><code>sort</code></p>
+<blockquote>
+<p>sort: 实现数组的排序</p>
+<p>参数：可以没有也可以是函数，但是如果不传递参数，是无法处理10以上的数字</p>
+<p>返回值：排列后的新数组，原数组改变</p>
+</blockquote>
+<pre><code class="language-javascript">let ary=[7,8,5,1,6,4];
+ary.sort();
+console.log(ary);//[1, 4, 5, 6, 7, 8]
+
+注意：sort如果不传递参数，是无法处理10以上的数字
+let ary=[7,18,15,21,26,9];
+ary.sort();
+console.log(ary);//[15, 18, 21, 26, 7, 9] 它是按照第一个开头数字排序
+修改：
+let ary=[7,18,15,21,26,9];
+ary.sort((a,b)=&gt;{
+    //a,b是数组相邻两项
+    //return a-b:从小到大排
+    //return b-a:从大到小排
+    return a-b;
+});
+console.log(ary);//[7, 9, 15, 18, 21, 26]
+</code></pre>
+<h3 id="6遍历数组的每一项的方法">6：遍历数组的每一项的方法</h3>
+<p><code>foreach</code> <code>map</code>  <code>filter</code>   <code>find</code>  <code>reduce</code> <code>some</code> <code>every</code>  、、、</p>
+<blockquote>
+<p><code>foreach</code>: 遍历数组中的每一项内容</p>
+<p>参数：函数</p>
+<p>返回值： 没有</p>
+<p>原数组不变</p>
+</blockquote>
+<p>基于原生js的循环可以实现</p>
+<p>如：</p>
+<pre><code class="language-javascript">let ary=[10,20,30,40];
+for(var i=0;i&lt;ary.length;i++){
+    console.log('索引:'+i+'内容:'+ary[i]);
+}
+</code></pre>
+<p>下面使用foreach方法</p>
+<pre><code class="language-javascript">let ary=[10,20,30,40];
+ary.forEach(function(item,index){
+    //数组有多少项,函数就会被默认执行多少次
+    //每一次执行函数，item就是当前数组要操作的这一项（相当于上面原生js方法的ary[i]），index是当前项的索引（相当于上面原生js方法的i）
+     console.log('索引:'+index+'内容:'+item);
+});
+</code></pre>
+<h3 id="7案列数组去重">7案列：数组去重</h3>
+<pre><code class="language-javascript"> &lt;script&gt;
+      /*
+      注意数组塌陷问题
+       */
+      /* 重建数组去重函数 */
+      function unique(ary) {
+        let obj = {}; //创建一个对象来存取item：item
+        for (let i = 0; i &lt; ary.length; i++) {
+          let item = ary[i];
+          if (obj[item] !== undefined) {
+            //代表这个数是重复的
+            ary[i] = ary[ary.length - 1]; //让这个重复的数被最后一个数替换
+            ary.length--;
+            i--; //替换后继续检测这个位置的数，这里是数组塌陷问题
+            continue;
+          }
+          obj[item] = item;
+        }
+        return ary;
+      }
+      let aa = [1, 2, 3, 1, 2, 3];
+      aa = unique(aa);
+      console.log(aa);
+
+      /* 
+      es6的方法
+       */
+      let bb = [1, 2, 3, 1, 2, 3];
+      bb = [...new Set(bb)];
+      console.log(bb);
+    &lt;/script&gt;
+</code></pre>
+<p><img src="https://jianmu123.github.io//post-images/1601997762649.png" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1601997776600.png" alt="" loading="lazy"></p>
 
             </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://jianmu123.github.io/tag/tU4H5fAXS/" class="tag">
+                    javaScript
+                  </a>
+                
+              </div>
             
             
               <div class="next-post">

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jianmu123.github.io/</id>
     <title>Personal blog</title>
-    <updated>2020-10-06T15:25:34.930Z</updated>
+    <updated>2020-10-06T15:28:13.145Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jianmu123.github.io/"/>
     <link rel="self" href="https://jianmu123.github.io/atom.xml"/>
@@ -11,9 +11,9 @@
     <icon>https://jianmu123.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Personal blog</rights>
     <entry>
-        <title type="html"><![CDATA[JS6]]></title>
-        <id>https://jianmu123.github.io/post/js6/</id>
-        <link href="https://jianmu123.github.io/post/js6/">
+        <title type="html"><![CDATA[JS5]]></title>
+        <id>https://jianmu123.github.io/post/js5/</id>
+        <link href="https://jianmu123.github.io/post/js5/">
         </link>
         <updated>2020-10-06T15:19:34.000Z</updated>
         <content type="html"><![CDATA[<h2 id="数组中常用的方法">数组中常用的方法</h2>
@@ -282,37 +282,6 @@ ary.forEach(function(item,index){
 </code></pre>
 <p><img src="https://jianmu123.github.io//post-images/1601997762649.png" alt="" loading="lazy"><br>
 <img src="https://jianmu123.github.io//post-images/1601997776600.png" alt="" loading="lazy"></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[JS5]]></title>
-        <id>https://jianmu123.github.io/post/js5/</id>
-        <link href="https://jianmu123.github.io/post/js5/">
-        </link>
-        <updated>2020-10-05T14:28:29.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="es6中的箭头函数">ES6中的箭头函数</h1>
-<ul>
-<li>原来的函数写法：<br>
-function sum(n,m){<br>
-return n+m;<br>
-}</li>
-<li>现在的ES6箭头函数写法：<br>
-let sum=(n,m)=&gt;{<br>
-return n+m；<br>
-}<br>
-<code>如果函数体中只有一行return，可以省略大括号。采用下面的写法</code><br>
-let sum(n,m)=&gt;n+m;</li>
-</ul>
-<pre><code class="language-javascritp">箭头函数举例：
-function fn(n){
-        return function(m){
-                return n+m;
-                }
-        }
-改为箭头函数：
-        let fn=n=&gt;m=&gt;n+m;                
-
-</code></pre>
 ]]></content>
     </entry>
     <entry>
@@ -972,6 +941,64 @@ event是事件类型，[selector]是元素的子元素选择器<br>
 深拷贝：会保留原来是数据<br>
 <img src="https://jianmu123.github.io//post-images/1600957628103.png" alt="" loading="lazy"><br>
 <img src="https://jianmu123.github.io//post-images/1600957634129.png" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[jQuery4]]></title>
+        <id>https://jianmu123.github.io/post/jquery4/</id>
+        <link href="https://jianmu123.github.io/post/jquery4/">
+        </link>
+        <updated>2020-09-23T13:07:19.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="一jquery元素操作">一jQuery元素操作</h2>
+<h3 id="1找父级元素可以通过parent方法但是当父级元素很多的时候可以使用partens方法该方法会获取到所有的祖先元素包括body和html结合siblings方法可以找到该元素所需要的祖先元素">1：找父级元素可以通过parent()方法，但是当父级元素很多的时候可以使用partens()方法，该方法会获取到所有的祖先元素，包括body和html，结合siblings()方法可以找到该元素所需要的祖先元素。</h3>
+<pre><code class="language-javascript">  例如:
+  var p = $(this).panrent(&quot;.quantity-form&quot;).parent(&quot;.p-num&quot;).siblings(&quot;.p-price&quot;).html();等同于：  var p = $(this).parents(&quot;.p-num&quot;).siblings(&quot;.p-price&quot;).html();
+</code></pre>
+<h3 id="2遍历">2:遍历</h3>
+<p>隐式迭代是对同一类元素做了相同的操作，如果想要给同一类元素左不同的操作则需要使用遍历。<br>
+遍历使用的是each()方法和$.each()方法。</p>
+<h4 id="each方法主要使用在遍历dom对象比如标签">each()方法主要使用在遍历DOM对象，比如标签</h4>
+<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1600867180840.png" alt="" loading="lazy"></figure>
+<pre><code class="language-javascript">   $(&quot;div&quot;).each(function (index, domEle) {
+          //回调函数的第一个参数一定是索引号，可以是自己定义的索引名称
+          console.log(index); //结果： 0 1 2
+          //回调函数的第二个参数一定是DOM对象,可以是自己定义的对象名称
+          console.log(domEle); //结果：&lt;div&gt;1&lt;/div&gt; &lt;div&gt;2&lt;/div&gt; &lt;div&gt;3&lt;/div&gt;
+          //domEle.cc(&quot;color&quot;);//会报错，因为DOM对象没有css方法，因此需要转换成JQ对象
+          $(&quot;domEle&quot;).css(&quot;color&quot;, &quot;bule&quot;);
+        });
+</code></pre>
+<h4 id="each方法主要是来处理数据的比如数组-对象">$.each()方法：主要是来处理数据的，比如数组、对象。</h4>
+<figure data-type="image" tabindex="2"><img src="https://jianmu123.github.io//post-images/1600868203421.png" alt="" loading="lazy"></figure>
+<pre><code class="language-javascript">        var arr = [&quot;blue&quot;, &quot;red&quot;, &quot;green&quot;]; //定义数组
+        //遍历数组
+        $.each(arr, function (index, domEle) {
+          console.log(index); //打印索引0 1 2
+          console.log(domEle); //打印arr内部值 blue red green
+        });
+        //遍历对象
+        $.each(
+          {
+            name: &quot;孙悟空&quot;,
+            age: 18,
+          },
+          function (i, ele) {
+            console.log(i); //输出name age属性名
+            console.log(ele); //输出顺悟空 18属性值
+          }
+        );
+</code></pre>
+<h3 id="3创建添加删除元素">3:创建添加删除元素</h3>
+<p>创建语法：var li=<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi mathvariant="normal">&quot;</mi><mo>&lt;</mo><mi>l</mi><mi>i</mi><mo>&gt;</mo><mi mathvariant="normal">我</mi><mi mathvariant="normal">是</mi><mi mathvariant="normal">创</mi><mi mathvariant="normal">建</mi><mi mathvariant="normal">的</mi><mi>l</mi><mi>i</mi><mo>&lt;</mo><mi mathvariant="normal">/</mi><mi>l</mi><mi>i</mi><mo>&gt;</mo><mi mathvariant="normal">&quot;</mi><mo>)</mo><mo separator="true">;</mo><mi mathvariant="normal">添</mi><mi mathvariant="normal">加</mi><mi mathvariant="normal">语</mi><mi mathvariant="normal">法</mi><mi mathvariant="normal">：</mi><mi mathvariant="normal">内</mi><mi mathvariant="normal">部</mi><mi mathvariant="normal">添</mi><mi mathvariant="normal">加</mi><mi mathvariant="normal">：</mi><mo>(</mo><mi mathvariant="normal">添</mi><mi mathvariant="normal">加</mi><mi mathvariant="normal">后</mi><mi mathvariant="normal">是</mi><mi mathvariant="normal">匹</mi><mi mathvariant="normal">配</mi><mi mathvariant="normal">元</mi><mi mathvariant="normal">素</mi><mi mathvariant="normal">的</mi><mi mathvariant="normal">子</mi><mi mathvariant="normal">元</mi><mi mathvariant="normal">素</mi><mo>)</mo><mi>e</mi><mi>l</mi><mi>e</mi><mi>l</mi><mi>m</mi><mi>e</mi><mi>n</mi><mi>t</mi><mi mathvariant="normal">.</mi><mi>a</mi><mi>p</mi><mi>p</mi><mi>e</mi><mi>n</mi><mi>d</mi><mo>(</mo><mo>)</mo><mi mathvariant="normal">方</mi><mi mathvariant="normal">法</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">会</mi><mi mathvariant="normal">添</mi><mi mathvariant="normal">加</mi><mi mathvariant="normal">到</mi><mi mathvariant="normal">匹</mi><mi mathvariant="normal">配</mi><mi mathvariant="normal">元</mi><mi mathvariant="normal">素</mi><mi mathvariant="normal">的</mi><mi mathvariant="normal">后</mi><mi mathvariant="normal">面</mi><mi mathvariant="normal">。</mi><mi mathvariant="normal">在</mi><mi>u</mi><mi>l</mi><mi mathvariant="normal">中</mi><mi mathvariant="normal">原</mi><mi mathvariant="normal">有</mi><mi>l</mi><mi>i</mi><mi mathvariant="normal">后</mi><mi mathvariant="normal">面</mi><mi mathvariant="normal">添</mi><mi mathvariant="normal">加</mi><mi>l</mi><mi>i</mi><mi mathvariant="normal">使</mi><mi mathvariant="normal">用</mi><mi mathvariant="normal">方</mi><mi mathvariant="normal">法</mi><mi mathvariant="normal">：</mi></mrow><annotation encoding="application/x-tex">(&quot;&lt;li&gt;我是创建的li&lt;/li&gt;&quot;);
+添加语法：内部添加：(添加后是匹配元素的子元素)
+       elelment. append()方法，会添加到匹配元素的后面。在ul中原有li后面添加li使用方法：</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">&quot;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord cjk_fallback">我</span><span class="mord cjk_fallback">是</span><span class="mord cjk_fallback">创</span><span class="mord cjk_fallback">建</span><span class="mord cjk_fallback">的</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">&quot;</span><span class="mclose">)</span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord cjk_fallback">添</span><span class="mord cjk_fallback">加</span><span class="mord cjk_fallback">语</span><span class="mord cjk_fallback">法</span><span class="mord cjk_fallback">：</span><span class="mord cjk_fallback">内</span><span class="mord cjk_fallback">部</span><span class="mord cjk_fallback">添</span><span class="mord cjk_fallback">加</span><span class="mord cjk_fallback">：</span><span class="mopen">(</span><span class="mord cjk_fallback">添</span><span class="mord cjk_fallback">加</span><span class="mord cjk_fallback">后</span><span class="mord cjk_fallback">是</span><span class="mord cjk_fallback">匹</span><span class="mord cjk_fallback">配</span><span class="mord cjk_fallback">元</span><span class="mord cjk_fallback">素</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">子</span><span class="mord cjk_fallback">元</span><span class="mord cjk_fallback">素</span><span class="mclose">)</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">m</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mord">.</span><span class="mord mathdefault">a</span><span class="mord mathdefault">p</span><span class="mord mathdefault">p</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">d</span><span class="mopen">(</span><span class="mclose">)</span><span class="mord cjk_fallback">方</span><span class="mord cjk_fallback">法</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">会</span><span class="mord cjk_fallback">添</span><span class="mord cjk_fallback">加</span><span class="mord cjk_fallback">到</span><span class="mord cjk_fallback">匹</span><span class="mord cjk_fallback">配</span><span class="mord cjk_fallback">元</span><span class="mord cjk_fallback">素</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">后</span><span class="mord cjk_fallback">面</span><span class="mord cjk_fallback">。</span><span class="mord cjk_fallback">在</span><span class="mord mathdefault">u</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord cjk_fallback">中</span><span class="mord cjk_fallback">原</span><span class="mord cjk_fallback">有</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord cjk_fallback">后</span><span class="mord cjk_fallback">面</span><span class="mord cjk_fallback">添</span><span class="mord cjk_fallback">加</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord cjk_fallback">使</span><span class="mord cjk_fallback">用</span><span class="mord cjk_fallback">方</span><span class="mord cjk_fallback">法</span><span class="mord cjk_fallback">：</span></span></span></span>(&quot;ul&quot;).append(li);<br>
+elelment.prepend()方法，会添加到匹配元素的前面。在ul中原有li前面添加li使用方法：$(&quot;ul&quot;).prepend(li);<br>
+外部添加：(添加后是匹配元素的兄弟元素)<br>
+elelment.before()和 elelment.after()。<br>
+删除元素:<br>
+element.remove();删除匹配元素本身。<br>
+element.empty();删除匹配元素集合中的所有子节点。<br>
+element.html(&quot;&quot;);清空匹配元素内容。</p>
 ]]></content>
     </entry>
 </feed>
