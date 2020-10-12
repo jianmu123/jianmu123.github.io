@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jianmu123.github.io/</id>
     <title>Personal blog</title>
-    <updated>2020-10-06T15:28:13.145Z</updated>
+    <updated>2020-10-12T09:23:10.942Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jianmu123.github.io/"/>
     <link rel="self" href="https://jianmu123.github.io/atom.xml"/>
@@ -10,6 +10,149 @@
     <logo>https://jianmu123.github.io/images/avatar.png</logo>
     <icon>https://jianmu123.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Personal blog</rights>
+    <entry>
+        <title type="html"><![CDATA[JS3]]></title>
+        <id>https://jianmu123.github.io/post/js3/</id>
+        <link href="https://jianmu123.github.io/post/js3/">
+        </link>
+        <updated>2020-10-07T12:07:36.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="js中的操作语句判断-循环">JS中的操作语句：判断、循环。</h3>
+<blockquote>
+<p>判断 ：</p>
+<p>​			if/else if/else</p>
+<p>​			三元运算符</p>
+<p>​			switch case</p>
+</blockquote>
+<p>三元运算符： 条件？条件成立执行的事情：不成立执行的事情；</p>
+<p>1：如果处理的事情多，我们用括号包起来，每一件事情用逗号分隔.</p>
+<p>2:如果不需要处理事情，可以使用null/undefined占位.</p>
+<p>上面2句说法的解释：</p>
+<pre><code class="language-javascript">例如用if写一个判断,这里做了2件事情，并且不满足的时候什么事情都不做：
+if (a&gt;0&amp;&amp;a&lt;10){
+   a++;
+   console.log(a);
+}
+它的三元运算符这样写：
+a&gt;0&amp;&amp;a&lt;10 ? (a++,console.log(a)):null; 
+//1：如果处理的事情多，我们用括号包起来，每一件事情用逗号分隔2:如果不需要处理事情，可以使用null/undefined占位.
+</code></pre>
+<h3 id="js中的函数">js中的函数</h3>
+<blockquote>
+<p>函数中的返回值：<br>
+函数执行的时候，函数体内部创建的变量我们是无法获取和操作的，如果想要获取内部信息，需要使用return返回机制。返回的一定是一个值，不是变量。</p>
+</blockquote>
+<pre><code class="language-javascript">function sum(a,b){
+    let result=a+b;
+    //return的一定是值：此处是把result变量存储的值返回给外面
+    return result;
+}
+sum(10,20);//是这个整体值为30，不是result值为30 
+console.log(result);//会报错 Uncaught ReferenceError: result is not defined
+如果没有写return，调用函数的默认返回值是undefined.
+</code></pre>
+<blockquote>
+<p>函数体中遇到return 则后面的代码不会再运行。</p>
+</blockquote>
+<h3 id="arguments属性函数内置实参集合">arguments属性（函数内置实参集合）</h3>
+<ul>
+<li>类数组集合，集合中存储着所有函数执行时传递的实参信息。</li>
+<li>不论是否设置形参，arguments都存在</li>
+<li>不论是否传递实参，arguments也都存在</li>
+</ul>
+<p>案列：任意数求和</p>
+<pre><code class="language-javascript">  &lt;script&gt;
+      /*
+        实际的加法运算是任意数相加，并没有规定多少个数，什么类型的数，因此下面写一个任意数相加的函数
+         */
+      function sum() {
+        // console.log(arguments); //这里采用的函数arguments属性
+        let total = null;
+        for (let i = 0; i &lt; arguments.length; i++) {
+          let item = arguments[i]; //获取每个值
+          item = Number(item); //但是一些类型会转为NaN，所以还需要进一步处理
+
+          if (isNaN(item)) {
+            //非有效数字不进行加法运算，进行下一个数的判断
+            continue;
+          }
+          /*
+         但是样写如果传入的是字符串型或则其他类型就会输出字符串
+          */
+          total += item; //比如如果是30+'30'则是字符串拼接结果为'3030'，所以需要在计算前转换为Number
+        }
+        return total;
+      }
+
+      let result = sum(10, 20, 30);
+      console.log(result);
+      result = sum(10, 20);
+      console.log(result);
+      result = sum(10, 20, &quot;30&quot;);
+      console.log(result);
+      result = sum(10, 20, &quot;AA&quot;, 20);
+      console.log(result);
+    &lt;/script&gt;
+</code></pre>
+<h4 id="js函数运行底层机制">js函数运行底层机制</h4>
+<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1601907056396.png" alt="" loading="lazy"></figure>
+<p>——注意：执行几次函数就会产生几个全新的私有栈内存，因此涉及到内存释放与销毁。</p>
+<h3 id="匿名函数">匿名函数</h3>
+<p>匿名函数分为：函数表达式和自执行函数</p>
+<ul>
+<li>函数表达式：把一个匿名函数本身作为值赋值给其他东西，这种函数一般不是手动触发，而是靠其他驱动程序触发执行（例如：触发某个事件的时候执行）</li>
+</ul>
+<p>如： document.body.onclick=function(){};</p>
+<p>setTimeout(function(){},1000);//设置定时器，1000ms后执行匿名函数</p>
+<ul>
+<li>自执行函数： 能创建完一个匿名函数，紧接着就把当前函数加<strong>小括号</strong>执行</li>
+</ul>
+<p>如：</p>
+<p>（function（n）{</p>
+<p>​    //n=100</p>
+<p>​     }）(100);</p>
+<p>//这里的（100）执行了匿名函数，得到了n=100；</p>
+<h3 id="for-in-循环">for in 循环</h3>
+<blockquote>
+<p>语法： for(var 变量（key）in 对象)</p>
+</blockquote>
+<pre><code class="language-javascript">var obj={
+	name:'张三',
+	age:18,
+    friends:'李四',
+    1:20,
+    2:150
+};
+//使用for in循环能够遍历出对象的所有内容，对象有多少组键值对，循环就执行几次（除非添加break结束）
+for (var key in obj){
+    console.log(key);//每次循环key变量都存储着当前对象的属性名
+    console.log(obj[key]);//获取属性值的办法
+}
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://jianmu123.github.io//post-images/1601907094800.png" alt="" loading="lazy"></figure>
+<ul>
+<li>
+<p>代码详解：</p>
+<pre><code class="language-javascript">var btnList=document.getElementsByTagName(&quot;btn&quot;);
+for(var i=0;i&lt;btnList.length;i++){
+    btnlist[i].onclick=function(){
+        alert(i);//这里无论点击哪个按钮都是弹出序号：5
+    }
+}
+改进：
+var btnList=document.getElementsByTagName(&quot;btn&quot;);
+for(var i=0;i&lt;btnList.length;i++){
+    btnList[i].myIndex=i;//创建自定义属性给每个点击的btn贴上标签
+    btnlist[i].onclick=function(){
+        alert(this.myIndex);//这里就可以弹出点击的按钮的序号（索引）
+    }
+}
+</code></pre>
+</li>
+</ul>
+<p><img src="https://jianmu123.github.io//post-images/1601907107501.png" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1601907114756.png" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[JS5]]></title>
         <id>https://jianmu123.github.io/post/js5/</id>
@@ -285,11 +428,581 @@ ary.forEach(function(item,index){
 ]]></content>
     </entry>
     <entry>
+        <title type="html"><![CDATA[jQuery5]]></title>
+        <id>https://jianmu123.github.io/post/jquery5/</id>
+        <link href="https://jianmu123.github.io/post/jquery5/">
+        </link>
+        <updated>2020-09-24T13:30:19.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="1jquery事件处理">1：jQuery事件处理</h2>
+<h3 id="1-elementon方法可以绑定多个事件">1： element.on()方法可以绑定多个事件</h3>
+<p>语法：element.on(event,[selector],fn);<br>
+event是事件类型，[selector]是元素的子元素选择器<br>
+您的浏览器不支持 video 标签。<br>
+</video></p>
+<pre><code class="language-javascript">    $(&quot;div&quot;).on({
+        //鼠标经过div背景变红
+        mouseenter：function(){
+        $(&quot;this&quot;).css(&quot;background&quot;,&quot;red&quot;);
+       },
+       //鼠标点击div背景变粉红
+      click：function(){
+          $(&quot;this&quot;).css(&quot;background&quot;,&quot;pink&quot;);
+      }
+    })
+</code></pre>
+<p>on方法可以实现事件的委派。例如：</p>
+<pre><code class="language-javascript">$(&quot;ul&quot;).on(click,&quot;li&quot;,function(){
+    alert(&quot;触发了点击事件&quot;);
+});
+这个触发事件在ul上，但是触发对象在li上，即ul委托li帮他触发
+</code></pre>
+<h3 id="2off方法可以移除通过on方法添加的事件处理程序">2:off方法可以移除通过on方法添加的事件处理程序</h3>
+<pre><code class="language-javascript"> $(&quot;p&quot;).off()  //解除p上所有的事件处理
+ $(&quot;p&quot;).off(&quot;click&quot;) //解除p上的click事件处理
+ $(&quot;ul&quot;).off(&quot;click&quot;，&quot;li&quot;) //解除事件委托
+</code></pre>
+<h3 id="3自动触发事件">3:自动触发事件</h3>
+<p>有些事件希望自动触发，比如轮播图的自动播放能跟点击按钮一致，可以利用定时器自动触发按钮按钮点击事件，不必鼠标点击触发。<br>
+第一种形式：元素.事件()<br>
+第二种形式：元素.trigger(&quot;事件&quot;)<br>
+第三种形式：元素.triggerHandler(&quot;事件&quot;)<br>
+第三种和前面的区别：不会触发元素的默认行为，比如文本框焦点事件的光标此时不会闪烁</p>
+<pre><code class="language-javascript">       下面代码不会有光标闪烁：
+       $(&quot;input&quot;).on(&quot;focus&quot;,function(){
+           $(&quot;this&quot;).val(&quot;你好吗&quot;);
+       })
+       $(&quot;input&quot;).triggerHandler(&quot;focus&quot;);//自动触发
+</code></pre>
+<h3 id="4阻止默认行为和冒泡行为">4：阻止默认行为和冒泡行为</h3>
+<h4 id="41阻止默认行为eventpreventdefault-或则return-false">4.1:阻止默认行为：event.preventDefault(); 或则：return false</h4>
+<h4 id="42阻止冒泡行为eventstoppropagation">4.2:阻止冒泡行为：event.stopPropagation()</h4>
+<p>###5:jQuery对象拷贝<br>
+语法：$.extend([deep],target,object1,[objectN]) //[objectN]是代表不仅可以拷贝一个还可以拷贝多个。<br>
+<img src="https://jianmu123.github.io//post-images/1600956466981.png" alt="" loading="lazy"><br>
+浅拷贝：会覆盖原来数据<br>
+深拷贝：会保留原来是数据<br>
+<img src="https://jianmu123.github.io//post-images/1600957628103.png" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1600957634129.png" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[jQuery4]]></title>
+        <id>https://jianmu123.github.io/post/jquery4/</id>
+        <link href="https://jianmu123.github.io/post/jquery4/">
+        </link>
+        <updated>2020-09-23T13:07:19.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="一jquery元素操作">一jQuery元素操作</h2>
+<h3 id="1找父级元素可以通过parent方法但是当父级元素很多的时候可以使用partens方法该方法会获取到所有的祖先元素包括body和html结合siblings方法可以找到该元素所需要的祖先元素">1：找父级元素可以通过parent()方法，但是当父级元素很多的时候可以使用partens()方法，该方法会获取到所有的祖先元素，包括body和html，结合siblings()方法可以找到该元素所需要的祖先元素。</h3>
+<pre><code class="language-javascript">  例如:
+  var p = $(this).panrent(&quot;.quantity-form&quot;).parent(&quot;.p-num&quot;).siblings(&quot;.p-price&quot;).html();等同于：  var p = $(this).parents(&quot;.p-num&quot;).siblings(&quot;.p-price&quot;).html();
+</code></pre>
+<h3 id="2遍历">2:遍历</h3>
+<p>隐式迭代是对同一类元素做了相同的操作，如果想要给同一类元素左不同的操作则需要使用遍历。<br>
+遍历使用的是each()方法和$.each()方法。</p>
+<h4 id="each方法主要使用在遍历dom对象比如标签">each()方法主要使用在遍历DOM对象，比如标签</h4>
+<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1600867180840.png" alt="" loading="lazy"></figure>
+<pre><code class="language-javascript">   $(&quot;div&quot;).each(function (index, domEle) {
+          //回调函数的第一个参数一定是索引号，可以是自己定义的索引名称
+          console.log(index); //结果： 0 1 2
+          //回调函数的第二个参数一定是DOM对象,可以是自己定义的对象名称
+          console.log(domEle); //结果：&lt;div&gt;1&lt;/div&gt; &lt;div&gt;2&lt;/div&gt; &lt;div&gt;3&lt;/div&gt;
+          //domEle.cc(&quot;color&quot;);//会报错，因为DOM对象没有css方法，因此需要转换成JQ对象
+          $(&quot;domEle&quot;).css(&quot;color&quot;, &quot;bule&quot;);
+        });
+</code></pre>
+<h4 id="each方法主要是来处理数据的比如数组-对象">$.each()方法：主要是来处理数据的，比如数组、对象。</h4>
+<figure data-type="image" tabindex="2"><img src="https://jianmu123.github.io//post-images/1600868203421.png" alt="" loading="lazy"></figure>
+<pre><code class="language-javascript">        var arr = [&quot;blue&quot;, &quot;red&quot;, &quot;green&quot;]; //定义数组
+        //遍历数组
+        $.each(arr, function (index, domEle) {
+          console.log(index); //打印索引0 1 2
+          console.log(domEle); //打印arr内部值 blue red green
+        });
+        //遍历对象
+        $.each(
+          {
+            name: &quot;孙悟空&quot;,
+            age: 18,
+          },
+          function (i, ele) {
+            console.log(i); //输出name age属性名
+            console.log(ele); //输出顺悟空 18属性值
+          }
+        );
+</code></pre>
+<h3 id="3创建添加删除元素">3:创建添加删除元素</h3>
+<p>创建语法：var li=<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi mathvariant="normal">&quot;</mi><mo>&lt;</mo><mi>l</mi><mi>i</mi><mo>&gt;</mo><mi mathvariant="normal">我</mi><mi mathvariant="normal">是</mi><mi mathvariant="normal">创</mi><mi mathvariant="normal">建</mi><mi mathvariant="normal">的</mi><mi>l</mi><mi>i</mi><mo>&lt;</mo><mi mathvariant="normal">/</mi><mi>l</mi><mi>i</mi><mo>&gt;</mo><mi mathvariant="normal">&quot;</mi><mo>)</mo><mo separator="true">;</mo><mi mathvariant="normal">添</mi><mi mathvariant="normal">加</mi><mi mathvariant="normal">语</mi><mi mathvariant="normal">法</mi><mi mathvariant="normal">：</mi><mi mathvariant="normal">内</mi><mi mathvariant="normal">部</mi><mi mathvariant="normal">添</mi><mi mathvariant="normal">加</mi><mi mathvariant="normal">：</mi><mo>(</mo><mi mathvariant="normal">添</mi><mi mathvariant="normal">加</mi><mi mathvariant="normal">后</mi><mi mathvariant="normal">是</mi><mi mathvariant="normal">匹</mi><mi mathvariant="normal">配</mi><mi mathvariant="normal">元</mi><mi mathvariant="normal">素</mi><mi mathvariant="normal">的</mi><mi mathvariant="normal">子</mi><mi mathvariant="normal">元</mi><mi mathvariant="normal">素</mi><mo>)</mo><mi>e</mi><mi>l</mi><mi>e</mi><mi>l</mi><mi>m</mi><mi>e</mi><mi>n</mi><mi>t</mi><mi mathvariant="normal">.</mi><mi>a</mi><mi>p</mi><mi>p</mi><mi>e</mi><mi>n</mi><mi>d</mi><mo>(</mo><mo>)</mo><mi mathvariant="normal">方</mi><mi mathvariant="normal">法</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">会</mi><mi mathvariant="normal">添</mi><mi mathvariant="normal">加</mi><mi mathvariant="normal">到</mi><mi mathvariant="normal">匹</mi><mi mathvariant="normal">配</mi><mi mathvariant="normal">元</mi><mi mathvariant="normal">素</mi><mi mathvariant="normal">的</mi><mi mathvariant="normal">后</mi><mi mathvariant="normal">面</mi><mi mathvariant="normal">。</mi><mi mathvariant="normal">在</mi><mi>u</mi><mi>l</mi><mi mathvariant="normal">中</mi><mi mathvariant="normal">原</mi><mi mathvariant="normal">有</mi><mi>l</mi><mi>i</mi><mi mathvariant="normal">后</mi><mi mathvariant="normal">面</mi><mi mathvariant="normal">添</mi><mi mathvariant="normal">加</mi><mi>l</mi><mi>i</mi><mi mathvariant="normal">使</mi><mi mathvariant="normal">用</mi><mi mathvariant="normal">方</mi><mi mathvariant="normal">法</mi><mi mathvariant="normal">：</mi></mrow><annotation encoding="application/x-tex">(&quot;&lt;li&gt;我是创建的li&lt;/li&gt;&quot;);
+添加语法：内部添加：(添加后是匹配元素的子元素)
+       elelment. append()方法，会添加到匹配元素的后面。在ul中原有li后面添加li使用方法：</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">&quot;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord cjk_fallback">我</span><span class="mord cjk_fallback">是</span><span class="mord cjk_fallback">创</span><span class="mord cjk_fallback">建</span><span class="mord cjk_fallback">的</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">&quot;</span><span class="mclose">)</span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord cjk_fallback">添</span><span class="mord cjk_fallback">加</span><span class="mord cjk_fallback">语</span><span class="mord cjk_fallback">法</span><span class="mord cjk_fallback">：</span><span class="mord cjk_fallback">内</span><span class="mord cjk_fallback">部</span><span class="mord cjk_fallback">添</span><span class="mord cjk_fallback">加</span><span class="mord cjk_fallback">：</span><span class="mopen">(</span><span class="mord cjk_fallback">添</span><span class="mord cjk_fallback">加</span><span class="mord cjk_fallback">后</span><span class="mord cjk_fallback">是</span><span class="mord cjk_fallback">匹</span><span class="mord cjk_fallback">配</span><span class="mord cjk_fallback">元</span><span class="mord cjk_fallback">素</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">子</span><span class="mord cjk_fallback">元</span><span class="mord cjk_fallback">素</span><span class="mclose">)</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">m</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mord">.</span><span class="mord mathdefault">a</span><span class="mord mathdefault">p</span><span class="mord mathdefault">p</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">d</span><span class="mopen">(</span><span class="mclose">)</span><span class="mord cjk_fallback">方</span><span class="mord cjk_fallback">法</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">会</span><span class="mord cjk_fallback">添</span><span class="mord cjk_fallback">加</span><span class="mord cjk_fallback">到</span><span class="mord cjk_fallback">匹</span><span class="mord cjk_fallback">配</span><span class="mord cjk_fallback">元</span><span class="mord cjk_fallback">素</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">后</span><span class="mord cjk_fallback">面</span><span class="mord cjk_fallback">。</span><span class="mord cjk_fallback">在</span><span class="mord mathdefault">u</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord cjk_fallback">中</span><span class="mord cjk_fallback">原</span><span class="mord cjk_fallback">有</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord cjk_fallback">后</span><span class="mord cjk_fallback">面</span><span class="mord cjk_fallback">添</span><span class="mord cjk_fallback">加</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord cjk_fallback">使</span><span class="mord cjk_fallback">用</span><span class="mord cjk_fallback">方</span><span class="mord cjk_fallback">法</span><span class="mord cjk_fallback">：</span></span></span></span>(&quot;ul&quot;).append(li);<br>
+elelment.prepend()方法，会添加到匹配元素的前面。在ul中原有li前面添加li使用方法：$(&quot;ul&quot;).prepend(li);<br>
+外部添加：(添加后是匹配元素的兄弟元素)<br>
+elelment.before()和 elelment.after()。<br>
+删除元素:<br>
+element.remove();删除匹配元素本身。<br>
+element.empty();删除匹配元素集合中的所有子节点。<br>
+element.html(&quot;&quot;);清空匹配元素内容。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[jQuery3]]></title>
+        <id>https://jianmu123.github.io/post/jquery3/</id>
+        <link href="https://jianmu123.github.io/post/jquery3/">
+        </link>
+        <updated>2020-09-22T12:45:12.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="一jquery属性操作">一:jQuery属性操作</h2>
+<p>###1：设置或获取元素固有属性值：prop()<br>
+所谓元素固有属性值就是元素本身自带的属性，比如<a>标签中的herf。<br>
+<img src="https://jianmu123.github.io//post-images/1600865423781.png" alt="" loading="lazy"></p>
+<h3 id="2设置或获取元素自定义属性值attr">2：设置或获取元素自定义属性值：attr()</h3>
+<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1600865617914.png" alt="" loading="lazy"></figure>
+<h3 id="3数据缓存-data">3:数据缓存 data()</h3>
+<p>data()方法可以在指定元素上存取数据，并不会修改DOM元素结构，一旦页面刷新，之前的存放的数据都会被移除<br>
+<img src="https://jianmu123.github.io//post-images/1600866237557.png" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1600866060662.png" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1600866065161.png" alt="" loading="lazy"><br>
+购物车案列（不含css部分）</p>
+<pre><code class="language-javascript">  &lt;body&gt;
+    &lt;div class=&quot;w&quot;&gt;
+      &lt;div class=&quot;head&quot;&gt;
+        &lt;!-- 全选模块 --&gt;
+        &lt;div class=&quot;t-checkbox&quot;&gt;
+          &lt;input type=&quot;checkbox&quot; name=&quot;&quot; id=&quot;&quot; class=&quot;checkall&quot; /&gt;全选
+        &lt;/div&gt;
+        &lt;div class=&quot;t-goods&quot;&gt;商品&lt;/div&gt;
+        &lt;div class=&quot;t-price&quot;&gt;单价&lt;/div&gt;
+        &lt;div class=&quot;t-num&quot;&gt;数量&lt;/div&gt;
+        &lt;div class=&quot;t-sum&quot;&gt;小计&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;!-- 商品模块 --&gt;
+      &lt;div class=&quot;cart-item-list&quot;&gt;
+        &lt;div class=&quot;cart-check&quot;&gt;
+          &lt;div class=&quot;p-checkbox&quot;&gt;
+            &lt;input type=&quot;checkbox&quot; name=&quot;&quot; id=&quot;&quot; class=&quot;j-checkbox&quot; /&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;p-goodes&quot;&gt;
+            &lt;div class=&quot;p-img&quot;&gt;
+              &lt;!-- &lt;img src=&quot;&quot; alt=&quot;&quot; /&gt; --&gt;
+              洗衣粉
+            &lt;/div&gt;
+            &lt;div class=&quot;p-price&quot;&gt;￥12.60&lt;/div&gt;
+            &lt;div class=&quot;p-num&quot;&gt;
+              &lt;div class=&quot;quantity-form&quot;&gt;
+                &lt;a href=&quot;javascript:;&quot; class=&quot;decrement&quot;&gt;-&lt;/a&gt;
+                &lt;input type=&quot;text&quot; class=&quot;itxt&quot; value=&quot;1&quot; style=&quot;width: 20px&quot; /&gt;
+                &lt;a href=&quot;javascript:;&quot; class=&quot;increment&quot;&gt;+&lt;/a&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;p-sum&quot;&gt;￥12.60&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;cart-item-list&quot;&gt;
+        &lt;div class=&quot;cart-check&quot;&gt;
+          &lt;div class=&quot;p-checkbox&quot;&gt;
+            &lt;input type=&quot;checkbox&quot; name=&quot;&quot; id=&quot;&quot; class=&quot;j-checkbox&quot; /&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;p-goodes&quot;&gt;
+            &lt;div class=&quot;p-img&quot;&gt;
+              &lt;!-- &lt;img src=&quot;&quot; alt=&quot;&quot; /&gt; --&gt;
+              消毒水
+            &lt;/div&gt;
+            &lt;div class=&quot;p-price&quot;&gt;￥15.20&lt;/div&gt;
+            &lt;div class=&quot;p-num&quot;&gt;
+              &lt;div class=&quot;quantity-form&quot;&gt;
+                &lt;a href=&quot;javascript:;&quot; class=&quot;decrement&quot;&gt;-&lt;/a&gt;
+                &lt;input type=&quot;text&quot; class=&quot;itxt&quot; value=&quot;1&quot; style=&quot;width: 20px&quot; /&gt;
+                &lt;a href=&quot;javascript:;&quot; class=&quot;increment&quot;&gt;+&lt;/a&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;p-sum&quot;&gt;￥15.20&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;cart-item-list&quot;&gt;
+        &lt;div class=&quot;cart-check&quot;&gt;
+          &lt;div class=&quot;p-checkbox&quot;&gt;
+            &lt;input type=&quot;checkbox&quot; name=&quot;&quot; id=&quot;&quot; class=&quot;j-checkbox&quot; /&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;p-goodes&quot;&gt;
+            &lt;div class=&quot;p-img&quot;&gt;
+              &lt;!-- &lt;img src=&quot;&quot; alt=&quot;&quot; /&gt; --&gt;
+              吹风机
+            &lt;/div&gt;
+            &lt;div class=&quot;p-price&quot;&gt;￥30.50&lt;/div&gt;
+            &lt;div class=&quot;p-num&quot;&gt;
+              &lt;div class=&quot;quantity-form&quot;&gt;
+                &lt;a href=&quot;javascript:;&quot; class=&quot;decrement&quot;&gt;-&lt;/a&gt;
+                &lt;input type=&quot;text&quot; class=&quot;itxt&quot; value=&quot;1&quot; style=&quot;width: 20px&quot; /&gt;
+                &lt;a href=&quot;javascript:;&quot; class=&quot;increment&quot;&gt;+&lt;/a&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;p-sum&quot;&gt;￥30.50&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;!-- 总计模块 --&gt;
+      &lt;div class=&quot;cart-floatbar&quot;&gt;
+        &lt;div class=&quot;select-all&quot;&gt;
+          &lt;input type=&quot;checkbox&quot; name=&quot;&quot; id=&quot;&quot; class=&quot;checkall&quot; /&gt;全选
+        &lt;/div&gt;
+        &lt;div class=&quot;operation&quot;&gt;
+          &lt;a href=&quot;javascript:;&quot; class=&quot;remove-batch&quot;&gt;删除选中的商品&lt;/a&gt;
+          &lt;a href=&quot;javascript:;&quot; class=&quot;clear-all&quot;&gt;清除购物车&lt;/a&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;toolbar-right&quot;&gt;
+          &lt;div class=&quot;amount-sum&quot;&gt;总计&lt;em&gt; &lt;/em&gt;件商品&lt;/div&gt;
+          &lt;div class=&quot;price-sum&quot;&gt;总价：&lt;em&gt;￥&lt;/em&gt;&lt;/div&gt;
+          &lt;div class=&quot;btn-area&quot;&gt;
+            &lt;a href=&quot;javascript:;&quot; style=&quot;color: red&quot;&gt;去结算&lt;/a&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;script&gt;
+      //实现点击全选框，所有商品全选，或则手动点击了所有商品选中框，上面全选框也选上
+      $(function () {
+        //入口函数
+
+        //1：全选点击单选框，可以用change事件
+        $(&quot;.checkall&quot;).change(function () {
+          //   var a = $(this).prop(&quot;checked&quot;);
+          //   console.log(a);//结果是点击全选返回ture,证明已经获取到
+          $(&quot;.j-checkbox, .checkall&quot;).prop(&quot;checked&quot;, $(this).prop(&quot;checked&quot;)); //下面的按钮根据全选的状态变化而变化
+          //所有商品背景变化
+          if ($(this).prop(&quot;checked&quot;)) {
+            $(&quot;.cart-item-list&quot;).addClass(&quot;beijing&quot;);
+          } else {
+            $(&quot;.cart-item-list&quot;).removeClass(&quot;beijing&quot;);
+          }
+        });
+        $(&quot;.j-checkbox&quot;).change(function () {
+          //如果下面的复选框全部选中，则上面的全选也选中$(&quot;.j-checkbox&quot;).length是所有商品的单选框数量
+          if ($(&quot;.j-checkbox:checked&quot;).length == $(&quot;.j-checkbox&quot;).length) {
+            //.j-checkbox:checked可以知道到底有几个单选框被选中
+            $(&quot;.checkall&quot;).prop(&quot;checked&quot;, true);
+          } else {
+            $(&quot;.checkall&quot;).prop(&quot;checked&quot;, false);
+          }
+          if ($(this).prop(&quot;checked&quot;)) {
+            $(this).parents(&quot;.cart-item-list&quot;).addClass(&quot;beijing&quot;);
+          } else {
+            $(this).parents(&quot;.cart-item-list&quot;).removeClass(&quot;beijing&quot;);
+          }
+        });
+        // 2：增减商品数量模块。核心思路：声明一个变量，当我们点击+/-的时候，就让这个值++/--，然后赋给文本框
+        $(&quot;.increment&quot;).click(function () {
+          //得到当前加/减的兄弟：文本框的值
+          var n = $(this).siblings(&quot;.itxt&quot;).val(); //text文本使用val获取内容
+          //   console.log(n);
+          n++;
+          $(this).siblings(&quot;.itxt&quot;).val(n);
+          // 3: 根据商品数量自动计算价格,价格是加减号的父亲的父亲的兄弟
+          var p = $(this).parents(&quot;.p-num&quot;).siblings(&quot;.p-price&quot;).html();
+          // console.log(p);
+          p = p.substr(1) * n; //去掉索引为0的美元符号,截取后面的价格,然后队小计进行计算
+          p = p.toFixed(2);
+          // console.log(p);
+          $(this)
+            .parents(&quot;.p-num&quot;)
+            .siblings(&quot;.p-sum&quot;)
+            .html(&quot;￥&quot; + p);
+          getSum();
+        });
+        //3:减：
+        $(&quot;.decrement&quot;).click(function () {
+          var n = $(this).siblings(&quot;.itxt&quot;).val(); //text文本使用val获取内容，非文本使用text()
+          //   console.log(n);
+          if (n &gt; 1) {
+            n--;
+          }
+          $(this).siblings(&quot;.itxt&quot;).val(n);
+          //  根据商品数量自动计算价格,价格是加减号的父亲的父亲的兄弟
+          var p = $(this).parents(&quot;.p-num&quot;).siblings(&quot;.p-price&quot;).html(); //获取到了价格
+          // console.log(p);
+          p = p.substr(1) * n; //去掉索引为0的美元符号,截取后面的价格,然后队小计进行计算
+          p = p.toFixed(2);
+          $(this)
+            .parents(&quot;.p-num&quot;)
+            .siblings(&quot;.p-sum&quot;)
+            .html(&quot;￥&quot; + p);
+          getSum();
+        });
+        //4:手动修改文本框的数值使小计跟着改变
+        $(&quot;.itxt&quot;).change(function () {
+          var m = $(this).val();
+          // console.log(m);
+          var p = $(this).parents(&quot;.p-num&quot;).siblings(&quot;.p-price&quot;).html();
+          p = p.substr(1) * m; //去掉索引为0的美元符号,截取后面的价格,然后队小计进行计算
+          p = p.toFixed(2);
+          $(this)
+            .parents(&quot;.p-num&quot;)
+            .siblings(&quot;.p-sum&quot;)
+            .html(&quot;￥&quot; + p);
+          getSum();
+        });
+        getSum(); //初始显示选中商品总数和总价
+        //5:商品总数模块,定义一个函数，来遍历商品数量和总价
+        function getSum() {
+          var count = 0;
+          var money = 0;
+          //获取文本框数量,使用each遍历方法
+          $(&quot;.itxt&quot;).each(function (index, ele) {
+            //index是索引，ele是dom对象
+            // console.log(index);
+            // console.log($(ele));
+            count += parseInt($(ele).val());
+          });
+          //修改总数量
+          $(&quot;.amount-sum em&quot;).text(count);
+          //获取总价
+          $(&quot;.p-sum&quot;).each(function (index, ele) {
+            money += parseFloat($(ele).text().substr(1));
+            // console.log(sum);
+            //修改总价钱
+            $(&quot;.price-sum em&quot;).text(&quot;￥&quot; + money.toFixed(2));
+          });
+        }
+
+        // 6:删除模块
+        $(&quot;.remove-batch&quot;).click(function () {
+          //删除复选框选中的商品
+          $(&quot;.j-checkbox:checked&quot;).parents(&quot;.cart-item-list&quot;).remove();
+          getSum();
+        });
+        //清空购物车模块
+        $(&quot;.clear-all&quot;).click(function () {
+          $(&quot;.cart-item-list&quot;).remove();
+          getSum();
+        });
+      });
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[jQuery-2]]></title>
+        <id>https://jianmu123.github.io/post/jquery-2/</id>
+        <link href="https://jianmu123.github.io/post/jquery-2/">
+        </link>
+        <updated>2020-09-21T09:55:36.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="一jquery的样式操作">一：jQuery的样式操作</h2>
+<h3 id="1设置类样式方法">1：设置类样式方法</h3>
+<p>作用等同于以前的classList，可以操作类样式，注意jQuery中的类参数不要加点。</p>
+<pre><code class="language-javaScript">添加类：$(&quot;div&quot;).addClass(&quot;current&quot;);//这里是给div盒子添加current的类
+删除类：$(&quot;div&quot;).removeClss(&quot;current&quot;);//这里是删除div盒子current的类
+切换类：$(&quot;div&quot;).toggleClss(&quot;current&quot;);//这里是切换div盒子current的类
+    &lt;script&gt;
+      $(function () {
+        //添加类addClass
+        $(&quot;div&quot;).click(function () {
+          $(this).addClass(&quot;current&quot;);
+        });
+        //删除类removeClass
+        $(&quot;div&quot;).click(function () {
+          $(this).removeClass(&quot;current&quot;);
+        });
+        //切换类toggleClass
+        $(&quot;div&quot;).click(function () {
+          $(this).toggleClass(&quot;current&quot;);
+        });
+      });
+    &lt;/script&gt;
+</code></pre>
+<h3 id="2jquery的类操作是对指定类进行操作不会影响原先类名但是原生js中classname会覆盖元素里面原先的类名">2:jQuery的类操作是对指定类进行操作，不会影响原先类名，但是原生js中className会覆盖元素里面原先的类名。</h3>
+<p>下面做一个菜单栏案例：点击菜单后该菜单的内容显示出来，单击其他菜单，之前显示的菜单隐藏。</p>
+<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1600683854568.png" alt="" loading="lazy"></figure>
+<h2 id="二jquery效果">二：jQuery效果</h2>
+<h3 id="1显示隐藏-切换showspeedeasingcallback-hidespeedeasingcallback-togglespeedeasingcallback-注意这3个方法内部有方括号所以参数都可以不写">1：显示/隐藏 /切换：show([speed],[easing],[callback])  hide([speed],[easing],[callback]) toggle([speed],[easing],[callback])。注意这3个方法内部有方括号[],所以参数都可以不写。</h3>
+<figure data-type="image" tabindex="2"><img src="https://jianmu123.github.io//post-images/1600773077471.png" alt="" loading="lazy"></figure>
+<h3 id="2下拉上啦切换-slidedownslideupslidetoggle-内部参数与上方一样">2：下拉/上啦/切换: slideDown,slideUp,slideToggle。内部参数与上方一样。</h3>
+<h3 id="3事件切换hoveroverout">3：事件切换：hover（[over],out）</h3>
+<pre><code>           over:鼠标经过元素上触发，相当于mouseenter
+           out:鼠标移出此元素要触发的函数，相当于mouseleave
+</code></pre>
+<p>区分概念：<br>
+1.mouseover与mouseout成对，mouseenter与mouseleave成对<br>
+2.mouseover触发优先级高于mouseenter，mouseout触发优先级mouseleave<br>
+3.在父元素上绑定mouseover和mouseout事件，子元素同样也会触发，即子元素事件会冒泡至父元素；而父元素绑定mouseenter和mouseleave事件只对父元素有效，子元素不会触发。<br>
+<img src="https://jianmu123.github.io//post-images/1600780157055.png" alt="" loading="lazy"></p>
+<h3 id="4淡入淡出效果fadein-fadeout-fadetoggle-fadetospeedopacity-内部参数与上方一样">4：淡入淡出效果：fadeIn（）、fadeOut()、fadeToggle()、fadeTo(speed,opacity)。内部参数与上方一样。</h3>
+<p><img src="https://jianmu123.github.io//post-images/1600780522485.png" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1600780704256.png" alt="" loading="lazy"></p>
+<h3 id="4自定义动画animateparamsspeed-easing-callback">4:自定义动画：animate(params，[speed]、[easing]、[callback])。</h3>
+<p><img src="https://jianmu123.github.io//post-images/1600781058456.png" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1600781151512.png" alt="" loading="lazy"></p>
+<h3 id="5注意以上所有动画或效果都有动画队列的问题">5：注意以上所有动画或效果都有动画队列的问题。</h3>
+<p>问题：动画或则效果一旦触发就会运行，但是当我们多次触发就会造成多个动画或效果的队列问题。<br>
+解决办法：在添加stop()方法，把上一个动画效果停止（谁执行了动画效果就在谁前面添加）。<br>
+<img src="https://jianmu123.github.io//post-images/1600781449952.png" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[jQuery-1]]></title>
+        <id>https://jianmu123.github.io/post/jquery1/</id>
+        <link href="https://jianmu123.github.io/post/jquery1/">
+        </link>
+        <updated>2020-09-20T07:19:25.000Z</updated>
+        <content type="html"><![CDATA[<p>一： jQuery的概述</p>
+<h3 id="1-jquery是javascript的一个封装库里面存放了很多函数">1. jQuery是javaScript的一个封装库,里面存放了很多函数。</h3>
+<h3 id="2-使用时只需调用这个库文件">2. 使用时只需调用这个库文件。</h3>
+<h3 id="3-jquery主要是用来操作dom的">3. jQuery主要是用来操作DOM的。</h3>
+<h3 id="4-学习jquery的本质是学习调用这些函数">4. 学习jQuery的本质是学习调用这些函数。</h3>
+<h2 id="二jquery的基本使用">二：jQuery的基本使用</h2>
+<h3 id="1首先官网下载jquery官网httpsjquerycom">1：首先官网下载[jQuery官网]{https://jquery.com/}</h3>
+<h3 id="2符号是jquery的别称jquery中的顶级对象相当于javascript中的window对象">2：$符号是jQuery的别称，jQuery中的顶级对象，相当于javaScript中的window对象</h3>
+<h3 id="3注意下列">3：注意下列：</h3>
+<pre><code class="language-javaScript">//下面是jQuery入口函数
+   &lt;script&gt;
+      $(function () {
+          //内容写这里
+      });
+    &lt;/script&gt;
+
+ // 1:DOM 对象：用原生js方式获取的对象是DOM对象
+
+   var myDiv = document.querySelector(&quot;div&quot;); //querySelector() 方法返回文档中匹配指定 CSS 选择器的一个元素。
+
+   console.dir(myDiv); //打印所有的属性和方法
+
+   // 2:jQuery 对象：用原生jQuery方式获取的对象是jQuery对象
+
+   $(&quot;div&quot;);  // jQuery 对象
+
+   console.dir($(&quot;div&quot;));
+
+   //  从控制台可以看出2者打印的内容不同，jQuery打印了一个伪数组的形式
+
+   // 3:jQuery对象只能使用jQuery方法,DOM对象只能使用原生javaScript属性和方法,2者不能混用
+</code></pre>
+<h3 id="4jquery对象和dom对象的相互转换">4：<strong>jQuery对象和DOM对象的相互转换</strong></h3>
+<p>因为原生js比jQuery大，一些原生的js属性方法在jQuery中没有，所以需要把jQuery对象转换为DOM对象才可以使用。</p>
+<pre><code class="language-javaScript">先用2种方式获取对象：
+ var myDiv = document.querySelector(&quot;div&quot;);//DOM对象
+ $(&quot;div&quot;);  // jQuery 对象
+//jQuery转DOM(2种方式):
+ $('div')[index];//index是索引号，因为jQuery对象是一个伪数组  
+ $('div')get（index）;
+//DOM转jQuery：
+ $(myDiv);   
+</code></pre>
+<h2 id="三jquery的常用api">三：jQuery的常用API</h2>
+<h3 id="1jquery基础选择器">1：jQuery基础选择器</h3>
+<pre><code class="language-javaScript"> $('选择器')；//里面选择器直接写CSS选择器即可，但是要加引号。
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>用法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID选择器</td>
+<td>$(&quot;#id&quot;)</td>
+<td>获取指定的ID元素</td>
+</tr>
+<tr>
+<td>全选选择器</td>
+<td>$('*')</td>
+<td>匹配所有元素</td>
+</tr>
+<tr>
+<td>类选择器</td>
+<td>$(&quot;.class&quot;)</td>
+<td>获取同一类元素</td>
+</tr>
+<tr>
+<td>标签选择器</td>
+<td>$(&quot;div&quot;)</td>
+<td>获取同一类标签的所有元素</td>
+</tr>
+<tr>
+<td>并集选择器</td>
+<td>$(&quot;div,p,li&quot;)</td>
+<td>选取多个元素</td>
+</tr>
+<tr>
+<td>交集选择器</td>
+<td>$(&quot;li.current&quot;)</td>
+<td>交集元素</td>
+</tr>
+</tbody>
+</table>
+<h4 id="2jquery设置css样式">2:jQuery设置css样式：</h4>
+<pre><code class="language-javaScript"> $(&quot;div&quot;).css(&quot;属性&quot;,&quot;值&quot;);//例如：$(&quot;div&quot;).css(''background'',''red'');就把所有的div背景改为了红色
+注意：这里的属性名一定要加引号
+
+同时修改多个样式：使用对象的形式，注意这个时候属性名就不用加引号,加上也没错
+$(&quot;div&quot;).css({
+width:400,
+height:400,
+backgroundColor：&quot;red&quot;，
+注意如果是复合属性就要写成驼峰命名法，如果值不是数字则必须使用引号
+})
+</code></pre>
+<p>这个里面有一个<strong>隐式迭代</strong>的概念，他会把所有选取到的所有元素进行循环遍历，依次执行相应的方法。</p>
+<h4 id="3jquery筛选选择器">3：jQuery筛选选择器</h4>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>用法</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:firsr</td>
+<td>$('li':first)</td>
+<td>获取第一个li元素</td>
+</tr>
+<tr>
+<td>:last</td>
+<td>$('li:last')</td>
+<td>获取最后一个li元素</td>
+</tr>
+<tr>
+<td>:eq(index)</td>
+<td>$(<strong>&quot;li:eq(2)&quot;</strong>)</td>
+<td>获取到的li元素中，选择索引号为2的元素 (注意索引号是从0开始的)</td>
+</tr>
+<tr>
+<td>:odd</td>
+<td>$(<strong>&quot;li:odd&quot;</strong>)</td>
+<td>获取到的li元素中，选择索引号为奇数的元素</td>
+</tr>
+<tr>
+<td>:even</td>
+<td>$(&quot;li:even&quot;)</td>
+<td>获取到的li元素中，选择索引号为偶数的元素</td>
+</tr>
+</tbody>
+</table>
+<h4 id="4筛选方法注意方法都有括号">4：筛选方法（注意方法都有括号）</h4>
+<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1600606470845.png" alt="" loading="lazy"></figure>
+<h4 id="5注意下例的写法">5：注意下例的写法：</h4>
+<pre><code class="language-javaScript">//让鼠标经过div使ul显示出来,this是当前元素(即:div)
+  $(&quot;div&quot;).mousemove(function () {      
+        $(this).children(&quot;ul&quot;).show();
+      });
+ //鼠标移出就隐藏
+ $(&quot;div&quot;).mouseout(function(){
+    $(this).children(&quot;ul&quot;).hide();
+ })
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[JS4]]></title>
         <id>https://jianmu123.github.io/post/js4/</id>
         <link href="https://jianmu123.github.io/post/js4/">
         </link>
-        <updated>2020-10-05T14:15:44.000Z</updated>
+        <updated>2020-09-11T14:15:44.000Z</updated>
         <content type="html"><![CDATA[<p>#基础知识回顾<br>
 <img src="https://jianmu123.github.io//post-images/1601907580239.jpg" alt="" loading="lazy"><br>
 <img src="https://jianmu123.github.io//post-images/1601907584911.jpg" alt="" loading="lazy"><br>
@@ -305,154 +1018,11 @@ ary.forEach(function(item,index){
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[JS3]]></title>
-        <id>https://jianmu123.github.io/post/js3/</id>
-        <link href="https://jianmu123.github.io/post/js3/">
-        </link>
-        <updated>2020-10-04T12:07:36.000Z</updated>
-        <content type="html"><![CDATA[<h3 id="js中的操作语句判断-循环">JS中的操作语句：判断、循环。</h3>
-<blockquote>
-<p>判断 ：</p>
-<p>​			if/else if/else</p>
-<p>​			三元运算符</p>
-<p>​			switch case</p>
-</blockquote>
-<p>三元运算符： 条件？条件成立执行的事情：不成立执行的事情；</p>
-<p>1：如果处理的事情多，我们用括号包起来，每一件事情用逗号分隔.</p>
-<p>2:如果不需要处理事情，可以使用null/undefined占位.</p>
-<p>上面2句说法的解释：</p>
-<pre><code class="language-javascript">例如用if写一个判断,这里做了2件事情，并且不满足的时候什么事情都不做：
-if (a&gt;0&amp;&amp;a&lt;10){
-   a++;
-   console.log(a);
-}
-它的三元运算符这样写：
-a&gt;0&amp;&amp;a&lt;10 ? (a++,console.log(a)):null; 
-//1：如果处理的事情多，我们用括号包起来，每一件事情用逗号分隔2:如果不需要处理事情，可以使用null/undefined占位.
-</code></pre>
-<h3 id="js中的函数">js中的函数</h3>
-<blockquote>
-<p>函数中的返回值：<br>
-函数执行的时候，函数体内部创建的变量我们是无法获取和操作的，如果想要获取内部信息，需要使用return返回机制。返回的一定是一个值，不是变量。</p>
-</blockquote>
-<pre><code class="language-javascript">function sum(a,b){
-    let result=a+b;
-    //return的一定是值：此处是把result变量存储的值返回给外面
-    return result;
-}
-sum(10,20);//是这个整体值为30，不是result值为30 
-console.log(result);//会报错 Uncaught ReferenceError: result is not defined
-如果没有写return，调用函数的默认返回值是undefined.
-</code></pre>
-<blockquote>
-<p>函数体中遇到return 则后面的代码不会再运行。</p>
-</blockquote>
-<h3 id="arguments属性函数内置实参集合">arguments属性（函数内置实参集合）</h3>
-<ul>
-<li>类数组集合，集合中存储着所有函数执行时传递的实参信息。</li>
-<li>不论是否设置形参，arguments都存在</li>
-<li>不论是否传递实参，arguments也都存在</li>
-</ul>
-<p>案列：任意数求和</p>
-<pre><code class="language-javascript">  &lt;script&gt;
-      /*
-        实际的加法运算是任意数相加，并没有规定多少个数，什么类型的数，因此下面写一个任意数相加的函数
-         */
-      function sum() {
-        // console.log(arguments); //这里采用的函数arguments属性
-        let total = null;
-        for (let i = 0; i &lt; arguments.length; i++) {
-          let item = arguments[i]; //获取每个值
-          item = Number(item); //但是一些类型会转为NaN，所以还需要进一步处理
-
-          if (isNaN(item)) {
-            //非有效数字不进行加法运算，进行下一个数的判断
-            continue;
-          }
-          /*
-         但是样写如果传入的是字符串型或则其他类型就会输出字符串
-          */
-          total += item; //比如如果是30+'30'则是字符串拼接结果为'3030'，所以需要在计算前转换为Number
-        }
-        return total;
-      }
-
-      let result = sum(10, 20, 30);
-      console.log(result);
-      result = sum(10, 20);
-      console.log(result);
-      result = sum(10, 20, &quot;30&quot;);
-      console.log(result);
-      result = sum(10, 20, &quot;AA&quot;, 20);
-      console.log(result);
-    &lt;/script&gt;
-</code></pre>
-<h4 id="js函数运行底层机制">js函数运行底层机制</h4>
-<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1601907056396.png" alt="" loading="lazy"></figure>
-<p>——注意：执行几次函数就会产生几个全新的私有栈内存，因此涉及到内存释放与销毁。</p>
-<h3 id="匿名函数">匿名函数</h3>
-<p>匿名函数分为：函数表达式和自执行函数</p>
-<ul>
-<li>函数表达式：把一个匿名函数本身作为值赋值给其他东西，这种函数一般不是手动触发，而是靠其他驱动程序触发执行（例如：触发某个事件的时候执行）</li>
-</ul>
-<p>如： document.body.onclick=function(){};</p>
-<p>setTimeout(function(){},1000);//设置定时器，1000ms后执行匿名函数</p>
-<ul>
-<li>自执行函数： 能创建完一个匿名函数，紧接着就把当前函数加<strong>小括号</strong>执行</li>
-</ul>
-<p>如：</p>
-<p>（function（n）{</p>
-<p>​    //n=100</p>
-<p>​     }）(100);</p>
-<p>//这里的（100）执行了匿名函数，得到了n=100；</p>
-<h3 id="for-in-循环">for in 循环</h3>
-<blockquote>
-<p>语法： for(var 变量（key）in 对象)</p>
-</blockquote>
-<pre><code class="language-javascript">var obj={
-	name:'张三',
-	age:18,
-    friends:'李四',
-    1:20,
-    2:150
-};
-//使用for in循环能够遍历出对象的所有内容，对象有多少组键值对，循环就执行几次（除非添加break结束）
-for (var key in obj){
-    console.log(key);//每次循环key变量都存储着当前对象的属性名
-    console.log(obj[key]);//获取属性值的办法
-}
-</code></pre>
-<figure data-type="image" tabindex="2"><img src="https://jianmu123.github.io//post-images/1601907094800.png" alt="" loading="lazy"></figure>
-<ul>
-<li>
-<p>代码详解：</p>
-<pre><code class="language-javascript">var btnList=document.getElementsByTagName(&quot;btn&quot;);
-for(var i=0;i&lt;btnList.length;i++){
-    btnlist[i].onclick=function(){
-        alert(i);//这里无论点击哪个按钮都是弹出序号：5
-    }
-}
-改进：
-var btnList=document.getElementsByTagName(&quot;btn&quot;);
-for(var i=0;i&lt;btnList.length;i++){
-    btnList[i].myIndex=i;//创建自定义属性给每个点击的btn贴上标签
-    btnlist[i].onclick=function(){
-        alert(this.myIndex);//这里就可以弹出点击的按钮的序号（索引）
-    }
-}
-</code></pre>
-</li>
-</ul>
-<p><img src="https://jianmu123.github.io//post-images/1601907107501.png" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1601907114756.png" alt="" loading="lazy"></p>
-]]></content>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[JS2]]></title>
         <id>https://jianmu123.github.io/post/js2/</id>
         <link href="https://jianmu123.github.io/post/js2/">
         </link>
-        <updated>2020-10-02T13:23:00.000Z</updated>
+        <updated>2020-09-05T13:23:00.000Z</updated>
         <content type="html"><![CDATA[<h2 id="js中的数据类型检测">js中的数据类型检测</h2>
 <ul>
 <li>typeof[val]:用来检测数据类型的运算符</li>
@@ -557,7 +1127,7 @@ console.log(Object.prototype.toString.call(function(){}));<br>
         <id>https://jianmu123.github.io/post/js1/</id>
         <link href="https://jianmu123.github.io/post/js1/">
         </link>
-        <updated>2020-10-01T13:06:15.000Z</updated>
+        <updated>2020-09-03T13:06:15.000Z</updated>
         <content type="html"><![CDATA[<h3 id="js做客户端语言">JS做客户端语言</h3>
 <blockquote>
 <p>按照相关的js语法，再去操作页面的元素。4，有时还需要操作浏览器里面的一些功能》</p>
@@ -758,247 +1328,6 @@ console.log(Boolean([12]));//ture
 真删除：delete.person.age;
 假删除：person.age=null;(属性还在，值为空)
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[CSS3 One]]></title>
-        <id>https://jianmu123.github.io/post/css3-one/</id>
-        <link href="https://jianmu123.github.io/post/css3-one/">
-        </link>
-        <updated>2020-10-01T06:50:02.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="一盒子模型">一：盒子模型</h1>
-<p>以前的盒子的大小是盒子的本身加上padding+border+margin，因此盒子的大小不会是我们设置的大小，这样还需要去计算来设置我们想要的盒子大小，现在css3添加了盒子模型，这样的盒子大小就是我们设置的盒子大小。只需要在盒子的样式中添加：box-sizing：border-box；</p>
-<h1 id="二盒子阴影">二：盒子阴影</h1>
-<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1601535646649.png" alt="" loading="lazy"></figure>
-<h1 id="三渐变">三：渐变</h1>
-<p><img src="https://jianmu123.github.io//post-images/1601906334140.png" alt="" loading="lazy"><br>
-镜像渐变<br>
-<img src="https://jianmu123.github.io//post-images/1601906339746.png" alt="" loading="lazy"><br>
-重复渐变<br>
-<img src="https://jianmu123.github.io//post-images/1601906418113.png" alt="" loading="lazy"><br>
-#四：背景图片<br>
-<img src="https://jianmu123.github.io//post-images/1601906437901.png" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1601906442586.png" alt="" loading="lazy"></p>
-<h1 id="五多列布局">五：多列布局</h1>
-<p><img src="https://jianmu123.github.io//post-images/1601906656788.png" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1601906666863.png" alt="" loading="lazy"></p>
-<h1 id="六盒子模型">六：盒子模型</h1>
-<p><img src="https://jianmu123.github.io//post-images/1601906687547.png" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1601906693246.png" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1601906702206.png" alt="" loading="lazy"></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[HTML5 Two]]></title>
-        <id>https://jianmu123.github.io/post/html5-two/</id>
-        <link href="https://jianmu123.github.io/post/html5-two/">
-        </link>
-        <updated>2020-10-01T05:27:24.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="一进度条">一：进度条</h1>
-<pre><code class="language-HTML">&lt;progress&gt; 和&lt;meter&gt; 标签是 HTML 5 中的新标签。
-请结合 &lt;progress&gt; 标签与 JavaScript 一同使用，来显示任务的进度。
-属性：max，min
-&lt;meter&gt; 标签定义度量衡。仅用于已知最大和最小值的度量。
-</code></pre>
-<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1601530514020.png" alt="" loading="lazy"></figure>
-<h1 id="二上传文件及时预览的制作">二：上传文件及时预览的制作</h1>
-<p>及时：当用户选择完图片后，立即进行预览的处理<br>
-预览：通过文件读取对象的readAsDataURL()完成。<br>
-上传文件表单属性：type=&quot;file&quot;。<br>
-<img src="https://jianmu123.github.io//post-images/1601531304633.png" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1601531310321.png" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1601531315021.png" alt="" loading="lazy"></p>
-<h1 id="三拖拽">三：拖拽</h1>
-<p>拖拽的事件：<br>
-ondrag  :应用于拖拽元素，整个拖拽过程都会调用。<br>
-ondragstart  :应用于拖拽元素，拖拽开始时调用。<br>
-ondragleave :应用于拖拽元素，鼠标离开拖拽元素时调用。<br>
-ondragend :应用于拖拽元素，拖拽结束时调用。</p>
-<h1 id="四存储方式">四：存储方式</h1>
-<p>1：sessionStorage：<br>
-特点：<br>
-存储数据到本地，存储容量位5mb左右。<br>
-这个数据本质时存储在当前页面的内存种。<br>
-它生命周期位关闭当前页面就会自动清除数据。<br>
-2：localStorage：<br>
-特点：<br>
-存储大小20mb左右。<br>
-不会随着浏览器关闭而消失，它会永久保存。如果想清除，必须手动清。<br>
-它们的属性方法：<br>
-setItem(key,value):存储数据，以键值对的方式存储.<br>
-getItem(key):获取数据，通过指定的名称键值获取对应的value值。<br>
-removeItem(key):删除输出，输出指定名称的对应value值。<br>
-clear():清空所有存储的内容。<br>
-<img src="https://jianmu123.github.io//post-images/1601534950413.png" alt="" loading="lazy"></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[HTML5 one]]></title>
-        <id>https://jianmu123.github.io/post/html5-one/</id>
-        <link href="https://jianmu123.github.io/post/html5-one/">
-        </link>
-        <updated>2020-09-28T14:27:55.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="1html5新增语义化标签">1:HTML5新增语义化标签</h1>
-<pre><code class="language-HTML"> &lt;header&gt;,&lt;footer&gt;, &lt;article&gt;, &lt;section&gt;,&lt;nav&gt;,&lt;main&gt;
-</code></pre>
-<h1 id="2html5新的表单控件">2:HTML5新的表单控件:</h1>
-<pre><code class="language-javascript">邮箱：type=&quot;email&quot; 
-提供了默认的电子邮箱的完整验证：要求必须含有@符号，同时必须包含服务器名称,如果不能满足验证，则会阻止当前的数据提交。
-电话：type=&quot;tel&quot;
-tel并不是用来验证手机号的，它的本质目的是能够在移动端打开数字键盘，意味着数字键盘限制了用户只能输入数字。
-网址：type=&quot;url&quot;
-验证是否是一个合法的网址（必须包含http://）
-数量：type=&quot;number&quot;
-number:只能输入数字（可以包含小数点）,不能输入其他字符
-可以设置max：最大值，min：最小值，value：默认值
-输入：type=&quot;search&quot;
-提供一个更好的输入化体验，即：在表单框最后有一个×，点击了可以直接删除所有内容
-范围 :typr=&quot;range&quot;
-可以设置max，min和默认值value
-颜色：type=&quot;color&quot;
-可以选择颜色
-日期时间相关：
-时分秒：type=&quot;time&quot; 年月日：type=&quot;date&quot;  年月日时分秒：type=&quot;datetime-local&quot;
-月份：type=&quot;month&quot; 星期：type=&quot;week&quot;
-选取文件：type=&quot;file&quot;  它的multiple属性是可以一次选取多个文件
-</code></pre>
-<h1 id="3下拉列表">3：下拉列表</h1>
-<p>以前使用select标签和option标签制作下拉列表，但是它不能让用户手动输入文本，新增了datalist的标签，结合input和option使用，必须与input的list属性进行关联绑定它可以使用户手动输入。<br>
-所有主流浏览器都支持 <datalist> 标签，除了 Internet Explorer 和 Safari。<br>
-<img src="https://jianmu123.github.io//post-images/1601529507046.png" alt="" loading="lazy"></p>
-<h1 id="4表单的属性">4:表单的属性：</h1>
-<pre><code class="language-javascript">placeholder :表单默认提示文本
-autofocus:自动获取焦点
-autocomplete:自动显示之前提交过的信息，赋值on：表示打开，赋值off，表示关闭，该属性还需要配合表单的name属性和提交控件，name属性需要赋予一个值，然后完成提交才会在下一次点击表单的时候
-显示提交过的信息
-requride:表示这个表单必须输入内容
-pattern：给定一个正则表达式复习正则表达式：
-* ：表示任意一个 
-?：表示0个或则1个
-+：表示1个或则多个
-</code></pre>
-<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1601362793168.png" alt="" loading="lazy"></figure>
-<h1 id="5表单事件">5：表单事件</h1>
-<p>oninput事件：监听当前指定元素的内容，只要内容有改变，便会触发该事件。<br>
-onkeyup事件：键盘弹起触发，每弹起一次就会触发一次。<br>
-oninvalid事件：当验证不通过的时候触发。这里提及一下setCustomValidity属性，可以设置提示文本。<br>
-<img src="https://jianmu123.github.io//post-images/1601529982670.png" alt="" loading="lazy"></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[jQuery5]]></title>
-        <id>https://jianmu123.github.io/post/jquery5/</id>
-        <link href="https://jianmu123.github.io/post/jquery5/">
-        </link>
-        <updated>2020-09-24T13:30:19.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="1jquery事件处理">1：jQuery事件处理</h2>
-<h3 id="1-elementon方法可以绑定多个事件">1： element.on()方法可以绑定多个事件</h3>
-<p>语法：element.on(event,[selector],fn);<br>
-event是事件类型，[selector]是元素的子元素选择器<br>
-您的浏览器不支持 video 标签。<br>
-</video></p>
-<pre><code class="language-javascript">    $(&quot;div&quot;).on({
-        //鼠标经过div背景变红
-        mouseenter：function(){
-        $(&quot;this&quot;).css(&quot;background&quot;,&quot;red&quot;);
-       },
-       //鼠标点击div背景变粉红
-      click：function(){
-          $(&quot;this&quot;).css(&quot;background&quot;,&quot;pink&quot;);
-      }
-    })
-</code></pre>
-<p>on方法可以实现事件的委派。例如：</p>
-<pre><code class="language-javascript">$(&quot;ul&quot;).on(click,&quot;li&quot;,function(){
-    alert(&quot;触发了点击事件&quot;);
-});
-这个触发事件在ul上，但是触发对象在li上，即ul委托li帮他触发
-</code></pre>
-<h3 id="2off方法可以移除通过on方法添加的事件处理程序">2:off方法可以移除通过on方法添加的事件处理程序</h3>
-<pre><code class="language-javascript"> $(&quot;p&quot;).off()  //解除p上所有的事件处理
- $(&quot;p&quot;).off(&quot;click&quot;) //解除p上的click事件处理
- $(&quot;ul&quot;).off(&quot;click&quot;，&quot;li&quot;) //解除事件委托
-</code></pre>
-<h3 id="3自动触发事件">3:自动触发事件</h3>
-<p>有些事件希望自动触发，比如轮播图的自动播放能跟点击按钮一致，可以利用定时器自动触发按钮按钮点击事件，不必鼠标点击触发。<br>
-第一种形式：元素.事件()<br>
-第二种形式：元素.trigger(&quot;事件&quot;)<br>
-第三种形式：元素.triggerHandler(&quot;事件&quot;)<br>
-第三种和前面的区别：不会触发元素的默认行为，比如文本框焦点事件的光标此时不会闪烁</p>
-<pre><code class="language-javascript">       下面代码不会有光标闪烁：
-       $(&quot;input&quot;).on(&quot;focus&quot;,function(){
-           $(&quot;this&quot;).val(&quot;你好吗&quot;);
-       })
-       $(&quot;input&quot;).triggerHandler(&quot;focus&quot;);//自动触发
-</code></pre>
-<h3 id="4阻止默认行为和冒泡行为">4：阻止默认行为和冒泡行为</h3>
-<h4 id="41阻止默认行为eventpreventdefault-或则return-false">4.1:阻止默认行为：event.preventDefault(); 或则：return false</h4>
-<h4 id="42阻止冒泡行为eventstoppropagation">4.2:阻止冒泡行为：event.stopPropagation()</h4>
-<p>###5:jQuery对象拷贝<br>
-语法：$.extend([deep],target,object1,[objectN]) //[objectN]是代表不仅可以拷贝一个还可以拷贝多个。<br>
-<img src="https://jianmu123.github.io//post-images/1600956466981.png" alt="" loading="lazy"><br>
-浅拷贝：会覆盖原来数据<br>
-深拷贝：会保留原来是数据<br>
-<img src="https://jianmu123.github.io//post-images/1600957628103.png" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1600957634129.png" alt="" loading="lazy"></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[jQuery4]]></title>
-        <id>https://jianmu123.github.io/post/jquery4/</id>
-        <link href="https://jianmu123.github.io/post/jquery4/">
-        </link>
-        <updated>2020-09-23T13:07:19.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="一jquery元素操作">一jQuery元素操作</h2>
-<h3 id="1找父级元素可以通过parent方法但是当父级元素很多的时候可以使用partens方法该方法会获取到所有的祖先元素包括body和html结合siblings方法可以找到该元素所需要的祖先元素">1：找父级元素可以通过parent()方法，但是当父级元素很多的时候可以使用partens()方法，该方法会获取到所有的祖先元素，包括body和html，结合siblings()方法可以找到该元素所需要的祖先元素。</h3>
-<pre><code class="language-javascript">  例如:
-  var p = $(this).panrent(&quot;.quantity-form&quot;).parent(&quot;.p-num&quot;).siblings(&quot;.p-price&quot;).html();等同于：  var p = $(this).parents(&quot;.p-num&quot;).siblings(&quot;.p-price&quot;).html();
-</code></pre>
-<h3 id="2遍历">2:遍历</h3>
-<p>隐式迭代是对同一类元素做了相同的操作，如果想要给同一类元素左不同的操作则需要使用遍历。<br>
-遍历使用的是each()方法和$.each()方法。</p>
-<h4 id="each方法主要使用在遍历dom对象比如标签">each()方法主要使用在遍历DOM对象，比如标签</h4>
-<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1600867180840.png" alt="" loading="lazy"></figure>
-<pre><code class="language-javascript">   $(&quot;div&quot;).each(function (index, domEle) {
-          //回调函数的第一个参数一定是索引号，可以是自己定义的索引名称
-          console.log(index); //结果： 0 1 2
-          //回调函数的第二个参数一定是DOM对象,可以是自己定义的对象名称
-          console.log(domEle); //结果：&lt;div&gt;1&lt;/div&gt; &lt;div&gt;2&lt;/div&gt; &lt;div&gt;3&lt;/div&gt;
-          //domEle.cc(&quot;color&quot;);//会报错，因为DOM对象没有css方法，因此需要转换成JQ对象
-          $(&quot;domEle&quot;).css(&quot;color&quot;, &quot;bule&quot;);
-        });
-</code></pre>
-<h4 id="each方法主要是来处理数据的比如数组-对象">$.each()方法：主要是来处理数据的，比如数组、对象。</h4>
-<figure data-type="image" tabindex="2"><img src="https://jianmu123.github.io//post-images/1600868203421.png" alt="" loading="lazy"></figure>
-<pre><code class="language-javascript">        var arr = [&quot;blue&quot;, &quot;red&quot;, &quot;green&quot;]; //定义数组
-        //遍历数组
-        $.each(arr, function (index, domEle) {
-          console.log(index); //打印索引0 1 2
-          console.log(domEle); //打印arr内部值 blue red green
-        });
-        //遍历对象
-        $.each(
-          {
-            name: &quot;孙悟空&quot;,
-            age: 18,
-          },
-          function (i, ele) {
-            console.log(i); //输出name age属性名
-            console.log(ele); //输出顺悟空 18属性值
-          }
-        );
-</code></pre>
-<h3 id="3创建添加删除元素">3:创建添加删除元素</h3>
-<p>创建语法：var li=<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi mathvariant="normal">&quot;</mi><mo>&lt;</mo><mi>l</mi><mi>i</mi><mo>&gt;</mo><mi mathvariant="normal">我</mi><mi mathvariant="normal">是</mi><mi mathvariant="normal">创</mi><mi mathvariant="normal">建</mi><mi mathvariant="normal">的</mi><mi>l</mi><mi>i</mi><mo>&lt;</mo><mi mathvariant="normal">/</mi><mi>l</mi><mi>i</mi><mo>&gt;</mo><mi mathvariant="normal">&quot;</mi><mo>)</mo><mo separator="true">;</mo><mi mathvariant="normal">添</mi><mi mathvariant="normal">加</mi><mi mathvariant="normal">语</mi><mi mathvariant="normal">法</mi><mi mathvariant="normal">：</mi><mi mathvariant="normal">内</mi><mi mathvariant="normal">部</mi><mi mathvariant="normal">添</mi><mi mathvariant="normal">加</mi><mi mathvariant="normal">：</mi><mo>(</mo><mi mathvariant="normal">添</mi><mi mathvariant="normal">加</mi><mi mathvariant="normal">后</mi><mi mathvariant="normal">是</mi><mi mathvariant="normal">匹</mi><mi mathvariant="normal">配</mi><mi mathvariant="normal">元</mi><mi mathvariant="normal">素</mi><mi mathvariant="normal">的</mi><mi mathvariant="normal">子</mi><mi mathvariant="normal">元</mi><mi mathvariant="normal">素</mi><mo>)</mo><mi>e</mi><mi>l</mi><mi>e</mi><mi>l</mi><mi>m</mi><mi>e</mi><mi>n</mi><mi>t</mi><mi mathvariant="normal">.</mi><mi>a</mi><mi>p</mi><mi>p</mi><mi>e</mi><mi>n</mi><mi>d</mi><mo>(</mo><mo>)</mo><mi mathvariant="normal">方</mi><mi mathvariant="normal">法</mi><mi mathvariant="normal">，</mi><mi mathvariant="normal">会</mi><mi mathvariant="normal">添</mi><mi mathvariant="normal">加</mi><mi mathvariant="normal">到</mi><mi mathvariant="normal">匹</mi><mi mathvariant="normal">配</mi><mi mathvariant="normal">元</mi><mi mathvariant="normal">素</mi><mi mathvariant="normal">的</mi><mi mathvariant="normal">后</mi><mi mathvariant="normal">面</mi><mi mathvariant="normal">。</mi><mi mathvariant="normal">在</mi><mi>u</mi><mi>l</mi><mi mathvariant="normal">中</mi><mi mathvariant="normal">原</mi><mi mathvariant="normal">有</mi><mi>l</mi><mi>i</mi><mi mathvariant="normal">后</mi><mi mathvariant="normal">面</mi><mi mathvariant="normal">添</mi><mi mathvariant="normal">加</mi><mi>l</mi><mi>i</mi><mi mathvariant="normal">使</mi><mi mathvariant="normal">用</mi><mi mathvariant="normal">方</mi><mi mathvariant="normal">法</mi><mi mathvariant="normal">：</mi></mrow><annotation encoding="application/x-tex">(&quot;&lt;li&gt;我是创建的li&lt;/li&gt;&quot;);
-添加语法：内部添加：(添加后是匹配元素的子元素)
-       elelment. append()方法，会添加到匹配元素的后面。在ul中原有li后面添加li使用方法：</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">&quot;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord cjk_fallback">我</span><span class="mord cjk_fallback">是</span><span class="mord cjk_fallback">创</span><span class="mord cjk_fallback">建</span><span class="mord cjk_fallback">的</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">&quot;</span><span class="mclose">)</span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord cjk_fallback">添</span><span class="mord cjk_fallback">加</span><span class="mord cjk_fallback">语</span><span class="mord cjk_fallback">法</span><span class="mord cjk_fallback">：</span><span class="mord cjk_fallback">内</span><span class="mord cjk_fallback">部</span><span class="mord cjk_fallback">添</span><span class="mord cjk_fallback">加</span><span class="mord cjk_fallback">：</span><span class="mopen">(</span><span class="mord cjk_fallback">添</span><span class="mord cjk_fallback">加</span><span class="mord cjk_fallback">后</span><span class="mord cjk_fallback">是</span><span class="mord cjk_fallback">匹</span><span class="mord cjk_fallback">配</span><span class="mord cjk_fallback">元</span><span class="mord cjk_fallback">素</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">子</span><span class="mord cjk_fallback">元</span><span class="mord cjk_fallback">素</span><span class="mclose">)</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">m</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mord">.</span><span class="mord mathdefault">a</span><span class="mord mathdefault">p</span><span class="mord mathdefault">p</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">d</span><span class="mopen">(</span><span class="mclose">)</span><span class="mord cjk_fallback">方</span><span class="mord cjk_fallback">法</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">会</span><span class="mord cjk_fallback">添</span><span class="mord cjk_fallback">加</span><span class="mord cjk_fallback">到</span><span class="mord cjk_fallback">匹</span><span class="mord cjk_fallback">配</span><span class="mord cjk_fallback">元</span><span class="mord cjk_fallback">素</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">后</span><span class="mord cjk_fallback">面</span><span class="mord cjk_fallback">。</span><span class="mord cjk_fallback">在</span><span class="mord mathdefault">u</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord cjk_fallback">中</span><span class="mord cjk_fallback">原</span><span class="mord cjk_fallback">有</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord cjk_fallback">后</span><span class="mord cjk_fallback">面</span><span class="mord cjk_fallback">添</span><span class="mord cjk_fallback">加</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord cjk_fallback">使</span><span class="mord cjk_fallback">用</span><span class="mord cjk_fallback">方</span><span class="mord cjk_fallback">法</span><span class="mord cjk_fallback">：</span></span></span></span>(&quot;ul&quot;).append(li);<br>
-elelment.prepend()方法，会添加到匹配元素的前面。在ul中原有li前面添加li使用方法：$(&quot;ul&quot;).prepend(li);<br>
-外部添加：(添加后是匹配元素的兄弟元素)<br>
-elelment.before()和 elelment.after()。<br>
-删除元素:<br>
-element.remove();删除匹配元素本身。<br>
-element.empty();删除匹配元素集合中的所有子节点。<br>
-element.html(&quot;&quot;);清空匹配元素内容。</p>
 ]]></content>
     </entry>
 </feed>

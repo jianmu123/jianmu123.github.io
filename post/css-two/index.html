@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>CSS Two | Personal blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://jianmu123.github.io//favicon.ico?v=1602494581868">
+<link rel="stylesheet" href="https://jianmu123.github.io//styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="背景图片：background-img
+
+
+文本阴影：text-shadow
+它的属性值有：：h-shadow  v-shadow  [blur]   [color]
+h-shadow:必须值，水平阴影的位置，允许负值。
+v-shadow：..." />
+    <meta name="keywords" content="CSS3" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://jianmu123.github.io/">
+        <img src="https://jianmu123.github.io//images/avatar.png?v=1602494581868" class="site-logo">
+        <h1 class="site-title">Personal blog</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            笔记
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://jianmu123.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">CSS Two</h2>
+            <div class="post-date">2020-08-31</div>
+            
+              <div class="feature-container" style="background-image: url('https://jianmu123.github.io//post-images/css-two.png')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="背景图片background-img">背景图片：background-img</h2>
+<p><img src="https://jianmu123.github.io//post-images/1602491510343.png" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1602491521255.png" alt="" loading="lazy"></p>
+<h2 id="文本阴影text-shadow">文本阴影：text-shadow</h2>
+<p>它的属性值有：：h-shadow  v-shadow  [blur]   [color]<br>
+h-shadow:必须值，水平阴影的位置，允许负值。<br>
+v-shadow：必须值，垂直阴影的位置，允许负值。<br>
+blur： 可选值。模糊距离。<br>
+color： 可选值。阴影的颜色。</p>
+<h2 id="过度transition">过度：transition</h2>
+<p>它的属性值有：transition-property transition-duration transition-timing-function transition-delay<br>
+transition-property：规定应用过度的css属性名称<br>
+transition-duration：规定过度效果花费的时间<br>
+transition-timing-function：规定过度效果的时间曲线。默认是&quot;ease&quot;(先慢后快) “linear”(匀速)<br>
+transition-delay:设置触发过渡的延时时间。</p>
+<h2 id="2d转换transform">2D转换:transform</h2>
+<p>方法：</p>
+<ul>
+<li>translate() 元素从其当前位置移动，根据给定的 left（x 坐标） 和 top（y 坐标） 位置参数</li>
+<li>rotate()      元素顺时针旋转给定的角度。允许负值，元素将逆时针旋转。单位：deg</li>
+<li>scale()        元素的尺寸会增加或减少，根据给定的宽度（X 轴）和高度（Y 轴）参数</li>
+<li>skew()        元素翻转给定的角度，根据给定的水平线（X 轴）和垂直线（Y 轴）参数</li>
+<li>matrix()      把所有 2D 转换方法组合在一起。需要六个参数。</li>
+</ul>
+<h2 id="3d转换transform">3D转换：transform</h2>
+<p>方法：</p>
+<ul>
+<li>tanslated3d(x,y,z)：参数不能胜率，元素按照xyz的值移动。Z轴的变化需要借助透视才能看到。</li>
+<li><strong>perspective</strong>   透视效果（写在被观察元素的父盒子上面，代表的是与屏幕之间的观察距离，距离越小，元素越大。）</li>
+<li><code>3D呈现：transfrom-style</code>   <code>控制子元素是否开启三维空间。（写在父级元素）。3D必用</code></li>
+<li>rotateX()  元素绕X轴旋转</li>
+<li>rotateY()   元素按Y轴旋转</li>
+<li>rotateZ()   元素按Z轴旋转</li>
+</ul>
+<h2 id="动画属性keyframes-和animation">动画属性：@keyframes 和animation</h2>
+<p>使用 @keyframes 制作动画<br>
+<img src="https://jianmu123.github.io//post-images/1602491474364.png" alt="" loading="lazy"></p>
+<h2 id="flex-布局">flex 布局</h2>
+<p><img src="https://jianmu123.github.io//post-images/1602494115123.png" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1602494120483.png" alt="" loading="lazy"><br>
+<img src="https://jianmu123.github.io//post-images/1602494127078.png" alt="" loading="lazy"><br>
+[阮一峰flex布局教程]<a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html">http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html</a></p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://jianmu123.github.io/tag/UftFshuw4/" class="tag">
+                    CSS3
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://jianmu123.github.io/post/css3-one/">
+                  <h3 class="post-title">
+                    CSS3 One
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+
+  </body>
+</html>
