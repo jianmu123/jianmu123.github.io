@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>ES6_02 | Personal blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://jianmu123.github.io//favicon.ico?v=1602605710056">
+<link rel="stylesheet" href="https://jianmu123.github.io//styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="箭头函数
+
+简化了函数创建代码，真实项目是和普通函数混用。
+
+1： const fn=([形参])=&gt;{
+    //函数体
+    return n*10;
+}
+//箭头函数的创建都是函数表达式方式（变量=函数），这种模式下，不存在..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://jianmu123.github.io/">
+        <img src="https://jianmu123.github.io//images/avatar.png?v=1602605710056" class="site-logo">
+        <h1 class="site-title">Personal blog</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            笔记
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://jianmu123.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">ES6_02</h2>
+            <div class="post-date">2020-09-29</div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="箭头函数">箭头函数</h2>
+<blockquote>
+<p>简化了函数创建代码，真实项目是和普通函数混用。</p>
+</blockquote>
+<pre><code class="language-javascript">1： const fn=([形参])=&gt;{
+    //函数体
+    return n*10;
+}
+//箭头函数的创建都是函数表达式方式（变量=函数），这种模式下，不存在变量提升，所以，函数只能在创建完成后执行（即：在创建的代码后面执行）。
+fn([实参]);
+
+//形参只有一个，则小括号可以不加
+const fn1=n=&gt;{
+    return n*10;
+};
+//如果函数体只有一句话，并且是return xxx；则可以省略大括号和return
+const fn2=n=&gt;n*10;
+举例：
+	function fn3(n){
+        return function(m){
+            return m+(n++);
+        }
+    }
+改写为箭头函数：
+第一步改写(箭头代替function)：
+	const fn3=n=&gt;{
+        return m=&gt;{
+             return m+(n++);
+        } 
+    }
+第二步改写：
+	const fn3=n=&gt;{
+        return  m=&gt;m+(n++);
+    }
+最后： const fn3=n=&gt;m=&gt;m+(n++);    
+</code></pre>
+<h3 id="箭头函数没有arguments但是可以基于剩余运算符获取实参集合而且es6中是支持给形参设置默认值的">箭头函数没有arguments，但是可以基于剩余运算符获取实参集合，而且ES6中是支持给形参设置默认值的。</h3>
+<pre><code class="language-javascript">let fn=(context)=&gt;{
+    console.log(arguments);
+};
+fn(1);//报错，arguments不存在
+但是使用剩余运算符，可以获取和arguments一样的值
+
+let obj = {};
+let fn = (c = window, ...arg) =&gt; { //c=window:意思是调用函数的时候不传值，则c指的默认值是window，而arg是传的剩余值
+   console.log(c, arg); //Object Array(3)
+ };
+fn(obj, 10, 20, 30); //c=obj  arg=[10,20,30]是一个数组
+fn(); //不传值： c=Window {parent: Window, opener: null, top: Window, length: 0, frames: Window, …}   arg=[]
+</code></pre>
+<h3 id="箭头函数没有自己的this它里面用到的this都是自己所处上下文执行环境的this真实项目中一旦涉及this问题注意箭头函数的使用">箭头函数没有自己的this，它里面用到的this都是自己所处上下文(执行环境)的this，真实项目中一旦涉及this问题，注意箭头函数的使用。</h3>
+<pre><code class="language-javascript">        let obj = {
+            name: &quot;珠峰&quot;,
+            fn: function () {
+                let f = () =&gt; {
+                    console.log(this.name); //自己所处上下文的this  
+                }
+                f(); //f执行，它的this是obj
+            }
+        }
+        obj.fn(); //&quot;珠峰&quot;
+
+1：箭头函数加普通函数
+        let obj1 = {
+            b1: 1,
+            a1: function () {
+                setTimeout(() =&gt; { //没有this，自己家没有就好像上面找,找到a1的this（obj）
+                    console.log(this);
+                    this.b1 = &quot;珠峰&quot;;
+                }, 1000)
+            }
+        }
+        obj1.a1();//obj
+
+2：全箭头函数
+        let obj2 = {
+            b2: 1,
+            a2: () =&gt; {
+                setTimeout(() =&gt; { //没有this，自己家没有就好像上面找，找到全局的this（window）
+                    console.log(this);
+                }, 1000)
+            }
+        }
+        obj2.a2(); //Window 
+3：全普通函数
+      let obj = {
+            b: 1,
+            a: function () {
+                // let that = this; //使that变量指向obj
+                setTimeout(function () {//因为定时器方法其实是window的方法
+                    console.log(this);
+                }, 1000)
+            }
+        }
+        obj.a(); //Window/obj
+</code></pre>
+<h3 id="的作用">&quot;...&quot; 的作用</h3>
+<ul>
+<li>扩展运算符（多用在解构赋值中）</li>
+<li>展开运算符 （多用在传递实参中）</li>
+<li>剩余运算符（多用在接收实参中）</li>
+</ul>
+<pre><code class="language-javascript">//1:作为扩展运算符（解构赋值）：
+	let [n,...m]=[12,23,34];//n=12,m=[23,34]
+
+//2:作为展开运算符（传递实参）：
+	let ary=[12,23,34,45];
+    let min=Math.min(...ary);//..ary就是ary的每个值
+	//还可以用作数组/对象克隆（浅克隆）,并且可以添加值和属性：
+	let cloneAry=[...ary];
+	let obj={name:&quot;圆圆&quot;,
+            age:41};
+	let cloneObj=[...obj,sex:'girl'];//在原来基础上添加了sex属性
+
+//3：作为剩余运算符（接收实参）
+	 let fn=(...arg)=&gt;{
+        console.log(arg); //arg:[10,20,30];
+     }
+     fn(10,20,30);
+</code></pre>
+<h3 id="class创建类">class创建类</h3>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://jianmu123.github.io/post/es6_01/">
+                  <h3 class="post-title">
+                    ES6_01
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+
+  </body>
+</html>

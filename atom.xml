@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jianmu123.github.io/</id>
     <title>Personal blog</title>
-    <updated>2020-10-13T16:02:23.153Z</updated>
+    <updated>2020-10-13T16:15:23.906Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jianmu123.github.io/"/>
     <link rel="self" href="https://jianmu123.github.io/atom.xml"/>
@@ -10,6 +10,326 @@
     <logo>https://jianmu123.github.io/images/avatar.png</logo>
     <icon>https://jianmu123.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Personal blog</rights>
+    <entry>
+        <title type="html"><![CDATA[ES6_02]]></title>
+        <id>https://jianmu123.github.io/post/es6_02/</id>
+        <link href="https://jianmu123.github.io/post/es6_02/">
+        </link>
+        <updated>2020-09-29T13:14:32.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="箭头函数">箭头函数</h2>
+<blockquote>
+<p>简化了函数创建代码，真实项目是和普通函数混用。</p>
+</blockquote>
+<pre><code class="language-javascript">1： const fn=([形参])=&gt;{
+    //函数体
+    return n*10;
+}
+//箭头函数的创建都是函数表达式方式（变量=函数），这种模式下，不存在变量提升，所以，函数只能在创建完成后执行（即：在创建的代码后面执行）。
+fn([实参]);
+
+//形参只有一个，则小括号可以不加
+const fn1=n=&gt;{
+    return n*10;
+};
+//如果函数体只有一句话，并且是return xxx；则可以省略大括号和return
+const fn2=n=&gt;n*10;
+举例：
+	function fn3(n){
+        return function(m){
+            return m+(n++);
+        }
+    }
+改写为箭头函数：
+第一步改写(箭头代替function)：
+	const fn3=n=&gt;{
+        return m=&gt;{
+             return m+(n++);
+        } 
+    }
+第二步改写：
+	const fn3=n=&gt;{
+        return  m=&gt;m+(n++);
+    }
+最后： const fn3=n=&gt;m=&gt;m+(n++);    
+</code></pre>
+<h3 id="箭头函数没有arguments但是可以基于剩余运算符获取实参集合而且es6中是支持给形参设置默认值的">箭头函数没有arguments，但是可以基于剩余运算符获取实参集合，而且ES6中是支持给形参设置默认值的。</h3>
+<pre><code class="language-javascript">let fn=(context)=&gt;{
+    console.log(arguments);
+};
+fn(1);//报错，arguments不存在
+但是使用剩余运算符，可以获取和arguments一样的值
+
+let obj = {};
+let fn = (c = window, ...arg) =&gt; { //c=window:意思是调用函数的时候不传值，则c指的默认值是window，而arg是传的剩余值
+   console.log(c, arg); //Object Array(3)
+ };
+fn(obj, 10, 20, 30); //c=obj  arg=[10,20,30]是一个数组
+fn(); //不传值： c=Window {parent: Window, opener: null, top: Window, length: 0, frames: Window, …}   arg=[]
+</code></pre>
+<h3 id="箭头函数没有自己的this它里面用到的this都是自己所处上下文执行环境的this真实项目中一旦涉及this问题注意箭头函数的使用">箭头函数没有自己的this，它里面用到的this都是自己所处上下文(执行环境)的this，真实项目中一旦涉及this问题，注意箭头函数的使用。</h3>
+<pre><code class="language-javascript">        let obj = {
+            name: &quot;珠峰&quot;,
+            fn: function () {
+                let f = () =&gt; {
+                    console.log(this.name); //自己所处上下文的this  
+                }
+                f(); //f执行，它的this是obj
+            }
+        }
+        obj.fn(); //&quot;珠峰&quot;
+
+1：箭头函数加普通函数
+        let obj1 = {
+            b1: 1,
+            a1: function () {
+                setTimeout(() =&gt; { //没有this，自己家没有就好像上面找,找到a1的this（obj）
+                    console.log(this);
+                    this.b1 = &quot;珠峰&quot;;
+                }, 1000)
+            }
+        }
+        obj1.a1();//obj
+
+2：全箭头函数
+        let obj2 = {
+            b2: 1,
+            a2: () =&gt; {
+                setTimeout(() =&gt; { //没有this，自己家没有就好像上面找，找到全局的this（window）
+                    console.log(this);
+                }, 1000)
+            }
+        }
+        obj2.a2(); //Window 
+3：全普通函数
+      let obj = {
+            b: 1,
+            a: function () {
+                // let that = this; //使that变量指向obj
+                setTimeout(function () {//因为定时器方法其实是window的方法
+                    console.log(this);
+                }, 1000)
+            }
+        }
+        obj.a(); //Window/obj
+</code></pre>
+<h3 id="的作用">&quot;...&quot; 的作用</h3>
+<ul>
+<li>扩展运算符（多用在解构赋值中）</li>
+<li>展开运算符 （多用在传递实参中）</li>
+<li>剩余运算符（多用在接收实参中）</li>
+</ul>
+<pre><code class="language-javascript">//1:作为扩展运算符（解构赋值）：
+	let [n,...m]=[12,23,34];//n=12,m=[23,34]
+
+//2:作为展开运算符（传递实参）：
+	let ary=[12,23,34,45];
+    let min=Math.min(...ary);//..ary就是ary的每个值
+	//还可以用作数组/对象克隆（浅克隆）,并且可以添加值和属性：
+	let cloneAry=[...ary];
+	let obj={name:&quot;圆圆&quot;,
+            age:41};
+	let cloneObj=[...obj,sex:'girl'];//在原来基础上添加了sex属性
+
+//3：作为剩余运算符（接收实参）
+	 let fn=(...arg)=&gt;{
+        console.log(arg); //arg:[10,20,30];
+     }
+     fn(10,20,30);
+</code></pre>
+<h3 id="class创建类">class创建类</h3>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ES6_01]]></title>
+        <id>https://jianmu123.github.io/post/es6_01/</id>
+        <link href="https://jianmu123.github.io/post/es6_01/">
+        </link>
+        <updated>2020-09-28T12:13:06.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="let关键字">let关键字</h3>
+<p>let关键字用于声明变量，它的作用域在块级作用域中（{}内部）。</p>
+<p>使用var声明的变量在全局中也可以访问 。</p>
+<p>使用区别(作用域不同)：</p>
+<pre><code class="language-javascript">for(var i=0;i&lt;3;i++){
+  i++;  
+};
+console.log(i); =&gt;4
+
+for(let i=0;i&lt;3;i++){
+i++;
+};
+console.log(i); =&gt;报错:i is not defined
+</code></pre>
+<h4 id="特点">特点：</h4>
+<ul>
+<li><strong>防止了循环变量变成了全局变量，可以结局作用域污染问题</strong>。</li>
+<li><strong>作用域是块级作用域</strong>。</li>
+<li><strong>在同一个作用域中，一个变量只能声明一次。</strong></li>
+<li><strong>没有变量提升</strong>。（<strong>即：使用let的变量只能先声明在使用</strong>）</li>
+</ul>
+<pre><code class="language-javascript">  console.log(i);=&gt;不会报错，但是打印的是undefined
+      var i = 10; 
+
+  console.log(i);=&gt;会报错:i is not defined
+      let i = 10; 
+</code></pre>
+<ul>
+<li><strong>解决typeof的暂时性死区</strong></li>
+</ul>
+<pre><code class="language-javascript">  var num1 = 10;
+      if (true) {
+        console.log(num1); //报错（暂时性死区），而使用typeof不会报错
+        let num1 = 5;
+      }
+</code></pre>
+<pre><code class="language-javascript">    var arr = [];
+      for (var i = 0; i &lt; 3; i++) {
+        arr[i] = function () {
+          console.log(i);
+        };
+      }
+      arr[0](); //3
+      arr[1](); //3
+
+      var arr1 = [];
+      for (let i = 0; i &lt; 3; i++) {
+        arr1[i] = function () {
+          console.log(i);
+        };
+      }
+      arr1[0](); //0
+      arr1[1](); //1
+//注意：在第二个中：每次循环都会产生一个块级作用域，每个作用域中的变量是不同的，函数执行时输出的时自己上一级（循环产生的块级作用域）作用域的值。
+</code></pre>
+<p>注意</p>
+<pre><code class="language-javascript"> function b() {
+        let a = 10;
+        var a = 4;
+        console.log(a);//报错 a重复声明
+      }
+</code></pre>
+<h3 id="const关键字">const关键字</h3>
+<p>作用：声明常量，常量就是值（内存地址），不能修改。</p>
+<p>特点：</p>
+<ul>
+<li>具有块级作用域。</li>
+<li>声明常量时必须赋初始值。</li>
+<li>声明常量后，值不能修改。</li>
+</ul>
+<pre><code class="language-javascript">      const a = 5;
+      a = 10;//报错，因为修改了pi的内存地址
+
+	  const pi = [100, 200];
+      pi[0] = 300;
+      pi[1] = 400;
+      console.log(pi[0], pi[1]); //300 400,因为没有修改pi的内存地址
+      pi = [1, 2];
+      console.log(pi[0], pi[1]); //报错，因为修改了pi的内存地址
+</code></pre>
+<h3 id="解构赋值">解构赋值</h3>
+<pre><code class="language-javascript">&lt;script&gt;
+      /*
+            解构赋值：声明和赋值放在一起
+            解构：表示等号左边和右边结构类似
+        */
+      /* 数组：位置必须相同 */
+      let [name0, age0] = [&quot;珠峰&quot;, 9];
+      console.log(&quot;姓名：&quot; + name0, &quot;年龄:&quot; + age0); //=&gt; 珠峰 9
+      console.log(&quot;age:&quot; + age0); // =&gt; 9
+      //就想要age的写法,也必须把name的位置空出来：
+      let [, age1] = [&quot;珠峰&quot;, 9];
+      console.log(&quot;age1:&quot; + age1); //=&gt;9
+
+      /* 数组有长度，要想获取长度，则是获取对象的长度 */
+      //   let [, age2, length] = [&quot;珠峰&quot;, 9];
+      //   console.log(age2, length); //=&gt;  9 undefined
+
+      //上面的写法不是对象，正确写法：
+      let { length } = [&quot;珠峰&quot;, 1, 2, 3]; //注意这里必须写length，因为长度就是length属性，不能改变
+      console.log(&quot;数组长度:&quot; + length); //=&gt;4
+
+      //   如果存在关键字可以采用冒号(:)的形式进行更改名字,如下：default是关键字，在解构中使用冒号更改了名字为d
+      let { name3, age3, default: d } = {
+        name3: &quot;河马&quot;,
+        age3: 10,
+        default: &quot;老虎&quot;,
+      };
+      console.log(d); //老虎
+
+      let [
+        ,
+        {
+          address: [, a],
+        },
+      ] = [{ name2: &quot;珠峰&quot; }, { age2: 9, address: [1, 2, 3] }]; //这种写法要想获取address中的2，解构赋值这样写： let [,{address:[,a]}]
+      console.log(&quot;a:&quot; + a);
+
+      //   如果想设置某个属性的默认值采用=号的形式
+      let { name4 = &quot;没有定义&quot;, age4 = &quot;没有定义&quot;, sex4 = &quot;没有定义&quot; } = {
+        name4: &quot;兔子&quot;,
+        age4: 1,
+      };
+      console.log(name4, age4, sex4); // =&gt;兔子 1 没有定义
+    &lt;/script&gt;
+</code></pre>
+<h3 id="字符串">字符串</h3>
+<pre><code class="language-javascript">&lt;script&gt;
+      /*
+                es6模板字符串  特殊的字符串
+                模板字符串取代了原有的字符串拼接功能(使用反引号)
+
+                  字符串方法：
+                          inclueds        是否包含
+                          startsWith      是否以xxx开头
+                          endsWith        是否以xxx结尾
+                          padStart/End    开头/结尾补全
+                          注意：这2个方法的参数：padStart([targetLength] [padString])
+                                第一个参数：指定的字符串长度，如果输入的比原来字符串长度小，则该方法无作用，如果比它大，则补齐到指定的长度
+            */
+      let name = &quot;珠峰&quot;;
+      let age = 18;
+      let str = `hello~${name}今年${age}岁了`;
+      //   插入引号：
+      let str1 = `hello~'${name}'今年${age}岁了`;
+      console.log(str); //hello~珠峰今年18岁了
+      console.log(str1); //hello~'珠峰'今年18岁了
+
+      //   举例：
+      let ul = &quot;&lt;ul&gt;&quot; + &quot;&lt;li&gt;&quot; + name + &quot;&lt;/li&gt;&quot;;
+      &quot;&lt;li&gt;&quot; + age + &quot;&lt;/li&gt;&quot; + &quot;&lt;/ul&gt;&quot;;
+      console.log(ul); //&lt;ul&gt;&lt;li&gt;珠峰&lt;/li&gt;   (不支持换行)
+      /* 但是想要ul和li直接换行，可以这样： */
+      let ul1 = `&lt;ul&gt;
+          &lt;li&gt;${name}&lt;/li&gt;
+          &lt;li&gt;${age}&lt;/li&gt;
+      &lt;/ul&gt;`;
+      console.log(ul1);
+      /* 结果：
+              &lt;ul&gt;
+                  &lt;li&gt;珠峰&lt;/li&gt;
+                   &lt;li&gt;18&lt;/li&gt;
+              &lt;/ul&gt;
+             */
+
+      /* 方法的使用
+                        字符串方法：
+                          inclueds        是否包含
+                          startsWith      是否以xxx开头
+                          endsWith        是否以xxx结尾
+                          padStart/End    开头/结尾补全
+                           注意：这2个方法的参数：padStart([targetLength] [padString])
+                                第一个参数：指定的字符串长度，如果输入的比原来字符串长度小，则该方法无作用，如果比它大，则补齐到指定的长度
+             */
+      let url = &quot;https//www.baidu&quot;;
+      //   console.log(url.length);16
+      console.log(url.includes(&quot;baidu&quot;)); //true
+      console.log(url.startsWith(&quot;https&quot;)); //true
+      console.log(url.endsWith(&quot;.com&quot;)); //false
+      console.log(`${url.toString().padEnd(20, &quot;.coms/log&quot;)}`); //https//www.baidu.com
+      //因为原来字符串长度是16，这里设置的20，所以在后面补齐4个字符.com,后面的字符就不会用到
+    &lt;/script&gt;
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[jQuery5]]></title>
         <id>https://jianmu123.github.io/post/jquery5/</id>
@@ -1015,319 +1335,6 @@ for(var i=0;i&lt;btnList.length;i++){
 </ul>
 <p><img src="https://jianmu123.github.io//post-images/1601907107501.png" alt="" loading="lazy"><br>
 <img src="https://jianmu123.github.io//post-images/1601907114756.png" alt="" loading="lazy"></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[JS2]]></title>
-        <id>https://jianmu123.github.io/post/js2/</id>
-        <link href="https://jianmu123.github.io/post/js2/">
-        </link>
-        <updated>2020-09-05T13:23:00.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="js中的数据类型检测">js中的数据类型检测</h2>
-<ul>
-<li>typeof[val]:用来检测数据类型的运算符</li>
-<li>instanceof :用来检测当前实列是否属于某个类</li>
-<li>constructor：基于构造函数检测数据类型(也是基于类的方式)</li>
-<li>Object.prototype.toString.call（）：检测数据类型最好的办法</li>
-</ul>
-<h4 id="一基于typeof检测的结果">一：基于typeof检测的结果</h4>
-<ul>
-<li>都是字符串</li>
-<li>字符串中包含的是对应类型</li>
-</ul>
-<p>例如：console .log(typeof typeof typeof[]);</p>
-<p>​       首先 typeof [] 返回 ”object“</p>
-<p>​		然后 typeof ”object“ 返回 ”string“</p>
-<p>​		最后typeof &quot;string&quot;返回”string“</p>
-<p>​	   typeof NaN;//”number“</p>
-<pre><code>  typeof null;//“object”
-
-typeof {};//”object“
-
-typeof [];//“object”
-
-typeof /^$/;//”object“
-</code></pre>
-<p>typeof 的局限性：</p>
-<p>​     -  typeof null的结果是object ，但是null不是对象只是空对象指针</p>
-<p>​     -  typeof 无法细分出当前值是普通对象还是数组对象等，因为只要检测的是对象数据类型都返回”object“</p>
-<h4 id="二-基于instanceof检测结果">二： 基于instanceof检测结果</h4>
-<p>instanceof只能检测引用数据类型，对于基本类型不生效,返回值是true/false。并且它不能用于检测null和undefined。</p>
-<pre><code class="language-javascript">例如：
-
- 		console.log(&quot;1&quot; instanceof String); //false
-
- 		console.log(1 instanceof Number); //false
-
- 		console.log(true instanceof Boolean); //false
-
- 		console.log([]  instanceof Array); //true
-
- 		console.log({} instanceof Object); //true
-
- 		console.log(function(){} instanceof Function); //true
-
-</code></pre>
-<h4 id="三-基于constructor检测结果">三： 基于constructor检测结果</h4>
-<p>先看一下用法：</p>
-<pre><code class="language-javascript">console.log((&quot;1&quot;).constructor===String);//true
-console.log((1).constructor===Number;//true
-console.log((true).constructor===Boolean);//true
-console.log(([]).constructor===Array);//true
-console.log(({}).constructor===Object);//true
-console.log((function(){}).constructor===Fuction);//true
-</code></pre>
-<p>撇去null和undefined，可以看出constructor能用于检测js的基本类型和引用类型。但是设计到原型和继承的时候便会出现问题。如下</p>
-<pre><code class="language-javascript">function fun(){};
-    fun.prototype=new Array();
-    let f=new fun();
-	console.log(f.constructor===fun);//false
-	console.log(f.constructor===Array);//ture
-    
-</code></pre>
-<p>在这里，我们先是定义了一个函数fun，并将该函数的原型指向了数组，同时，声明了一个f为fun的类型，然后利用constructor进行检测时，结果如下：false  true;</p>
-<h3 id="小结撇去null和undefinedconstructor能用于检测js的基本类型和引用类型但当对象的原型更改之后constructor便失效了">小结：撇去null和undefined，constructor能用于检测js的基本类型和引用类型，但当对象的原型更改之后，constructor便失效了。</h3>
-<h4 id="四objectprototypetostringcall">四：Object.prototype.toString.call()</h4>
-<p>用法：</p>
-<pre><code>  ```javascript
-</code></pre>
-<p>console.log(Object.prototype.toString.call(&quot;str&quot;));<br>
-console.log(Object.prototype.toString.call(1));<br>
-console.log(Object.prototype.toString.call(true));<br>
-console.log(Object.prototype.toString.call(null));<br>
-console.log(Object.prototype.toString.call(undefined));<br>
-console.log(Object.prototype.toString.call([]));<br>
-console.log(Object.prototype.toString.call({}));<br>
-console.log(Object.prototype.toString.call(function(){}));<br>
-```</p>
-<p>结果：</p>
-<p>[Object String]</p>
-<p>[Object Number]</p>
-<p>[Object Boolean]</p>
-<p>[Object null]</p>
-<p>[Object undefined]</p>
-<p>[Object Array]</p>
-<p>[Object Object]</p>
-<p>[Object Function]</p>
-<p>这样一看，似乎能满足js的所有数据类型，那我们看下继承之后是否能检测出来</p>
-<pre><code class="language-javascript">function fun(){};
-    fun.prototype=new Array();
-    let f=new fun();
-	console.log(object.prototype.toString.call(fun));
-	console.log(object.prototype.toString.call(f));
-</code></pre>
-<p>结果：</p>
-<p>[Object Function]</p>
-<p>[Object Object]</p>
-<h3 id="可以看出objectprototypetostringcall可用于检测js所有的数据类型">可以看出，Object.prototype.toString.call()可用于检测js所有的数据类型。</h3>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[JS1]]></title>
-        <id>https://jianmu123.github.io/post/js1/</id>
-        <link href="https://jianmu123.github.io/post/js1/">
-        </link>
-        <updated>2020-09-03T13:06:15.000Z</updated>
-        <content type="html"><![CDATA[<h3 id="js做客户端语言">JS做客户端语言</h3>
-<blockquote>
-<p>按照相关的js语法，再去操作页面的元素。4，有时还需要操作浏览器里面的一些功能》</p>
-<ul>
-<li>
-<p>ECSAScript3/5/6...：JS的语法规范（变量、数据类型、操作语句等等）。</p>
-</li>
-<li>
-<p>DOM(document object model):文档对象模型，提供一些JS的属性方法，用来操作页面的DOM元素。</p>
-</li>
-<li>
-<p>BOM(browser object model):浏览器对象模型，提供一些JS的属性和方法，用来操作浏览器（比如：刷新，关闭等等）。</p>
-</li>
-</ul>
-</blockquote>
-<h3 id="js中的变量-variable">JS中的变量 variable</h3>
-<blockquote>
-<p>变量：可变的量，在编程语言中，变量就是一个名字，用来存储和代表不同的值的东西。</p>
-</blockquote>
-<pre><code class="language-javascript">//ES3
-   var a=12;
- 	   a=13;
-   console.log(a);//=&gt;输出的a的值是13
-//ES6
- 	let b=100;
-		b=200;
-  const c=1000;
-		c=2000;//会报错，因为const存储的值不能被修改（可以理解为常量）。
-//创建函数也相当于创建变量
-function fu(){}
-//ES6中创建类也相当于在创建变量
-class A{}
-//ES6的模块导入也可以创建变量
-import B from './B.js';//导入一个模块，创建一个B来存储
-//Symbol创建唯一值
-let n=Symbol(100);
-let m=Symbol(100);
-console.log(m==n);//false,因为是创建的唯一值
-</code></pre>
-<h3 id="js的命名规范">JS的命名规范</h3>
-<ul>
-<li>
-<p>严格区分大小写</p>
-</li>
-<li>
-<p>使用数字、字母、下划线、$,数字不能开头</p>
-</li>
-<li>
-<p>使用驼峰命名法：首写字母小写，其余每一个有意义单词首字母大写</p>
-</li>
-</ul>
-<h3 id="js中常用的数据类型">JS中常用的数据类型</h3>
-<p>— 基本数据类型</p>
-<ul>
-<li>数字类型number（NaN也是数字类型）</li>
-<li>字符串类型string</li>
-<li>布尔类型boolean</li>
-<li>空对象指针null</li>
-<li>未定义类型undefined</li>
-</ul>
-<p>—引用数据类型</p>
-<ul>
-<li>
-<p>对象数据类型object</p>
-<p>​    {}：普通对象</p>
-<p>​    []：数组对象</p>
-<p>​    /^$/:正则对象</p>
-<p>​    Math数学函数对象</p>
-<p>日期对象</p>
-<p>、、、</p>
-</li>
-<li>
-<p>函数数据类型function</p>
-</li>
-</ul>
-<h3 id="number数字类型">number数字类型</h3>
-<blockquote>
-<p>包含：常规数字和NaN</p>
-</blockquote>
-<h4 id="nan">NaN:</h4>
-<p>不是一个数字，和任何值都不相等（包括自己）。NaN !=NaN，所以我们不能用相等的方式来判断是否是一个有效数字。</p>
-<h4 id="isnan">isNaN</h4>
-<blockquote>
-<p>检测一个值是否是非有效数字，如果不是有效数字返回true，否则返回false。</p>
-<p>语法：isNaN（[val]）</p>
-</blockquote>
-<pre><code class="language-console.log(isNaN(10));//false">console.log(isNaN(10));//false
-
-console.log(isNaN('AA'));//true
-//机制：Number('AA')=&gt;NaN
-注意：
-console.log(isNaN('10'));//false
-//机制：Number('10')=&gt;10
-isNaN的使用机制：首先看这个值是不是数字类型，如果不是则会使用Number()这个方法把值转换数字类型，然后再检测
-
-</code></pre>
-<h3 id="字符串转数字">字符串转数字</h3>
-<blockquote>
-<p>Number()方法把字符串转换为数字，只要字符串中包含任意一个非有效数字字符，结果都是NaN，空字符串会转换为数字0。</p>
-</blockquote>
-<pre><code class="language-javascript">console.log(Number('12.5'));//12.5
-console.log(Number('12.5px'));//NaN
-console.log(Number(''));//0
-</code></pre>
-<h3 id="布尔转数字">布尔转数字</h3>
-<p>同样使用Number()方法，ture=&gt;1;false=&gt;0。</p>
-<h3 id="空对象和undefined转数字">空对象和undefined转数字</h3>
-<pre><code class="language-javascript">console.log(Number(null));//0
-
-console.log(Number(undefined));//NaN
-</code></pre>
-<h3 id="引用数据类型转数字">引用数据类型转数字</h3>
-<p>把引用数据类型先通过toString()方法转换为字符串，然后再通过Number()方法转换为数字。</p>
-<pre><code class="language-javascript">对象
-console.log(Number({number:'xxx'}));//NaN
-console.log(Number({}));//NaN
-//toString()方法转为object
-数组
-console.log(Number([]);//0
-//toSting()转为空字符串&quot;&quot;,然后Number()把它转为0
-console.log(Number([12]);//12
-//toSting()转为&quot;12&quot;
-console.log(Number([12,23]);//NaN
-//toSting()转为&quot;12,23&quot;,含有非有效数字字符（逗号）
-</code></pre>
-<h3 id="把其他类型值转换为数字类型">把其他类型值转换为数字类型</h3>
-<ul>
-<li>Number([val])</li>
-<li>parseInt([val]，[进制])  //返回整数</li>
-<li>parseFloat([val]，[进制]) //返回浮点数<br>
-后面两种方法对字符串来说是从左到右一次查找有效字符，直到遇到非有效字符，就停止查找（无论后面是否还有有效数字都会停止），然后返回查找的数字。</li>
-</ul>
-<pre><code class="language-javascript">let str='12.5px'
-console.log(Number(str);// NaN
-console.log(parseInt(tsr));//12
-console.log(parseFloat(str));//12.5
-</code></pre>
-<p>== 进行比较的时候，可能会把其他类型转换为数字<br>
-比如：console.log('10'==10);//true</p>
-<h3 id="其他类型转换为字符串">其他类型转换为字符串</h3>
-<ul>
-<li>[val].toString()</li>
-<li>字符串拼接</li>
-</ul>
-<p>null和undefined是禁止直接使用toString的 。</p>
-<p>加号有四则运算的功能和字符串拼接的功能，只有遇到字符串才是字符串拼接的功能。</p>
-<pre><code class="language-javascript">console.log('10'+10);  =&gt;'1010'
-let a=10+null+true+[12]+undefined+'珠峰'+null+[]+10+false;
-/*
- 10+null=10+0=10
- 10+true=10+1=11
- 11+[12]=11+'12'='1112' 遇到字符串直接进行字符串拼接，之后所有+号都是拼接
- '1112'+undefined='1112undefined'
- '1112undefined'+'珠峰'='1112undefined珠峰'
- '1112undefined珠峰'+null='1112undefined珠峰null'
- '1112undefined珠峰null'+[]='1112undefined珠峰null'  空数组转为空字符串
- '1112undefined珠峰null'+10+false='1112undefined珠峰null10false'
-*/
-console.log(a); =&gt;'1112undefined珠峰null10false'
-</code></pre>
-<h2 id="boolean布尔数据类型">boolean布尔数据类型</h2>
-<blockquote>
-<p>只有两个值 true/false</p>
-</blockquote>
-<h3 id="把其它类型值转换为布尔类型">把其它类型值转换为布尔类型</h3>
-<blockquote>
-<p>只有0、NaN、''、null、undefined这5个值转换为false（没有任何其他情况）</p>
-</blockquote>
-<pre><code class="language-javascript">console.log(Boolean(0));//false
-console.log(Boolean(''));//false
-console.log(Boolean(' '));//ture,因为里面不是空字符串，而是一个空格
-console.log(Boolean(null));//false
-console.log(Boolean(undefined));//false
-console.log(Boolean(NaN));//false
-console.log(Boolean([]));//ture
-console.log(Boolean([12]));//ture
-</code></pre>
-<p>转换方法：</p>
-<ul>
-<li>Boolean()</li>
-<li>!或则!! （ 一个！表示取反，2个表示取2次反）</li>
-<li>条件判断</li>
-</ul>
-<h2 id="object对象数据类型-普通对象">object对象数据类型-普通对象</h2>
-<blockquote>
-<p>{[key]:[value],....} 任何一个对象都是有零到多对键值对（属性名:属性值）组成的（并且属性名不能重复）。</p>
-</blockquote>
-<pre><code class="language-javascript">let person={
-    name: '孙悟空',
-    age:18,
-    height:'185cm'
-}
-//获取值：
-      对象.属性名 如：person.name
-或则： 对象[属性名] 如：person['name']
-属性名是数字或则字符串格式，如果属性名是数字则只能使用第二种方法获取
-
-真删除：delete.person.age;
-假删除：person.age=null;(属性还在，值为空)
-</code></pre>
 ]]></content>
     </entry>
 </feed>
