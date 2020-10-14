@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>面向对象编程 | Personal blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://jianmu123.github.io//favicon.ico?v=1602688392135">
+<link rel="stylesheet" href="https://jianmu123.github.io//styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="函数封装重载和面向对象理解
+
+1:封装：低耦合高内聚。（把实现某个功能的代码进行函数封装）
+2：多态：重载和重写：
+
+重载：方法名相同，但是形参在不同个数或类型的时候执行不同的方法（后端）。而JS中是不一样的，JS中的重载指的是同一个方法，..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://jianmu123.github.io/">
+        <img src="https://jianmu123.github.io//images/avatar.png?v=1602688392135" class="site-logo">
+        <h1 class="site-title">Personal blog</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            笔记
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://jianmu123.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">面向对象编程</h2>
+            <div class="post-date">2020-10-03</div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="函数封装重载和面向对象理解">函数封装重载和面向对象理解</h2>
+<blockquote>
+<p>1:封装：低耦合高内聚。（把实现某个功能的代码进行函数封装）</p>
+<p>2：多态：重载和重写：</p>
+<ul>
+<li>重载：方法名相同，但是形参在不同个数或类型的时候执行<strong>不同的方法</strong>（后端）。而JS中是不一样的，JS中的重载指的是<strong>同一个方法</strong>，根据传参的不同实现出不同的效果。</li>
+<li>重写：在类的继承中，子类可以重写父类中的方法。</li>
+</ul>
+<p>3：继承：子类继承父类的方法（目的：让子类的实例能够调取父类中的属性和方法）。</p>
+</blockquote>
+<ul>
+<li><strong>原型继承</strong>  :<strong>让父类中的属性和方法在子类实例的原型上。</strong>（父类私有的和公有的都是子类公有的）</li>
+</ul>
+<p><strong>实现方法</strong></p>
+<p>​				      <strong>Child.prototype= new Parent()。</strong></p>
+<p>​					  <strong>Child.prototype.constructor=Child;(保证原型重新定向后的完整性),因为前面将prototype指向了一个新实例。</strong></p>
+<p><em><strong>特点</strong></em>：</p>
+<p>​			1：不像其他语言中的继承（其他语言的继承一般是拷贝。也就是说子类继承父类，会把父类中的属性和方法拷贝一份到子类中，供子类调取使用），它是把父类的原型放到了子类实例上的原型链上，实例调取这些方法是基于__proto__原型链查找机制完成的。</p>
+<p>​			 2：子类可以重写父类的方法（这样会导致父类的其他实例也受到影响，严格来说不合理了）。</p>
+<p>​			 3：父类中的私有或则公有的属性方法，<strong>最后都会变成子类中的公有属性和方法。</strong></p>
+<pre><code class="language-javascript">function A(x){//父
+    this.x=x;
+}
+A.prototype.getX=function(){
+    console.log(this.x);
+}
+function B(y){//子
+    this.y=y;
+}
+//要想B的实例实现A的方法需要如下操作(原型)：
+B.prototype=new A(200);
+B.prototype.constructor=B;//保证原型的完整性
+
+B.prototype.getY=function(){
+    console.log(this.y);
+}
+let b1=new B(100);
+b1.getY();//100
+b1.getX();//200
+
+//重写create方法
+Object.create= function create(obj){
+    function Fn(){};
+    Fn.prototype=obj;
+    return new Fn();
+}
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1602687978470.png" alt="" loading="lazy"></figure>
+<ul>
+<li><em><strong>call继承</strong></em>（父类私有的是子类私有的）</li>
+</ul>
+<p><strong><em>实现方法</em>：</strong></p>
+<p>​		<strong>Child方法中把Parent当作普通函数执行，并且让Parent中的this通过call方法指向Child的实例，相当于在给Child的实例中设置了很多Parent的私有属性或则方法。</strong></p>
+<p><em><strong>特点：</strong></em></p>
+<p>​			1：只能继承父类的<strong>私有属性和方法</strong>（因为是把Parent当作普通函数执行，和其原型上的属性和方法没有关系）。父类的私有变为子类私有，但是和公有的没有关系。</p>
+<pre><code class="language-javascript">function A(x){//父
+    this.x=x;
+}
+A.prototype.getX=function(){
+    console.log(this.x);
+}
+//要想B的实例实现A的方法需要如下操作（call继承）：
+function B(y){//子
+    //this指向了B的实例（b1）
+    A.call(this,200);//即：b1.x=200;
+    this.y=y;
+}
+
+B.prototype.getY=function(){
+    console.log(this.y);
+}
+let b1=new B(100);
+b1.y;
+b1.getY();//100
+b1.getX();//200
+</code></pre>
+<ul>
+<li><strong>寄生组合继承</strong>：（推荐，父类私有的是子类私有的，父类公有的是子类公有的）</li>
+</ul>
+<p>实现方法：call继承+类似与原型继承</p>
+<p>特点：父类私有和公有的分别是子类实例的<strong>私有和公有属性方法</strong></p>
+<pre><code class="language-javascript">function A(x){// 父类
+    this.x=x;
+}
+A.prototype.getX=function(){
+    console.log(this.x);
+}
+//要想B的实例实现A的方法需要如下操作（call继承）：只能继承私有的
+function B(y){// 子类
+    //this指向了B的实例（b1）
+    A.call(this,200);//即：b1.x=200;让b1有A的私有属性
+    this.y=y;
+}
+//类似于原型继承（继承了公有的），注意create方法不兼容，在最后重写了兼容的create方法。
+//craete方法：创建一个空对象，让空对象的__proto__指向第一个参数
+B.prototype=Object.create(A.prototype);
+B.prototype.constructor=B;//(保证完整性)
+
+B.prototype.getY=function(){
+    console.log(this.y);
+}
+let b1=new B(100);
+b1.y;
+b1.getY();//100
+b1.getX();//200
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://jianmu123.github.io//post-images/1602688196114.png" alt="" loading="lazy"></figure>
+<ul>
+<li>
+<p><strong>ES6中的extend继承（extends和super）</strong>：</p>
+<p>其实原理是寄生组合方式。实现了父类私有的是子类私有的，父类公有的是子类公有的。</p>
+<pre><code class="language-javascript">class A{
+    constructor(x){
+        this.x=x;
+    }
+    getX(){
+        console.log(this.y);
+    }
+}
+//extends 相当于原型继承：B.prototype.__proto__=A.prototype
+class B extends A{
+    constructor(y){
+        super(200);//凡是继承了的都必须把super()写在constructor的里面的第一句。它的作用相当于：A.call(this,200)
+        this.y=y;
+    }
+    getY(){
+        console.log(this.y);
+    }
+}
+let b1= new B(100);
+console.log(b1);
+</code></pre>
+</li>
+</ul>
+<h3 id="什么是面向对象">什么是面向对象？</h3>
+<blockquote>
+<p>面向对象是一种编程思想，和面向过程是对应的，JS本身就是基于面向对象构建出来的。（比如JS中有很多内置类，像Promise就是ES6中新增的一个内置类，我们可以基于new Promise来创建一个实例，来管理异步编程）<br>
+JS面向对象和其他编程语言还是有略微不同的，JS中类和实例是基于原型和原型链机制来处理的。</p>
+</blockquote>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://jianmu123.github.io/post/han-shu-zhi-xing-ji-zhi/">
+                  <h3 class="post-title">
+                    函数执行机制
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+
+  </body>
+</html>

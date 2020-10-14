@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jianmu123.github.io/</id>
     <title>Personal blog</title>
-    <updated>2020-10-14T15:04:10.540Z</updated>
+    <updated>2020-10-14T15:13:15.071Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jianmu123.github.io/"/>
     <link rel="self" href="https://jianmu123.github.io/atom.xml"/>
@@ -11,11 +11,158 @@
     <icon>https://jianmu123.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Personal blog</rights>
     <entry>
+        <title type="html"><![CDATA[面向对象编程]]></title>
+        <id>https://jianmu123.github.io/post/mian-xiang-dui-xiang-bian-cheng/</id>
+        <link href="https://jianmu123.github.io/post/mian-xiang-dui-xiang-bian-cheng/">
+        </link>
+        <updated>2020-10-03T15:05:27.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="函数封装重载和面向对象理解">函数封装重载和面向对象理解</h2>
+<blockquote>
+<p>1:封装：低耦合高内聚。（把实现某个功能的代码进行函数封装）</p>
+<p>2：多态：重载和重写：</p>
+<ul>
+<li>重载：方法名相同，但是形参在不同个数或类型的时候执行<strong>不同的方法</strong>（后端）。而JS中是不一样的，JS中的重载指的是<strong>同一个方法</strong>，根据传参的不同实现出不同的效果。</li>
+<li>重写：在类的继承中，子类可以重写父类中的方法。</li>
+</ul>
+<p>3：继承：子类继承父类的方法（目的：让子类的实例能够调取父类中的属性和方法）。</p>
+</blockquote>
+<ul>
+<li><strong>原型继承</strong>  :<strong>让父类中的属性和方法在子类实例的原型上。</strong>（父类私有的和公有的都是子类公有的）</li>
+</ul>
+<p><strong>实现方法</strong></p>
+<p>​				      <strong>Child.prototype= new Parent()。</strong></p>
+<p>​					  <strong>Child.prototype.constructor=Child;(保证原型重新定向后的完整性),因为前面将prototype指向了一个新实例。</strong></p>
+<p><em><strong>特点</strong></em>：</p>
+<p>​			1：不像其他语言中的继承（其他语言的继承一般是拷贝。也就是说子类继承父类，会把父类中的属性和方法拷贝一份到子类中，供子类调取使用），它是把父类的原型放到了子类实例上的原型链上，实例调取这些方法是基于__proto__原型链查找机制完成的。</p>
+<p>​			 2：子类可以重写父类的方法（这样会导致父类的其他实例也受到影响，严格来说不合理了）。</p>
+<p>​			 3：父类中的私有或则公有的属性方法，<strong>最后都会变成子类中的公有属性和方法。</strong></p>
+<pre><code class="language-javascript">function A(x){//父
+    this.x=x;
+}
+A.prototype.getX=function(){
+    console.log(this.x);
+}
+function B(y){//子
+    this.y=y;
+}
+//要想B的实例实现A的方法需要如下操作(原型)：
+B.prototype=new A(200);
+B.prototype.constructor=B;//保证原型的完整性
+
+B.prototype.getY=function(){
+    console.log(this.y);
+}
+let b1=new B(100);
+b1.getY();//100
+b1.getX();//200
+
+//重写create方法
+Object.create= function create(obj){
+    function Fn(){};
+    Fn.prototype=obj;
+    return new Fn();
+}
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1602687978470.png" alt="" loading="lazy"></figure>
+<ul>
+<li><em><strong>call继承</strong></em>（父类私有的是子类私有的）</li>
+</ul>
+<p><strong><em>实现方法</em>：</strong></p>
+<p>​		<strong>Child方法中把Parent当作普通函数执行，并且让Parent中的this通过call方法指向Child的实例，相当于在给Child的实例中设置了很多Parent的私有属性或则方法。</strong></p>
+<p><em><strong>特点：</strong></em></p>
+<p>​			1：只能继承父类的<strong>私有属性和方法</strong>（因为是把Parent当作普通函数执行，和其原型上的属性和方法没有关系）。父类的私有变为子类私有，但是和公有的没有关系。</p>
+<pre><code class="language-javascript">function A(x){//父
+    this.x=x;
+}
+A.prototype.getX=function(){
+    console.log(this.x);
+}
+//要想B的实例实现A的方法需要如下操作（call继承）：
+function B(y){//子
+    //this指向了B的实例（b1）
+    A.call(this,200);//即：b1.x=200;
+    this.y=y;
+}
+
+B.prototype.getY=function(){
+    console.log(this.y);
+}
+let b1=new B(100);
+b1.y;
+b1.getY();//100
+b1.getX();//200
+</code></pre>
+<ul>
+<li><strong>寄生组合继承</strong>：（推荐，父类私有的是子类私有的，父类公有的是子类公有的）</li>
+</ul>
+<p>实现方法：call继承+类似与原型继承</p>
+<p>特点：父类私有和公有的分别是子类实例的<strong>私有和公有属性方法</strong></p>
+<pre><code class="language-javascript">function A(x){// 父类
+    this.x=x;
+}
+A.prototype.getX=function(){
+    console.log(this.x);
+}
+//要想B的实例实现A的方法需要如下操作（call继承）：只能继承私有的
+function B(y){// 子类
+    //this指向了B的实例（b1）
+    A.call(this,200);//即：b1.x=200;让b1有A的私有属性
+    this.y=y;
+}
+//类似于原型继承（继承了公有的），注意create方法不兼容，在最后重写了兼容的create方法。
+//craete方法：创建一个空对象，让空对象的__proto__指向第一个参数
+B.prototype=Object.create(A.prototype);
+B.prototype.constructor=B;//(保证完整性)
+
+B.prototype.getY=function(){
+    console.log(this.y);
+}
+let b1=new B(100);
+b1.y;
+b1.getY();//100
+b1.getX();//200
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://jianmu123.github.io//post-images/1602688196114.png" alt="" loading="lazy"></figure>
+<ul>
+<li>
+<p><strong>ES6中的extend继承（extends和super）</strong>：</p>
+<p>其实原理是寄生组合方式。实现了父类私有的是子类私有的，父类公有的是子类公有的。</p>
+<pre><code class="language-javascript">class A{
+    constructor(x){
+        this.x=x;
+    }
+    getX(){
+        console.log(this.y);
+    }
+}
+//extends 相当于原型继承：B.prototype.__proto__=A.prototype
+class B extends A{
+    constructor(y){
+        super(200);//凡是继承了的都必须把super()写在constructor的里面的第一句。它的作用相当于：A.call(this,200)
+        this.y=y;
+    }
+    getY(){
+        console.log(this.y);
+    }
+}
+let b1= new B(100);
+console.log(b1);
+</code></pre>
+</li>
+</ul>
+<h3 id="什么是面向对象">什么是面向对象？</h3>
+<blockquote>
+<p>面向对象是一种编程思想，和面向过程是对应的，JS本身就是基于面向对象构建出来的。（比如JS中有很多内置类，像Promise就是ES6中新增的一个内置类，我们可以基于new Promise来创建一个实例，来管理异步编程）<br>
+JS面向对象和其他编程语言还是有略微不同的，JS中类和实例是基于原型和原型链机制来处理的。</p>
+</blockquote>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[函数执行机制]]></title>
         <id>https://jianmu123.github.io/post/han-shu-zhi-xing-ji-zhi/</id>
         <link href="https://jianmu123.github.io/post/han-shu-zhi-xing-ji-zhi/">
         </link>
-        <updated>2020-10-14T15:00:09.000Z</updated>
+        <updated>2020-10-02T15:21:09.000Z</updated>
         <content type="html"><![CDATA[<pre><code class="language-javascript">var n=2;
 var obj={
     n:3;
@@ -54,89 +201,6 @@ console.log(n,obj.n);//8 6
 <figure data-type="image" tabindex="3"><img src="https://jianmu123.github.io//post-images/1602687826347.png" alt="" loading="lazy"></figure>
 <p><strong>obj.fn(3)执行图：</strong><br>
 <img src="https://jianmu123.github.io//post-images/1602687839196.png" alt="" loading="lazy"></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[call和apply]]></title>
-        <id>https://jianmu123.github.io/post/call-he-apply/</id>
-        <link href="https://jianmu123.github.io/post/call-he-apply/">
-        </link>
-        <updated>2020-10-14T14:59:28.000Z</updated>
-        <content type="html"><![CDATA[<h3 id="call和apply">call和apply</h3>
-<p>他们的作用：都能够改变this指向，借用别人函数实现自己的功能。第一个参数将改变this指向.</p>
-<p>他们的区别： 第二个参数的传参列表不同， call需要把实参按照形参的个数传进去。</p>
-<p>apply需要传一个arguments（数组形式）</p>
-<pre><code class="language-javascript">function Person(name,age){
-           this.name=name;
-           this.age=age;
-}
-function Person(name,age){
-           this.name=name;
-           this.age=age;
-}
-var person=new Person(&quot;张三&quot; ,18);
-var obj={
-};
- // Person()的执行其实就是调用call方法，等价于Person.call(),但是call方法可以传值，这样就会引起翻天覆地的变化
-Person.call(obj,&quot;李四&quot;,18);//this将指向obj
-结果：obj;//{name: &quot;李四&quot;, age: 18}
-
-用apply：
-Person.apply(obj,[&quot;王五&quot;,52]);
-obj;//{name: &quot;王五&quot;, age: 52}
-</code></pre>
-<p>案列：</p>
-<pre><code class="language-javascript">    &lt;script&gt;
-      // 下面举例工厂创建car
-      //大小
-      function Size(width, height, len) {
-        this.width = width;
-        this.height = height;
-        this.len = len;
-      }
-      //   样式
-      function Stytyle(color) {
-        this.color = color;
-      }
-      //能源
-      function Energy(gasoline, gas) {
-        this.gasoline = gasoline;
-        this.gas = gas;
-      }
-      // 创建汽车
-      function Car(width, height, len, color, gasoline, gas) {
-        Size.call(this, width, height, len);
-        Stytyle.call(this, color);
-        Energy.call(this, gasoline, gas);
-
-        // 使用apply,效果是一样的
-        /*
-        Size.apply(this, [width, height, len]);
-        Stytyle.apply(this, [color]);
-        Energy.apply(this, [gasoline, gas]);
-         */
-
-        /*上面的2个代码相当于在这个Car中写了以下代码 ：
-        this.width = width;
-        this.height = height;
-        this.len = len;
-        this.color = color;
-        this.gasoline = gasoline;
-        this.gas = gas;
-          */
-      }
-      var car = new Car(100, 200, 300, &quot;red&quot;, &quot;汽油&quot;, &quot;天然气&quot;);
-      console.log(car);
-      /* 
-        color: &quot;red&quot;
-        gas: &quot;天然气&quot;
-        gasoline: &quot;汽油&quot;
-        height: 200
-        len: 300
-        width: 100
-     */
-    &lt;/script&gt;
-</code></pre>
 ]]></content>
     </entry>
     <entry>
@@ -455,6 +519,89 @@ console.log(i); =&gt;报错:i is not defined
       console.log(url.endsWith(&quot;.com&quot;)); //false
       console.log(`${url.toString().padEnd(20, &quot;.coms/log&quot;)}`); //https//www.baidu.com
       //因为原来字符串长度是16，这里设置的20，所以在后面补齐4个字符.com,后面的字符就不会用到
+    &lt;/script&gt;
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[call和apply]]></title>
+        <id>https://jianmu123.github.io/post/call-he-apply/</id>
+        <link href="https://jianmu123.github.io/post/call-he-apply/">
+        </link>
+        <updated>2020-09-26T14:59:28.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="call和apply">call和apply</h3>
+<p>他们的作用：都能够改变this指向，借用别人函数实现自己的功能。第一个参数将改变this指向.</p>
+<p>他们的区别： 第二个参数的传参列表不同， call需要把实参按照形参的个数传进去。</p>
+<p>apply需要传一个arguments（数组形式）</p>
+<pre><code class="language-javascript">function Person(name,age){
+           this.name=name;
+           this.age=age;
+}
+function Person(name,age){
+           this.name=name;
+           this.age=age;
+}
+var person=new Person(&quot;张三&quot; ,18);
+var obj={
+};
+ // Person()的执行其实就是调用call方法，等价于Person.call(),但是call方法可以传值，这样就会引起翻天覆地的变化
+Person.call(obj,&quot;李四&quot;,18);//this将指向obj
+结果：obj;//{name: &quot;李四&quot;, age: 18}
+
+用apply：
+Person.apply(obj,[&quot;王五&quot;,52]);
+obj;//{name: &quot;王五&quot;, age: 52}
+</code></pre>
+<p>案列：</p>
+<pre><code class="language-javascript">    &lt;script&gt;
+      // 下面举例工厂创建car
+      //大小
+      function Size(width, height, len) {
+        this.width = width;
+        this.height = height;
+        this.len = len;
+      }
+      //   样式
+      function Stytyle(color) {
+        this.color = color;
+      }
+      //能源
+      function Energy(gasoline, gas) {
+        this.gasoline = gasoline;
+        this.gas = gas;
+      }
+      // 创建汽车
+      function Car(width, height, len, color, gasoline, gas) {
+        Size.call(this, width, height, len);
+        Stytyle.call(this, color);
+        Energy.call(this, gasoline, gas);
+
+        // 使用apply,效果是一样的
+        /*
+        Size.apply(this, [width, height, len]);
+        Stytyle.apply(this, [color]);
+        Energy.apply(this, [gasoline, gas]);
+         */
+
+        /*上面的2个代码相当于在这个Car中写了以下代码 ：
+        this.width = width;
+        this.height = height;
+        this.len = len;
+        this.color = color;
+        this.gasoline = gasoline;
+        this.gas = gas;
+          */
+      }
+      var car = new Car(100, 200, 300, &quot;red&quot;, &quot;汽油&quot;, &quot;天然气&quot;);
+      console.log(car);
+      /* 
+        color: &quot;red&quot;
+        gas: &quot;天然气&quot;
+        gasoline: &quot;汽油&quot;
+        height: 200
+        len: 300
+        width: 100
+     */
     &lt;/script&gt;
 </code></pre>
 ]]></content>
@@ -1027,280 +1174,6 @@ backgroundColor：&quot;red&quot;，
     $(this).children(&quot;ul&quot;).hide();
  })
 </code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[JS5]]></title>
-        <id>https://jianmu123.github.io/post/js5/</id>
-        <link href="https://jianmu123.github.io/post/js5/">
-        </link>
-        <updated>2020-09-14T15:19:34.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="数组中常用的方法">数组中常用的方法</h2>
-<ul>
-<li>方法的作用和含义</li>
-<li>方法的实参（类型和含义）</li>
-<li>方法的返回值</li>
-<li>原来的数组是否会发生改变</li>
-</ul>
-<h3 id="1实现数组增删改的方法">1：实现数组增删改的方法</h3>
-<blockquote>
-<p>这一部分方法都会改变原数组</p>
-</blockquote>
-<p><code>push</code></p>
-<blockquote>
-<p>push:向数组末尾增加内容</p>
-<p>参数： 多个任意类型</p>
-<p>返回值：返回的是新增的数组长度，原来数组会改变。</p>
-</blockquote>
-<pre><code class="language-javascript">let ary=[10,20];
-let res=ary.push(30,'aa',{
-    name:&quot;珠峰&quot;
-});
-console.log(res,ary);
-//5（新数组长度）;
-0: 10
-1: 20
-2: 30
-3: &quot;aa&quot;
-4: {name: &quot;珠峰&quot;}
-length: 5
-也可以使用原生js增加（但是一次只能加1个），如：
-ary[ary.length]=40;//在数组末尾添加
-console.log(ary);
-</code></pre>
-<p><code>unshift</code></p>
-<blockquote>
-<p>unshift：向数组开始位置增加内容</p>
-<p>参数：多个任意类型</p>
-<p>返回值： 新增数组长度，会改变原数组</p>
-</blockquote>
-<pre><code class="language-javascript">let ary=[10,20];
-let res=ary.unshift(30,'aa');
-console.log(res,ary);
-//4;
-0: 30
-1: &quot;aa&quot;
-2: 10
-3: 20
-length: 4
-</code></pre>
-<p><code>shift</code></p>
-<blockquote>
-<p>shift:删除数组第一项</p>
-<p>参数：没有</p>
-<p>返回值：被删除的那 一项，会改变原数组</p>
-</blockquote>
-<pre><code class="language-javascript">let ary=[10,20];
-let res=ary.shift();
-console.log(res,ary);
-//10;
-0: 20
-length: 1
-</code></pre>
-<p><code>pop</code></p>
-<blockquote>
-<p>pop:删除数组最后一项</p>
-<p>参数：无</p>
-<p>返回值：被删除的那 一项，会改变原数组</p>
-</blockquote>
-<pre><code class="language-java">let ary=[10,20];
-let res=ary.pop();
-console.log(res,ary);
-//20;
-0: 10
-length: 1
-</code></pre>
-<p><code>splice</code>实现数组的增加、删除、修改</p>
-<blockquote>
-<p>splice:实现删除</p>
-<p>参数：n,m 都是数字，从<strong>索引n</strong>开始<strong>删除m个元素</strong>（如果不写m，则删除到末尾）</p>
-<p>返回值： 把删除的部分用新数组存储起来返回</p>
-</blockquote>
-<pre><code class="language-javascript">let ary[10,20,30,40,50,60,70,80,90];
-let res=ary.splice(2,4);
-console.log(res,ary);// [30，40，50，60]  [10，20，70，80，90]
-</code></pre>
-<blockquote>
-<p>splice:实现增加，修改</p>
-<p>参数：n,m,x ：从索引为n开始删除m个元素，然后用x占用那个位置</p>
-<p>​            n,0,x:    从索引n开始，，一个都不删，把x放到索引n前面</p>
-<p>返回值：把删除的部分用新数组村粗起来返回</p>
-</blockquote>
-<p>splice:实现向数组末尾增加： splice(ary.length,0,'AA);</p>
-<p>splice:实现向数组开头追加： splice(0,0,'BB);</p>
-<h3 id="2数组的查询和拼接">2:数组的查询和拼接</h3>
-<blockquote>
-<p>此组的方法：原来数组不会改变</p>
-</blockquote>
-<p><code>slice</code></p>
-<blockquote>
-<p>slice 实现数组查询</p>
-<p>参数： n,m     从索引n开始，找到索引为m的地方（不含m这一项）,m不写则找到末尾</p>
-<p>返回值： 找到的内容以一个新数组的形式返回</p>
-</blockquote>
-<pre><code class="language-javascript">let ary =[10,20,30,40,50];
-let res=ary.slice(1,3);
-console.log(res);// [20,30]
-//数组的克隆
-let res=ary.slice(0);
-console.log(res);//[10,20,30,40,50]
-</code></pre>
-<p><code>concat</code></p>
-<blockquote>
-<p>concat：实现数组拼接</p>
-<p>参数：任意类型值</p>
-<p>返回值： 拼接后的新数组（原数组不变）</p>
-</blockquote>
-<pre><code class="language-javascript">let ary =[10,20,30,40,50];
-let res=ary.concat('珠峰');
-console.log(res);// [10,20,30,40,50，'珠峰']
-</code></pre>
-<h3 id="3把数组转换为字符串">3：把数组转换为字符串</h3>
-<blockquote>
-<p>原数组不变</p>
-</blockquote>
-<p><code>toString</code></p>
-<blockquote>
-<p>toString：把数组转换为字符串</p>
-<p>参数：无</p>
-<p>返回值： 转换后的新字符串，每一项用逗号分隔（原数组不变）</p>
-</blockquote>
-<pre><code class="language-javascript">let ary =[10,20,30];
-let res=ary.toString();
-console.log(res);//&quot;10,20,30&quot;
-</code></pre>
-<p><code>join</code></p>
-<blockquote>
-<p>join：把数组转换为字符串</p>
-<p>参数：指定的分隔符（不指定则是逗号，和tostring一样）</p>
-<p>返回值： 转换后的新字符串，每一项用指定分隔符分隔（原数组不变）</p>
-</blockquote>
-<pre><code class="language-javascript">let ary =[10,20,30];
-let res=ary.join();
-console.log(res);//&quot;10,20,30&quot;
-
-let res=ary.join(&quot;&quot;);
-console.log(res);//&quot;102030&quot;
-
-let res=ary.join(&quot;+&quot;);
-console.log(res);//&quot;10+20+30&quot;
-console.log(eval(res));// =&gt;60 因为eval可以把字符串转为js表达式执行
-</code></pre>
-<h3 id="4检测数组是否含有某一项">4:检测数组是否含有某一项</h3>
-<p><code>indexOf/lastIndexOf</code>(IE6~8不兼容)</p>
-<blockquote>
-<p>indexOf/lastIndexOf: 检测当前项在数组中第一次或最后一次出现的位置的索引值。</p>
-<p>参数： 要检测的内容</p>
-<p>返回值： 这一项出现的位置索引值（数字），如果数组没有这一项返回-1</p>
-</blockquote>
-<pre><code class="language-javascript">let ary=[10,20,30,10,20,30];
-console.log(ary.indexOf(20));//1
-console.log(ary.lastIndexOf(20));//4
-可以使用该办法验证是否包含一个东西
-if(ary.indexOf('珠峰')===-1){
-console.log(&quot;不包含&quot;)
-}else{
-console.log(&quot;包含&quot;)
-}
-
-或则使用es6的inludes方法(ie6~8不兼容)
-if(ary.includes(&quot;珠峰&quot;)){
-    //如果包含返回true
-}
-</code></pre>
-<h3 id="5数组的排序或则排列">5：数组的排序或则排列</h3>
-<p><code>reverse</code></p>
-<blockquote>
-<p>reverse: 把数组倒过来排列</p>
-<p>参数： 无</p>
-<p>返回值：排列后的新数组，原数组改变</p>
-</blockquote>
-<pre><code class="language-javascript">let ary=[12,15,9,28,10,22];
-ary.reverse;
-console.log(ary);// [22,10,28,9,15,12]
-</code></pre>
-<p><code>sort</code></p>
-<blockquote>
-<p>sort: 实现数组的排序</p>
-<p>参数：可以没有也可以是函数，但是如果不传递参数，是无法处理10以上的数字</p>
-<p>返回值：排列后的新数组，原数组改变</p>
-</blockquote>
-<pre><code class="language-javascript">let ary=[7,8,5,1,6,4];
-ary.sort();
-console.log(ary);//[1, 4, 5, 6, 7, 8]
-
-注意：sort如果不传递参数，是无法处理10以上的数字
-let ary=[7,18,15,21,26,9];
-ary.sort();
-console.log(ary);//[15, 18, 21, 26, 7, 9] 它是按照第一个开头数字排序
-修改：
-let ary=[7,18,15,21,26,9];
-ary.sort((a,b)=&gt;{
-    //a,b是数组相邻两项
-    //return a-b:从小到大排
-    //return b-a:从大到小排
-    return a-b;
-});
-console.log(ary);//[7, 9, 15, 18, 21, 26]
-</code></pre>
-<h3 id="6遍历数组的每一项的方法">6：遍历数组的每一项的方法</h3>
-<p><code>foreach</code> <code>map</code>  <code>filter</code>   <code>find</code>  <code>reduce</code> <code>some</code> <code>every</code>  、、、</p>
-<blockquote>
-<p><code>foreach</code>: 遍历数组中的每一项内容</p>
-<p>参数：函数</p>
-<p>返回值： 没有</p>
-<p>原数组不变</p>
-</blockquote>
-<p>基于原生js的循环可以实现</p>
-<p>如：</p>
-<pre><code class="language-javascript">let ary=[10,20,30,40];
-for(var i=0;i&lt;ary.length;i++){
-    console.log('索引:'+i+'内容:'+ary[i]);
-}
-</code></pre>
-<p>下面使用foreach方法</p>
-<pre><code class="language-javascript">let ary=[10,20,30,40];
-ary.forEach(function(item,index){
-    //数组有多少项,函数就会被默认执行多少次
-    //每一次执行函数，item就是当前数组要操作的这一项（相当于上面原生js方法的ary[i]），index是当前项的索引（相当于上面原生js方法的i）
-     console.log('索引:'+index+'内容:'+item);
-});
-</code></pre>
-<h3 id="7案列数组去重">7案列：数组去重</h3>
-<pre><code class="language-javascript"> &lt;script&gt;
-      /*
-      注意数组塌陷问题
-       */
-      /* 重建数组去重函数 */
-      function unique(ary) {
-        let obj = {}; //创建一个对象来存取item：item
-        for (let i = 0; i &lt; ary.length; i++) {
-          let item = ary[i];
-          if (obj[item] !== undefined) {
-            //代表这个数是重复的
-            ary[i] = ary[ary.length - 1]; //让这个重复的数被最后一个数替换
-            ary.length--;
-            i--; //替换后继续检测这个位置的数，这里是数组塌陷问题
-            continue;
-          }
-          obj[item] = item;
-        }
-        return ary;
-      }
-      let aa = [1, 2, 3, 1, 2, 3];
-      aa = unique(aa);
-      console.log(aa);
-
-      /* 
-      es6的方法
-       */
-      let bb = [1, 2, 3, 1, 2, 3];
-      bb = [...new Set(bb)];
-      console.log(bb);
-    &lt;/script&gt;
-</code></pre>
-<p><img src="https://jianmu123.github.io//post-images/1601997762649.png" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1601997776600.png" alt="" loading="lazy"></p>
 ]]></content>
     </entry>
 </feed>
