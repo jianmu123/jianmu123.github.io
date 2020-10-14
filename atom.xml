@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jianmu123.github.io/</id>
     <title>Personal blog</title>
-    <updated>2020-10-13T16:15:23.906Z</updated>
+    <updated>2020-10-14T15:04:10.540Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jianmu123.github.io/"/>
     <link rel="self" href="https://jianmu123.github.io/atom.xml"/>
@@ -10,6 +10,135 @@
     <logo>https://jianmu123.github.io/images/avatar.png</logo>
     <icon>https://jianmu123.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Personal blog</rights>
+    <entry>
+        <title type="html"><![CDATA[函数执行机制]]></title>
+        <id>https://jianmu123.github.io/post/han-shu-zhi-xing-ji-zhi/</id>
+        <link href="https://jianmu123.github.io/post/han-shu-zhi-xing-ji-zhi/">
+        </link>
+        <updated>2020-10-14T15:00:09.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-javascript">var n=2;
+var obj={
+    n:3;
+    fn:(function(n){
+        n*=2;
+        this.n+=2;
+        var n=5;
+        return function(){
+            this.n*=2;
+            console.log(m+(++n));
+        }
+    })(n)
+};
+var fn=obj.fn;
+fn(3);//9
+obj.fn(3);//10
+console.log(n,obj.n);//8 6
+</code></pre>
+<p>1代码执行形成一个全局作用域；</p>
+<p>2然后变量提升：var n;var obj; var fn;</p>
+<figure data-type="image" tabindex="1"><img src="C:%5CUsers%5CL2871%5CDesktop%5C%E5%85%A8%E5%B1%80%E4%BD%9C%E7%94%A8%E5%9F%9F.png" alt="全局作用域" loading="lazy"></figure>
+<p>3然后代码自生而下执行：</p>
+<p>3.1:n=2；</p>
+<p>3.2:obj是一个引用类型所以<strong>开辟一个堆内存</strong>，<strong>然后把键值对依次存入堆内存</strong>，最后把堆地址给obj（注意因为后面有自执行函数，所以要等自执行函数执行完）</p>
+<p>3.2.1: n=3；</p>
+<p>3.2.2:fn：自执行函数的返回值；(自执行函数又会形成一个<strong>私有作用域</strong>，如图：AA)</p>
+<p>3.2.2.1： 自执行函数执行</p>
+<blockquote>
+<p>注意：自执行函数如果没有执行完的话，当前的堆内存是没有存完的，那么图片种的aaafff000和obj是没有关系的，此时obj是undefined（只有自执行函数执行了把它的返回值赋值给fn）<br>
+<img src="https://jianmu123.github.io//post-images/1602687805805.png" alt="" loading="lazy"></p>
+</blockquote>
+<p>自执行函数执行第一步：形参赋值 第二步：变量提升 第三步：代码自上而下执行</p>
+<figure data-type="image" tabindex="2"><img src="https://jianmu123.github.io//post-images/1602687817264.png" alt="" loading="lazy"></figure>
+<p>到此自执行函数执行完了，然后obj也赋值了，接着执行fn=obj.fn；fn(3);obj.fn(3);console.log(n,obj.n);</p>
+<p><strong>fn(3)执行图：</strong></p>
+<figure data-type="image" tabindex="3"><img src="https://jianmu123.github.io//post-images/1602687826347.png" alt="" loading="lazy"></figure>
+<p><strong>obj.fn(3)执行图：</strong><br>
+<img src="https://jianmu123.github.io//post-images/1602687839196.png" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[call和apply]]></title>
+        <id>https://jianmu123.github.io/post/call-he-apply/</id>
+        <link href="https://jianmu123.github.io/post/call-he-apply/">
+        </link>
+        <updated>2020-10-14T14:59:28.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="call和apply">call和apply</h3>
+<p>他们的作用：都能够改变this指向，借用别人函数实现自己的功能。第一个参数将改变this指向.</p>
+<p>他们的区别： 第二个参数的传参列表不同， call需要把实参按照形参的个数传进去。</p>
+<p>apply需要传一个arguments（数组形式）</p>
+<pre><code class="language-javascript">function Person(name,age){
+           this.name=name;
+           this.age=age;
+}
+function Person(name,age){
+           this.name=name;
+           this.age=age;
+}
+var person=new Person(&quot;张三&quot; ,18);
+var obj={
+};
+ // Person()的执行其实就是调用call方法，等价于Person.call(),但是call方法可以传值，这样就会引起翻天覆地的变化
+Person.call(obj,&quot;李四&quot;,18);//this将指向obj
+结果：obj;//{name: &quot;李四&quot;, age: 18}
+
+用apply：
+Person.apply(obj,[&quot;王五&quot;,52]);
+obj;//{name: &quot;王五&quot;, age: 52}
+</code></pre>
+<p>案列：</p>
+<pre><code class="language-javascript">    &lt;script&gt;
+      // 下面举例工厂创建car
+      //大小
+      function Size(width, height, len) {
+        this.width = width;
+        this.height = height;
+        this.len = len;
+      }
+      //   样式
+      function Stytyle(color) {
+        this.color = color;
+      }
+      //能源
+      function Energy(gasoline, gas) {
+        this.gasoline = gasoline;
+        this.gas = gas;
+      }
+      // 创建汽车
+      function Car(width, height, len, color, gasoline, gas) {
+        Size.call(this, width, height, len);
+        Stytyle.call(this, color);
+        Energy.call(this, gasoline, gas);
+
+        // 使用apply,效果是一样的
+        /*
+        Size.apply(this, [width, height, len]);
+        Stytyle.apply(this, [color]);
+        Energy.apply(this, [gasoline, gas]);
+         */
+
+        /*上面的2个代码相当于在这个Car中写了以下代码 ：
+        this.width = width;
+        this.height = height;
+        this.len = len;
+        this.color = color;
+        this.gasoline = gasoline;
+        this.gas = gas;
+          */
+      }
+      var car = new Car(100, 200, 300, &quot;red&quot;, &quot;汽油&quot;, &quot;天然气&quot;);
+      console.log(car);
+      /* 
+        color: &quot;red&quot;
+        gas: &quot;天然气&quot;
+        gasoline: &quot;汽油&quot;
+        height: 200
+        len: 300
+        width: 100
+     */
+    &lt;/script&gt;
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[ES6_02]]></title>
         <id>https://jianmu123.github.io/post/es6_02/</id>
@@ -1172,169 +1301,6 @@ ary.forEach(function(item,index){
 </code></pre>
 <p><img src="https://jianmu123.github.io//post-images/1601997762649.png" alt="" loading="lazy"><br>
 <img src="https://jianmu123.github.io//post-images/1601997776600.png" alt="" loading="lazy"></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[JS4]]></title>
-        <id>https://jianmu123.github.io/post/js4/</id>
-        <link href="https://jianmu123.github.io/post/js4/">
-        </link>
-        <updated>2020-09-11T14:15:44.000Z</updated>
-        <content type="html"><![CDATA[<p>#基础知识回顾<br>
-<img src="https://jianmu123.github.io//post-images/1601907580239.jpg" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1601907584911.jpg" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1601907588735.jpg" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1601907593796.jpg" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1601907607849.jpg" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1601907612064.jpg" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1601907630995.png" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1601907650988.png" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1601907657820.PNG" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1601907687373.png" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1601907691641.png" alt="" loading="lazy"></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[JS3]]></title>
-        <id>https://jianmu123.github.io/post/js3/</id>
-        <link href="https://jianmu123.github.io/post/js3/">
-        </link>
-        <updated>2020-09-07T12:07:36.000Z</updated>
-        <content type="html"><![CDATA[<h3 id="js中的操作语句判断-循环">JS中的操作语句：判断、循环。</h3>
-<blockquote>
-<p>判断 ：</p>
-<p>​			if/else if/else</p>
-<p>​			三元运算符</p>
-<p>​			switch case</p>
-</blockquote>
-<p>三元运算符： 条件？条件成立执行的事情：不成立执行的事情；</p>
-<p>1：如果处理的事情多，我们用括号包起来，每一件事情用逗号分隔.</p>
-<p>2:如果不需要处理事情，可以使用null/undefined占位.</p>
-<p>上面2句说法的解释：</p>
-<pre><code class="language-javascript">例如用if写一个判断,这里做了2件事情，并且不满足的时候什么事情都不做：
-if (a&gt;0&amp;&amp;a&lt;10){
-   a++;
-   console.log(a);
-}
-它的三元运算符这样写：
-a&gt;0&amp;&amp;a&lt;10 ? (a++,console.log(a)):null; 
-//1：如果处理的事情多，我们用括号包起来，每一件事情用逗号分隔2:如果不需要处理事情，可以使用null/undefined占位.
-</code></pre>
-<h3 id="js中的函数">js中的函数</h3>
-<blockquote>
-<p>函数中的返回值：<br>
-函数执行的时候，函数体内部创建的变量我们是无法获取和操作的，如果想要获取内部信息，需要使用return返回机制。返回的一定是一个值，不是变量。</p>
-</blockquote>
-<pre><code class="language-javascript">function sum(a,b){
-    let result=a+b;
-    //return的一定是值：此处是把result变量存储的值返回给外面
-    return result;
-}
-sum(10,20);//是这个整体值为30，不是result值为30 
-console.log(result);//会报错 Uncaught ReferenceError: result is not defined
-如果没有写return，调用函数的默认返回值是undefined.
-</code></pre>
-<blockquote>
-<p>函数体中遇到return 则后面的代码不会再运行。</p>
-</blockquote>
-<h3 id="arguments属性函数内置实参集合">arguments属性（函数内置实参集合）</h3>
-<ul>
-<li>类数组集合，集合中存储着所有函数执行时传递的实参信息。</li>
-<li>不论是否设置形参，arguments都存在</li>
-<li>不论是否传递实参，arguments也都存在</li>
-</ul>
-<p>案列：任意数求和</p>
-<pre><code class="language-javascript">  &lt;script&gt;
-      /*
-        实际的加法运算是任意数相加，并没有规定多少个数，什么类型的数，因此下面写一个任意数相加的函数
-         */
-      function sum() {
-        // console.log(arguments); //这里采用的函数arguments属性
-        let total = null;
-        for (let i = 0; i &lt; arguments.length; i++) {
-          let item = arguments[i]; //获取每个值
-          item = Number(item); //但是一些类型会转为NaN，所以还需要进一步处理
-
-          if (isNaN(item)) {
-            //非有效数字不进行加法运算，进行下一个数的判断
-            continue;
-          }
-          /*
-         但是样写如果传入的是字符串型或则其他类型就会输出字符串
-          */
-          total += item; //比如如果是30+'30'则是字符串拼接结果为'3030'，所以需要在计算前转换为Number
-        }
-        return total;
-      }
-
-      let result = sum(10, 20, 30);
-      console.log(result);
-      result = sum(10, 20);
-      console.log(result);
-      result = sum(10, 20, &quot;30&quot;);
-      console.log(result);
-      result = sum(10, 20, &quot;AA&quot;, 20);
-      console.log(result);
-    &lt;/script&gt;
-</code></pre>
-<h4 id="js函数运行底层机制">js函数运行底层机制</h4>
-<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1601907056396.png" alt="" loading="lazy"></figure>
-<p>——注意：执行几次函数就会产生几个全新的私有栈内存，因此涉及到内存释放与销毁。</p>
-<h3 id="匿名函数">匿名函数</h3>
-<p>匿名函数分为：函数表达式和自执行函数</p>
-<ul>
-<li>函数表达式：把一个匿名函数本身作为值赋值给其他东西，这种函数一般不是手动触发，而是靠其他驱动程序触发执行（例如：触发某个事件的时候执行）</li>
-</ul>
-<p>如： document.body.onclick=function(){};</p>
-<p>setTimeout(function(){},1000);//设置定时器，1000ms后执行匿名函数</p>
-<ul>
-<li>自执行函数： 能创建完一个匿名函数，紧接着就把当前函数加<strong>小括号</strong>执行</li>
-</ul>
-<p>如：</p>
-<p>（function（n）{</p>
-<p>​    //n=100</p>
-<p>​     }）(100);</p>
-<p>//这里的（100）执行了匿名函数，得到了n=100；</p>
-<h3 id="for-in-循环">for in 循环</h3>
-<blockquote>
-<p>语法： for(var 变量（key）in 对象)</p>
-</blockquote>
-<pre><code class="language-javascript">var obj={
-	name:'张三',
-	age:18,
-    friends:'李四',
-    1:20,
-    2:150
-};
-//使用for in循环能够遍历出对象的所有内容，对象有多少组键值对，循环就执行几次（除非添加break结束）
-for (var key in obj){
-    console.log(key);//每次循环key变量都存储着当前对象的属性名
-    console.log(obj[key]);//获取属性值的办法
-}
-</code></pre>
-<figure data-type="image" tabindex="2"><img src="https://jianmu123.github.io//post-images/1601907094800.png" alt="" loading="lazy"></figure>
-<ul>
-<li>
-<p>代码详解：</p>
-<pre><code class="language-javascript">var btnList=document.getElementsByTagName(&quot;btn&quot;);
-for(var i=0;i&lt;btnList.length;i++){
-    btnlist[i].onclick=function(){
-        alert(i);//这里无论点击哪个按钮都是弹出序号：5
-    }
-}
-改进：
-var btnList=document.getElementsByTagName(&quot;btn&quot;);
-for(var i=0;i&lt;btnList.length;i++){
-    btnList[i].myIndex=i;//创建自定义属性给每个点击的btn贴上标签
-    btnlist[i].onclick=function(){
-        alert(this.myIndex);//这里就可以弹出点击的按钮的序号（索引）
-    }
-}
-</code></pre>
-</li>
-</ul>
-<p><img src="https://jianmu123.github.io//post-images/1601907107501.png" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1601907114756.png" alt="" loading="lazy"></p>
 ]]></content>
     </entry>
 </feed>

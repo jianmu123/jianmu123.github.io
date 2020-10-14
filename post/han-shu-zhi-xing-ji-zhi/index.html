@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>CSS3 One | Personal blog</title>
+<title>函数执行机制 | Personal blog</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -18,9 +18,15 @@
 
 
 
-    <meta name="description" content="一：盒子模型
-以前的盒子的大小是盒子的本身加上padding+border+margin，因此盒子的大小不会是我们设置的大小，这样还需要去计算来设置我们想要的盒子大小，现在css3添加了盒子模型，这样的盒子大小就是我们设置的盒子大小。只需要..." />
-    <meta name="keywords" content="CSS3" />
+    <meta name="description" content="var n=2;
+var obj={
+    n:3;
+    fn:(function(n){
+        n*=2;
+        this.n+=2;
+        var n=5;
+        return functi..." />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div id="app" class="main">
@@ -85,50 +91,57 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">CSS3 One</h2>
-            <div class="post-date">2020-08-29</div>
-            
-              <div class="feature-container" style="background-image: url('https://jianmu123.github.io//post-images/css3-one.png')">
-              </div>
+            <h2 class="post-title">函数执行机制</h2>
+            <div class="post-date">2020-10-14</div>
             
             <div class="post-content" v-pre>
-              <h1 id="一盒子模型">一：盒子模型</h1>
-<p>以前的盒子的大小是盒子的本身加上padding+border+margin，因此盒子的大小不会是我们设置的大小，这样还需要去计算来设置我们想要的盒子大小，现在css3添加了盒子模型，这样的盒子大小就是我们设置的盒子大小。只需要在盒子的样式中添加：box-sizing：border-box；</p>
-<h1 id="二盒子阴影">二：盒子阴影</h1>
-<figure data-type="image" tabindex="1"><img src="https://jianmu123.github.io//post-images/1601535646649.png" alt="" loading="lazy"></figure>
-<h1 id="三渐变">三：渐变</h1>
-<p><img src="https://jianmu123.github.io//post-images/1601906334140.png" alt="" loading="lazy"><br>
-镜像渐变<br>
-<img src="https://jianmu123.github.io//post-images/1601906339746.png" alt="" loading="lazy"><br>
-重复渐变<br>
-<img src="https://jianmu123.github.io//post-images/1601906418113.png" alt="" loading="lazy"><br>
-#四：背景图片<br>
-<img src="https://jianmu123.github.io//post-images/1601906437901.png" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1601906442586.png" alt="" loading="lazy"></p>
-<h1 id="五多列布局">五：多列布局</h1>
-<p><img src="https://jianmu123.github.io//post-images/1601906656788.png" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1601906666863.png" alt="" loading="lazy"></p>
-<h1 id="六盒子模型">六：盒子模型</h1>
-<p><img src="https://jianmu123.github.io//post-images/1601906687547.png" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1601906693246.png" alt="" loading="lazy"><br>
-<img src="https://jianmu123.github.io//post-images/1601906702206.png" alt="" loading="lazy"></p>
+              <pre><code class="language-javascript">var n=2;
+var obj={
+    n:3;
+    fn:(function(n){
+        n*=2;
+        this.n+=2;
+        var n=5;
+        return function(){
+            this.n*=2;
+            console.log(m+(++n));
+        }
+    })(n)
+};
+var fn=obj.fn;
+fn(3);//9
+obj.fn(3);//10
+console.log(n,obj.n);//8 6
+</code></pre>
+<p>1代码执行形成一个全局作用域；</p>
+<p>2然后变量提升：var n;var obj; var fn;</p>
+<figure data-type="image" tabindex="1"><img src="C:%5CUsers%5CL2871%5CDesktop%5C%E5%85%A8%E5%B1%80%E4%BD%9C%E7%94%A8%E5%9F%9F.png" alt="全局作用域" loading="lazy"></figure>
+<p>3然后代码自生而下执行：</p>
+<p>3.1:n=2；</p>
+<p>3.2:obj是一个引用类型所以<strong>开辟一个堆内存</strong>，<strong>然后把键值对依次存入堆内存</strong>，最后把堆地址给obj（注意因为后面有自执行函数，所以要等自执行函数执行完）</p>
+<p>3.2.1: n=3；</p>
+<p>3.2.2:fn：自执行函数的返回值；(自执行函数又会形成一个<strong>私有作用域</strong>，如图：AA)</p>
+<p>3.2.2.1： 自执行函数执行</p>
+<blockquote>
+<p>注意：自执行函数如果没有执行完的话，当前的堆内存是没有存完的，那么图片种的aaafff000和obj是没有关系的，此时obj是undefined（只有自执行函数执行了把它的返回值赋值给fn）<br>
+<img src="https://jianmu123.github.io//post-images/1602687805805.png" alt="" loading="lazy"></p>
+</blockquote>
+<p>自执行函数执行第一步：形参赋值 第二步：变量提升 第三步：代码自上而下执行</p>
+<figure data-type="image" tabindex="2"><img src="https://jianmu123.github.io//post-images/1602687817264.png" alt="" loading="lazy"></figure>
+<p>到此自执行函数执行完了，然后obj也赋值了，接着执行fn=obj.fn；fn(3);obj.fn(3);console.log(n,obj.n);</p>
+<p><strong>fn(3)执行图：</strong></p>
+<figure data-type="image" tabindex="3"><img src="https://jianmu123.github.io//post-images/1602687826347.png" alt="" loading="lazy"></figure>
+<p><strong>obj.fn(3)执行图：</strong><br>
+<img src="https://jianmu123.github.io//post-images/1602687839196.png" alt="" loading="lazy"></p>
 
             </div>
-            
-              <div class="tag-container">
-                
-                  <a href="https://jianmu123.github.io/tag/UftFshuw4/" class="tag">
-                    CSS3
-                  </a>
-                
-              </div>
             
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="https://jianmu123.github.io/post/html5-two/">
+                <a href="https://jianmu123.github.io/post/call-he-apply/">
                   <h3 class="post-title">
-                    HTML5 Two
+                    call和apply
                   </h3>
                 </a>
               </div>

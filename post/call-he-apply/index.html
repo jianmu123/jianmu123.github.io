@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>call和apply | Personal blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://jianmu123.github.io//favicon.ico?v=1602687847166">
+<link rel="stylesheet" href="https://jianmu123.github.io//styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="call和apply
+他们的作用：都能够改变this指向，借用别人函数实现自己的功能。第一个参数将改变this指向.
+他们的区别： 第二个参数的传参列表不同， call需要把实参按照形参的个数传进去。
+apply需要传一个arguments..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://jianmu123.github.io/">
+        <img src="https://jianmu123.github.io//images/avatar.png?v=1602687847166" class="site-logo">
+        <h1 class="site-title">Personal blog</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            笔记
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://jianmu123.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">call和apply</h2>
+            <div class="post-date">2020-10-14</div>
+            
+            <div class="post-content" v-pre>
+              <h3 id="call和apply">call和apply</h3>
+<p>他们的作用：都能够改变this指向，借用别人函数实现自己的功能。第一个参数将改变this指向.</p>
+<p>他们的区别： 第二个参数的传参列表不同， call需要把实参按照形参的个数传进去。</p>
+<p>apply需要传一个arguments（数组形式）</p>
+<pre><code class="language-javascript">function Person(name,age){
+           this.name=name;
+           this.age=age;
+}
+function Person(name,age){
+           this.name=name;
+           this.age=age;
+}
+var person=new Person(&quot;张三&quot; ,18);
+var obj={
+};
+ // Person()的执行其实就是调用call方法，等价于Person.call(),但是call方法可以传值，这样就会引起翻天覆地的变化
+Person.call(obj,&quot;李四&quot;,18);//this将指向obj
+结果：obj;//{name: &quot;李四&quot;, age: 18}
+
+用apply：
+Person.apply(obj,[&quot;王五&quot;,52]);
+obj;//{name: &quot;王五&quot;, age: 52}
+</code></pre>
+<p>案列：</p>
+<pre><code class="language-javascript">    &lt;script&gt;
+      // 下面举例工厂创建car
+      //大小
+      function Size(width, height, len) {
+        this.width = width;
+        this.height = height;
+        this.len = len;
+      }
+      //   样式
+      function Stytyle(color) {
+        this.color = color;
+      }
+      //能源
+      function Energy(gasoline, gas) {
+        this.gasoline = gasoline;
+        this.gas = gas;
+      }
+      // 创建汽车
+      function Car(width, height, len, color, gasoline, gas) {
+        Size.call(this, width, height, len);
+        Stytyle.call(this, color);
+        Energy.call(this, gasoline, gas);
+
+        // 使用apply,效果是一样的
+        /*
+        Size.apply(this, [width, height, len]);
+        Stytyle.apply(this, [color]);
+        Energy.apply(this, [gasoline, gas]);
+         */
+
+        /*上面的2个代码相当于在这个Car中写了以下代码 ：
+        this.width = width;
+        this.height = height;
+        this.len = len;
+        this.color = color;
+        this.gasoline = gasoline;
+        this.gas = gas;
+          */
+      }
+      var car = new Car(100, 200, 300, &quot;red&quot;, &quot;汽油&quot;, &quot;天然气&quot;);
+      console.log(car);
+      /* 
+        color: &quot;red&quot;
+        gas: &quot;天然气&quot;
+        gasoline: &quot;汽油&quot;
+        height: 200
+        len: 300
+        width: 100
+     */
+    &lt;/script&gt;
+</code></pre>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://jianmu123.github.io/post/es6_02/">
+                  <h3 class="post-title">
+                    ES6_02
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+
+  </body>
+</html>
